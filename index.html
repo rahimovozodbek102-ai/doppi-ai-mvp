@@ -5,47 +5,89 @@ here<!DOCTYPE html>
   <title>DOPPI AI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- CSS -->
   <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: black;
+      color: white;
+    }
+
+    .welcome {
+      height: 100vh;
+      background: url("images/boy.png") center/cover no-repeat;
+      position: relative;
+    }
+
+    .overlay {
+      background: rgba(0,0,0,0.7);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .logo {
+      width: 120px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      color: #a855f7;
+      margin-bottom: 20px;
+    }
+
+    .lang button {
+      background: #7c3aed;
+      border: none;
+      color: white;
+      padding: 10px 18px;
+      margin: 5px;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    .google {
+      margin-top: 25px;
+      padding: 14px 24px;
+      border-radius: 14px;
+      border: none;
+      font-size: 16px;
+    }
+  </style>
 </head>
-<body> 
+
+<body>
+
   <div class="welcome">
-  <div class="overlay">
-    <img src="images/logo.png" class="logo" />
-    <h1>DO‘PPI AI ga xush kelibsiz</h1>
+    <div class="overlay">
 
-    <div class="lang">
-      <button>UZ</button>
-      <button>RU</button>
-      <button>EN</button>
+      <!-- LOGO -->
+      <img src="images/logo.png" class="logo" alt="DOPPI AI" />
+
+      <!-- TEXT -->
+      <h1 id="welcomeText">DO’PPI AI ga xush kelibsiz</h1>
+
+      <!-- LANGUAGE -->
+      <div class="lang">
+        <button onclick="setLang('uz')">UZ</button>
+        <button onclick="setLang('ru')">RU</button>
+        <button onclick="setLang('en')">EN</button>
+      </div>
+
+      <!-- GOOGLE -->
+      <button class="google">Google bilan davom etish</button>
+
     </div>
-
-    <button class="google">Google bilan davom etish</button>
-  </div>
-  </div> 
-
-<div class="welcome">
-
-  <!-- LOGO -->
-  <h1 class="logo">DO‘PPI AI</h1>
-
-  <!-- STEP 1: LANGUAGE -->
-  <div id="langStep" class="card">
-    <p class="title">Tilni tanlang</p>
-
-    <button onclick="selectLang('uz')">🇺🇿 O‘zbek</button>
-    <button onclick="selectLang('ru')">🇷🇺 Русский</button>
-    <button onclick="selectLang('en')">🇬🇧 English</button>
   </div>
 
-  <!-- STEP 2: WELCOME -->
-  <div id="welcomeStep" class="card hidden">
-    <p id="welcomeText" class="title"></p>
-
-    <button id="googleBtn"></button>
-  </div>
-
-</div>
-
-<script src="js/main.js"></script>
+  <!-- JS -->
+  <script src="js/main.js"></script>
 </body>
 </html>
