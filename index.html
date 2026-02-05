@@ -84,6 +84,13 @@ here<!DOCTYPE html>
   </style>
   <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+  import {
+    getAuth,
+    GoogleAuthProvider,
+    signInWithPopup
+  } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+
+
 
   const firebaseConfig = {
     apiKey: "AIzaSyDrzhCYy4lXTl1rZZbdYhjnq-oCr0bR-Ds",
@@ -95,6 +102,18 @@ here<!DOCTYPE html>
   };
 
   const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+window.googleLogin = function () {
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      alert("Xush kelibsiz, " + result.user.displayName);
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
+};
   </script>
 </head>
 
@@ -118,7 +137,9 @@ here<!DOCTYPE html>
     </div>
 
     <!-- GOOGLE -->
-    <button class="google">Google bilan davom etish</button>
+    <button class="google" onclick="googleLogin()">
+  Google bilan davom etish
+    </button>
 
   </div>
 
