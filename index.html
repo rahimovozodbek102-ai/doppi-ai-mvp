@@ -4,77 +4,81 @@ here<!DOCTYPE html>
   <meta charset="UTF-8">
   <title>DOPPI AI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style> 
-.welcome {
-  min-height: 100vh;
-  background: url("images/boy.png") no-repeat center center / cover;
-}  
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
-body {
-  min-height: 100vh;
-  font-family: Arial, sans-serif;
-  background: url("images/boy.png") no-repeat center center / cover;
-  color: white;
-}
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-.overlay {
-  min-height: 100vh;
-  background: rgba(0,0,0,0.35); /* 👈 MUHIM: 0.35 */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
+    body {
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
 
-.logo {
-  width: 120px;
-  margin-bottom: 10px;
-}
+    .welcome {
+      min-height: 100vh;
+      background: url("images/boy.png") no-repeat center center / cover;
+    }
 
-h1 {
-  color: #8b5cf6;
-  margin-bottom: 20px;
-}
+    .overlay {
+      min-height: 100vh;
+      background: rgba(0,0,0,0.35);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
 
-.lang-buttons {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
+    .logo {
+      width: 120px;
+      margin-bottom: 10px;
+    }
 
-.lang-buttons button {
-  background: #7c3aed;
-  border: none;
-  color: white;
-  padding: 10px 18px;
-  border-radius: 10px;
-  font-size: 16px;
-}
+    h1 {
+      color: #8b5cf6;
+      margin-bottom: 20px;
+    }
 
-.google {
-  background: white;
-  color: black;
-  border: none;
-  padding: 14px 24px;
-  border-radius: 14px;
-  font-size: 16px;
-}
-</style>
+    .lang-buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
 
+    .lang-buttons button {
+      background: #7c3aed;
+      border: none;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .google {
+      background: white;
+      color: black;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 14px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
 </head>
-<body> <body>
+
+<body>
   <div class="welcome">
     <div class="overlay">
 
-      <img src="images/logo.png" class="logo" alt="DOPPI AI" />
+      <img src="images/logo.png" class="logo" alt="DOPPI AI">
 
-      <h1 id="welcomeText">DO'PPI AI ga xush kelibsiz</h1>
+      <h1 id="welcomeText">DO’PPI AI ga xush kelibsiz</h1>
 
       <div class="lang-buttons">
         <button onclick="setLang('uz')">UZ</button>
@@ -87,40 +91,13 @@ h1 {
     </div>
   </div>
 
-<script>
-function setLang(lang) {
-  const text = document.getElementById("welcomeText");
-  if (lang === "uz") text.innerText = "DO'PPI AI ga xush kelibsiz";
-  if (lang === "ru") text.innerText = "Добро пожаловать в DO'PPI AI";
-  if (lang === "en") text.innerText = "Welcome to DO'PPI AI";
-}
-</script>
+  <script>
+    function setLang(lang) {
+      const text = document.getElementById("welcomeText");
+      if (lang === "uz") text.innerText = "DO’PPI AI ga xush kelibsiz";
+      if (lang === "ru") text.innerText = "Добро пожаловать в DO’PPI AI";
+      if (lang === "en") text.innerText = "Welcome to DO’PPI AI";
+    }
+  </script>
 </body>
-</html>
-  <div class="overlay">
-
-    <img src="images/logo.png" class="logo" alt="DOPPI AI" />
-
-    <h1 id="welcomeText">DO'PPI AI ga xush kelibsiz</h1>
-
-    <div class="lang-buttons">
-      <button onclick="setLang('uz')">UZ</button>
-      <button onclick="setLang('ru')">RU</button>
-      <button onclick="setLang('en')">EN</button>
-    </div>
-
-    <button class="google">Google bilan davom etish</button>
-
-  </div>
-
-<script>
-function setLang(lang) {
-  const text = document.getElementById("welcomeText");
-  if (lang === "uz") text.innerText = "DO'PPI AI ga xush kelibsiz";
-  if (lang === "ru") text.innerText = "Добро пожаловать в DO'PPI AI";
-  if (lang === "en") text.innerText = "Welcome to DO'PPI AI";
-}
-</script>
-</body>
->
 </html>
