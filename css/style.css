@@ -1,1 +1,72 @@
-Enter/* doppi ai styles */
+/* doppi ai styles */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: black;
+  color: white;
+}
+
+/* WELCOME PAGE */
+.welcome {
+  height: 100vh;
+  background: url("../images/boy.png") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.65);
+  padding: 24px;
+  border-radius: 18px;
+  text-align: center;
+  width: 90%;
+  max-width: 360px;
+}
+
+/* LOGO */
+.logo {
+  width: 120px;
+  margin-bottom: 16px;
+}
+
+/* TITLE */
+.overlay h1 {
+  font-size: 22px;
+  margin-bottom: 16px;
+  color: #b14cff; /* purple */
+}
+
+/* LANGUAGE BUTTONS */
+.lang {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.lang button {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  background: #6a00ff;
+  color: white;
+  font-weight: bold;
+}
+
+/* GOOGLE BUTTON */
+.google {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  background: white;
+  color: black;
+  font-weight: bold;
+}
