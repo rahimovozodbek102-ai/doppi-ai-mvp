@@ -1,145 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 <head>
-  <meta charset="UTF-8" />
-  <title>DOPPI AI – MVP</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="UTF-8">
+<title>DO'PPI AI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b0b0b;
-      color: white;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at top, #3a145f, #0b0613);
+  color: white;
+}
 
-    header {
-      padding: 16px;
-      text-align: center;
-      font-size: 20px;
-      font-weight: bold;
-      border-bottom: 1px solid #222;
-    }
+.screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+}
 
-    .tabs {
-      display: flex;
-    }
+.hidden { display: none; }
 
-    .tab {
-      flex: 1;
-      padding: 14px;
-      text-align: center;
-      cursor: pointer;
-      background: #111;
-      border-bottom: 2px solid transparent;
-    }
+.logo {
+  font-size: 26px;
+  font-weight: bold;
+  color: #c77dff;
+  margin-bottom: 10px;
+}
 
-    .tab.active {
-      border-bottom: 2px solid #4f8cff;
-    }
+.boy {
+  width: 160px;
+  margin-bottom: 20px;
+}
 
-    .container {
-      padding: 16px;
-    }
+h2 {
+  margin: 10px 0;
+}
 
-    textarea, input {
-      width: 100%;
-      padding: 12px;
-      margin-top: 12px;
-      border-radius: 8px;
-      border: none;
-      background: #1c1c1c;
-      color: white;
-    }
+.lang-buttons button,
+.google-btn {
+  width: 100%;
+  max-width: 280px;
+  padding: 14px;
+  margin: 8px 0;
+  border-radius: 12px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
 
-    button {
-      width: 100%;
-      margin-top: 16px;
-      padding: 14px;
-      background: #4f8cff;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      cursor: pointer;
-    }
+.lang-buttons button {
+  background: #1e1e1e;
+  color: white;
+}
 
-    .hidden {
-      display: none;
-    }
-
-    img, video {
-      width: 100%;
-      margin-top: 12px;
-      border-radius: 10px;
-    }
-  </style>
+.google-btn {
+  background: linear-gradient(135deg, #7f2bff, #b86bff);
+  color: white;
+  margin-top: 20px;
+}
+</style>
 </head>
+
 <body>
 
-<header>DOPPI AI</header>
+<!-- WELCOME SCREEN -->
+<div class="screen" id="welcome">
+  <div class="logo">DO'PPI AI</div>
 
-<div class="tabs">
-  <div class="tab active" onclick="showImage()">Generate Image</div>
-  <div class="tab" onclick="showVideo()">Generate Video</div>
+  <img class="boy" src="https://i.imgur.com/7QbR8pG.png" alt="boy">
+
+  <h2 id="selectText">Tilni tanlang</h2>
+
+  <div class="lang-buttons">
+    <button onclick="selectLang('uz')">🇺🇿 O‘zbek</button>
+    <button onclick="selectLang('ru')">🇷🇺 Русский</button>
+    <button onclick="selectLang('en')">🇬🇧 English</button>
+  </div>
 </div>
 
-<div class="container">
+<!-- AFTER LANGUAGE -->
+<div class="screen hidden" id="afterLang">
+  <img class="boy" src="https://i.imgur.com/7QbR8pG.png" alt="boy">
 
-  <!-- IMAGE -->
-  <div id="imageBox">
-    <textarea placeholder="Write prompt for image..."></textarea>
-    <button onclick="fakeGenerate('image', this)">Generate Image</button>
-  </div>
+  <h2 id="welcomeText"></h2>
 
-  <!-- VIDEO -->
-  <div id="videoBox" class="hidden">
-    <input type="file" />
-    <textarea placeholder="Write prompt for video..."></textarea>
-    <button onclick="fakeGenerate('video', this)">Generate Video</button>
-  </div>
-
+  <button class="google-btn">Google bilan davom etish</button>
 </div>
 
 <script>
-  function showImage() {
-    document.getElementById("imageBox").classList.remove("hidden");
-    document.getElementById("videoBox").classList.add("hidden");
+const texts = {
+  uz: "DO'PPI AI ga xush kelibsiz",
+  ru: "Добро пожаловать в DO'PPI AI",
+  en: "Welcome to DO'PPI AI"
+};
 
-    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-    document.querySelectorAll(".tab")[0].classList.add("active");
-  }
-
-  function showVideo() {
-    document.getElementById("videoBox").classList.remove("hidden");
-    document.getElementById("imageBox").classList.add("hidden");
-
-    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-    document.querySelectorAll(".tab")[1].classList.add("active");
-  }
-
-  function fakeGenerate(type, btn) {
-    btn.innerText = "Generating...";
-    btn.disabled = true;
-
-    setTimeout(() => {
-      btn.innerText = type === "image" ? "Generate Image" : "Generate Video";
-      btn.disabled = false;
-
-      if (type === "image") {
-        const img = document.createElement("img");
-        img.src = "https://picsum.photos/600/400";
-        document.getElementById("imageBox").appendChild(img);
-      }
-
-      if (type === "video") {
-        const video = document.createElement("video");
-        video.src = "https://www.w3schools.com/html/mov_bbb.mp4";
-        video.controls = true;
-        document.getElementById("videoBox").appendChild(video);
-      }
-    }, 2000);
-  }
+function selectLang(lang) {
+  document.getElementById("welcome").classList.add("hidden");
+  document.getElementById("afterLang").classList.remove("hidden");
+  document.getElementById("welcomeText").innerText = texts[lang];
+}
 </script>
 
 </body>
