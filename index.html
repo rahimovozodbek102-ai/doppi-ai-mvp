@@ -1,111 +1,37 @@
-<!DOCTYPE html>
-<html lang="uz">
+here<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>DO'PPI AI</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <title>DOPPI AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: radial-gradient(circle at top, #3a145f, #0b0613);
-  color: white;
-}
-
-.screen {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  text-align: center;
-}
-
-.hidden { display: none; }
-
-.logo {
-  font-size: 26px;
-  font-weight: bold;
-  color: #c77dff;
-  margin-bottom: 10px;
-}
-
-.boy {
-  width: 160px;
-  margin-bottom: 20px;
-}
-
-h2 {
-  margin: 10px 0;
-}
-
-.lang-buttons button,
-.google-btn {
-  width: 100%;
-  max-width: 280px;
-  padding: 14px;
-  margin: 8px 0;
-  border-radius: 12px;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.lang-buttons button {
-  background: #1e1e1e;
-  color: white;
-}
-
-.google-btn {
-  background: linear-gradient(135deg, #7f2bff, #b86bff);
-  color: white;
-  margin-top: 20px;
-}
-</style>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css" />
 </head>
-
 <body>
 
-<!-- WELCOME SCREEN -->
-<div class="screen" id="welcome">
-  <div class="logo">DO'PPI AI</div>
+<div class="welcome">
 
-  <img class="boy" src="https://i.imgur.com/7QbR8pG.png" alt="boy">
+  <!-- LOGO -->
+  <h1 class="logo">DO‘PPI AI</h1>
 
-  <h2 id="selectText">Tilni tanlang</h2>
+  <!-- STEP 1: LANGUAGE -->
+  <div id="langStep" class="card">
+    <p class="title">Tilni tanlang</p>
 
-  <div class="lang-buttons">
     <button onclick="selectLang('uz')">🇺🇿 O‘zbek</button>
     <button onclick="selectLang('ru')">🇷🇺 Русский</button>
     <button onclick="selectLang('en')">🇬🇧 English</button>
   </div>
+
+  <!-- STEP 2: WELCOME -->
+  <div id="welcomeStep" class="card hidden">
+    <p id="welcomeText" class="title"></p>
+
+    <button id="googleBtn"></button>
+  </div>
+
 </div>
 
-<!-- AFTER LANGUAGE -->
-<div class="screen hidden" id="afterLang">
-  <img class="boy" src="https://i.imgur.com/7QbR8pG.png" alt="boy">
-
-  <h2 id="welcomeText"></h2>
-
-  <button class="google-btn">Google bilan davom etish</button>
-</div>
-
-<script>
-const texts = {
-  uz: "DO'PPI AI ga xush kelibsiz",
-  ru: "Добро пожаловать в DO'PPI AI",
-  en: "Welcome to DO'PPI AI"
-};
-
-function selectLang(lang) {
-  document.getElementById("welcome").classList.add("hidden");
-  document.getElementById("afterLang").classList.remove("hidden");
-  document.getElementById("welcomeText").innerText = texts[lang];
-}
-</script>
 <script src="js/main.js"></script>
 </body>
 </html>
