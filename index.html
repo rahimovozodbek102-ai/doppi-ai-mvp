@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>DOPPI AI – MVP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b0b0b;
+      color: white;
+    }
+    header {
+      padding: 16px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      border-bottom: 1px solid #222;
+    }
+    .tabs {
+      display: flex;
+    }
+    .tab {
+      flex: 1;
+      padding: 14px;
+      text-align: center;
+      cursor: pointer;
+      background: #111;
+      border-bottom: 2px solid transparent;
+    }
+    .tab.active {
+      border-bottom: 2px solid #4f8cff;
+    }
+    .container {
+      padding: 16px;
+    }
+    textarea, input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      border-radius: 8px;
+      border: none;
+      background: #1c1c1c;
+      color: white;
+    }
+    button {
+      width: 100%;
+      margin-top: 16px;
+      padding: 14px;
+      background: #4f8cff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<header>DOPPI AI</header>
+
+<div class="tabs">
+  <div class="tab active" onclick="showImage()">Generate Image</div>
+  <div class="tab" onclick="showVideo()">Generate Video</div>
+</div>
+
+<div class="container">
+
+  <div id="imageBox">
+    <textarea placeholder="Write prompt for image..."></textarea>
+    <button>Generate Image</button>
+  </div>
+
+  <div id="videoBox" class="hidden">
+    <input type="file" />
+    <textarea placeholder="Write prompt for video..."></textarea>
+    <button>Generate Video</button>
+  </div>
+
+</div>
+
+<script>
+  const imageTab = document.querySelectorAll('.tab')[0]
+  const videoTab = document.querySelectorAll('.tab')[1]
+  const imageBox = document.getElementById('imageBox')
+  const videoBox = document.getElementById('videoBox')
+
+  function showImage() {
+    imageTab.classList.add('active')
+    videoTab.classList.remove('active')
+    imageBox.classList.remove('hidden')
+    videoBox.classList.add('hidden')
+  }
+
+  function showVideo() {
+    videoTab.classList.add('active')
+    imageTab.classList.remove('active')
+    videoBox.classList.remove('hidden')
+    imageBox.classList.add('hidden')
+  }
+</script>
+
+</body>
+</html>
