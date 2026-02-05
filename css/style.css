@@ -1,72 +1,80 @@
-/* doppi ai styles */
-
+here/* RESET */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  box-sizing: border-box;
 }
 
+/* BODY + BACKGROUND */
 body {
-  background: black;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background:
+    linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+    url("../images/boy.png") no-repeat center center / cover;
   color: white;
 }
 
-/* WELCOME PAGE */
-.welcome {
-  height: 100vh;
-  background: url("../images/boy.png") center/cover no-repeat;
+/* HEADER */
+.header {
   display: flex;
   align-items: center;
+  gap: 10px;
+  padding: 16px;
+}
+
+.header img {
+  width: 36px;
+  height: 36px;
+}
+
+.header span {
+  font-size: 18px;
+  font-weight: bold;
+  color: #b86bff;
+}
+
+/* CENTER CONTENT */
+.container {
+  min-height: calc(100vh - 70px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-}
-
-.overlay {
-  background: rgba(0, 0, 0, 0.65);
-  padding: 24px;
-  border-radius: 18px;
   text-align: center;
-  width: 90%;
-  max-width: 360px;
-}
-
-/* LOGO */
-.logo {
-  width: 120px;
-  margin-bottom: 16px;
+  padding: 20px;
 }
 
 /* TITLE */
-.overlay h1 {
-  font-size: 22px;
-  margin-bottom: 16px;
-  color: #b14cff; /* purple */
+.title {
+  font-size: 26px;
+  color: #b86bff;
+  margin-bottom: 20px;
 }
 
 /* LANGUAGE BUTTONS */
-.lang {
+.lang-buttons {
   display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 16px;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
-.lang button {
-  padding: 8px 14px;
-  border-radius: 8px;
+.lang-buttons button {
+  background: #7b2cff;
   border: none;
-  background: #6a00ff;
   color: white;
-  font-weight: bold;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-size: 16px;
 }
 
 /* GOOGLE BUTTON */
-.google {
-  width: 100%;
-  padding: 12px;
-  border-radius: 12px;
-  border: none;
+.google-btn {
   background: white;
   color: black;
-  font-weight: bold;
+  border: none;
+  padding: 14px 22px;
+  border-radius: 14px;
+  font-size: 16px;
+  margin-top: 10px;
 }
