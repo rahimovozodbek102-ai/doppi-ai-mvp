@@ -1,39 +1,143 @@
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithRedirect,
-  getRedirectResult,
-  onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <title>DO‘PPI AI – Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDrzhCYy4lXTl1rZZbdYhjnq-oCr0bR-Ds",
-  authDomain: "doppi-ai-mvp.firebaseapp.com",
-  projectId: "doppi-ai-mvp",
-  appId: "1:269700533804:web:328ebc557b8a97581e0b89"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
-
-/* 👉 GOOGLE LOGIN */
-window.googleLogin = () => {
-  signInWithRedirect(auth, provider);
-};
-
-/* 👉 AGAR USER ALLAQACHON LOGIN BO‘LGAN BO‘LSA */
-
-
-/* 👉 REDIRECTDAN QAYTGANDA */
-getRedirectResult(auth)
-  .then((result) => {
-    if (result && result.user) {
-      localStorage.setItem("userName", result.user.displayName || "User");
-      window.location.replace("generate.html");
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: url("images/boy.png") no-repeat center / cover;
+      font-family: Arial, sans-serif;
     }
-  })
-  .catch((e) => console.log(e.message));
-</script>
+
+    .overlay {
+      min-height: 100vh;
+      background: rgba(0,0,0,0.45);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+
+    .header {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header img {
+      width: 36px;
+      height: 36px;
+    }
+
+    .header span {
+      font-size: 20px;
+      font-weight: bold;
+      color: #b48cff;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .lang-buttons {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .lang-buttons button {
+      background: #7c3aed;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .google {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      color: black;
+      border: none;
+      padding: 14px 26px;
+      border-radius: 14px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .google img {
+      width: 20px;
+    }
+  </style>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+    import {
+      getAuth,
+      GoogleAuthProvider,
+      signInWithRedirect,
+      getRedirectResult
+    } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDrzhCYy4lXTl1rZZbdYhjnq-oCr0bR-Ds",
+      authDomain: "doppi-ai-mvp.firebaseapp.com",
+      projectId: "doppi-ai-mvp",
+      appId: "1:269700533804:web:328ebc557b8a97581e0b89"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    window.googleLogin = () => {
+      signInWithRedirect(auth, provider);
+    };
+
+    getRedirectResult(auth).then((result) => {
+      if (result && result.user) {
+        localStorage.setItem("userName", result.user.displayName || "User");
+        window.location.replace("generate.html");
+      }
+    });
+  </script>
+</head>
+
+<body>
+  <div class="overlay">
+
+    <div class="header">
+      <img src="images/logo.png" alt="DO‘PPI AI">
+      <span>DO‘PPI AI</span>
+    </div>
+
+    <h1>DO‘PPI AI ga xush kelibsiz</h1>
+
+    <div class="lang-buttons">
+      <button>🇺🇿 UZ</button>
+      <button>🇷🇺 RU</button>
+      <button>🇺🇸 ENG</button>
+    </div>
+
+    <button class="google" onclick="googleLogin()">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
+      Google bilan davom etish
+    </button>
+
+  </div>
+</body>
+</html>
