@@ -120,15 +120,7 @@
     };
 
     // LOGIN DAN KEYIN
-    getRedirectResult(auth)
-      .then((result) => {
-        if (result && result.user) {
-          localStorage.setItem("userName", result.user.displayName);
-          window.location.replace("generate.html");
-        }
-      })
-      .catch((e) => console.log(e.message));
-
+    
     // TIL ALMASHTIRISH
     window.setLang = function (lang) {
   const title = document.getElementById("titleText");
