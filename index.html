@@ -124,13 +124,8 @@ window.googleLogin = function () {
     getRedirectResult(auth)
   .then((result) => {
     if (result && result.user) {
-      const user = result.user;
-
-      localStorage.setItem("userName", user.displayName);
-
-      document.getElementById("userName").innerHTML =
-        `Xush kelibsiz, <b>${user.displayName}</b><br>
-         Siz DO'PPI AI orqali rasm va video yasashingiz mumkin.`;
+      localStorage.setItem("userName", result.user.displayName);
+      window.location.href = "generate.html";
     }
   })
   .catch((error) => {
