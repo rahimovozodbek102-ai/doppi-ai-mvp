@@ -39,25 +39,23 @@
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-
-    // 🔥 FAQAT SHU YERDA LOGIN TEKSHIRILADI
-    let checked = false;
-
-onAuthStateChanged(auth, (user) => {
-  if (checked) return;
-  checked = true;
+// ✅ LOGINNI 1 MARTA, KECHIKIB TEKSHIRAMIZ
+setTimeout(() => {
+  const user = auth.currentUser;
 
   if (!user) {
-    // ❗ login yo‘q → bosh sahifa
+    // login yo‘q → login sahifaga qayt
     window.location.replace("/");
-  } else {
-    // ✅ login bor → generate ochiq qoladi
-    document.getElementById("welcome").innerText =
-      "Xush kelibsiz, " + (user.displayName || "User");
+    return;
   }
-});
 
-    // 🚪 Logout
+  // login bor → sahifa ochiq qoladi
+  const el = document.getElementById("welcome");
+  if (el) {
+    el.innerText = "Xush kelibsiz, " + (user.displayName || "User");
+  }
+}, 1500);
+        // 🚪 Logout
     window.logout = () => {
       signOut(auth).then(() => window.location.replace("/"));
     };
