@@ -41,13 +41,11 @@
     const auth = getAuth(app);
 
     onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        window.location.replace("index.html");
-      } else {
-        document.getElementById("welcome").innerText =
-          "Xush kelibsiz, " + (user.displayName || "User");
-      }
-    });
+  if (user) {
+    document.getElementById("welcome").innerText =
+      "Xush kelibsiz, " + (user.displayName || "User");
+  }
+});
 
     window.logout = () => {
       signOut(auth).then(() => {
