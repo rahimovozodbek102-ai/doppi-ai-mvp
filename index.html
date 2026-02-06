@@ -113,12 +113,16 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
-
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    window.location.href = "generate.html";
+  }
+});
     window.googleLogin = () => {
       signInWithRedirect(auth, provider);
     };
 
-    // Redirectdan qaytganda
+    // 👉 REDIRECTDAN QAYTGACH LOGINNI TEKSHIRISH
 
     // TIL ALMASHTIRISH
     window.setLang = (lang) => {
