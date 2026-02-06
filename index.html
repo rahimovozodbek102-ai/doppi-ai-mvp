@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8" />
-  <title>DO‘PPI AI – Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>DO‘PPI AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    body {
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
       min-height: 100vh;
       background: url("images/boy.png") no-repeat center / cover;
-      font-family: Arial, sans-serif;
     }
 
     .overlay {
@@ -20,11 +25,12 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      text-align: center;
       color: white;
+      text-align: center;
       position: relative;
     }
 
+    /* HEADER */
     .header {
       position: absolute;
       top: 16px;
@@ -50,6 +56,7 @@
       margin-bottom: 20px;
     }
 
+    /* LANG */
     .lang-buttons {
       display: flex;
       gap: 12px;
@@ -58,14 +65,15 @@
 
     .lang-buttons button {
       background: #7c3aed;
-      color: white;
       border: none;
-      padding: 10px 18px;
+      color: white;
+      padding: 10px 16px;
       border-radius: 10px;
-      font-size: 16px;
+      font-size: 15px;
       cursor: pointer;
     }
 
+    /* GOOGLE */
     .google {
       display: flex;
       align-items: center;
@@ -81,9 +89,11 @@
 
     .google img {
       width: 20px;
+      height: 20px;
     }
   </style>
 
+  <!-- FIREBASE LOGIN -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
     import {
@@ -108,34 +118,63 @@
       signInWithRedirect(auth, provider);
     };
 
-    getRedirectResult(auth).then((result) => {
-      if (result && result.user) {
-        localStorage.setItem("userName", result.user.displayName || "User");
-        window.location.replace("generate.html");
+    // Redirectdan qaytganda
+    getRedirectResult(auth)
+      .then((result) => {
+        if (result && result.user) {
+          localStorage.setItem("userName", result.user.displayName || "User");
+          window.location.replace("generate.html");
+        }
+      })
+      .catch((e) => console.log(e.message));
+
+    // TIL ALMASHTIRISH
+    window.setLang = (lang) => {
+      const title = document.getElementById("titleText");
+      const googleText = document.getElementById("googleText");
+
+      if (lang === "uz") {
+        title.innerText = "DO‘PPI AI ga xush kelibsiz";
+        googleText.innerText = "Google bilan davom etish";
       }
-    });
+
+      if (lang === "ru") {
+        title.innerText = "Добро пожаловать в DO‘PPI AI";
+        googleText.innerText = "Войти через Google";
+      }
+
+      if (lang === "en") {
+        title.innerText = "Welcome to DO‘PPI AI";
+        googleText.innerText = "Continue with Google";
+      }
+    };
+
+    window.onload = () => setLang("uz");
   </script>
 </head>
 
 <body>
   <div class="overlay">
 
+    <!-- HEADER -->
     <div class="header">
       <img src="images/logo.png" alt="DO‘PPI AI">
       <span>DO‘PPI AI</span>
     </div>
 
-    <h1>DO‘PPI AI ga xush kelibsiz</h1>
+    <h1 id="titleText"></h1>
 
+    <!-- LANG -->
     <div class="lang-buttons">
-      <button>🇺🇿 UZ</button>
-      <button>🇷🇺 RU</button>
-      <button>🇺🇸 ENG</button>
+      <button onclick="setLang('uz')">🇺🇿 UZ</button>
+      <button onclick="setLang('ru')">🇷🇺 RU</button>
+      <button onclick="setLang('en')">🇺🇸 ENG</button>
     </div>
 
+    <!-- GOOGLE -->
     <button class="google" onclick="googleLogin()">
       <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
-      Google bilan davom etish
+      <span id="googleText"></span>
     </button>
 
   </div>
