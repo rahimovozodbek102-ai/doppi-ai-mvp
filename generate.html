@@ -97,21 +97,6 @@
       background: #22c55e;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-
-    .grid button {
-      padding: 8px;
-      border-radius: 8px;
-      border: none;
-      background: #3b1d5c;
-      color: white;
-      cursor: pointer;
-    }
-
     .generate {
       width: 100%;
       margin-top: 14px;
@@ -125,7 +110,7 @@
     }
   </style>
 
-  <!-- 🔐 FIREBASE -->
+  <!-- 🔐 FIREBASE AUTH -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
     import {
@@ -144,23 +129,21 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    let checked = false; // 🔥 MUHIM
-
-    onAuthStateChanged(auth, (user) => {
-      if (checked) return;
-      checked = true;
-
-      if (!user) {
-        window.location.replace("index.html");
-      } else {
-        document.getElementById("welcome").innerText =
-          "Xush kelibsiz, " + (user.displayName || "User");
-      }
-    });
+    // 🔥 ENG ISHONCHLI TEKSHIRUV
+    setTimeout(() => {
+      onAuthStateChanged(auth, (user) => {
+        if (!user) {
+          window.location.href = "index.html";
+        } else {
+          document.getElementById("welcome").innerText =
+            "Xush kelibsiz, " + (user.displayName || "User");
+        }
+      });
+    }, 2000);
 
     window.logout = () => {
       signOut(auth).then(() => {
-        window.location.replace("index.html");
+        window.location.href = "index.html";
       });
     };
   </script>
@@ -177,7 +160,6 @@
   </div>
 
   <div class="container">
-
     <div class="left">Natija shu yerda chiqadi</div>
 
     <div class="right">
@@ -192,7 +174,6 @@
 
       <button class="generate">Generate</button>
     </div>
-
   </div>
 
 </body>
