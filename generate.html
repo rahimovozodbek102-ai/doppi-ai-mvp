@@ -6,7 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    * { box-sizing: border-box; font-family: Arial, sans-serif; }
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
     body {
       margin: 0;
       min-height: 100vh;
@@ -20,15 +24,26 @@
       justify-content: space-between;
       align-items: center;
       padding: 14px 18px;
-      background: rgba(0,0,0,0.4);
+      background: rgba(0,0,0,0.45);
     }
+
     .logo {
       display: flex;
       align-items: center;
       gap: 10px;
     }
-    .logo img { width: 34px; height: 34px; }
-    .logo span { font-weight: bold; color: #b48cff; }
+
+    .logo img {
+      width: 34px;
+      height: 34px;
+    }
+
+    .logo span {
+      font-weight: bold;
+      color: #b48cff;
+      font-size: 18px;
+    }
+
     .logout {
       background: #ff4d4d;
       border: none;
@@ -60,7 +75,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      opacity: 0.8;
+      opacity: 0.85;
     }
 
     .right {
@@ -84,6 +99,7 @@
       gap: 10px;
       margin-bottom: 12px;
     }
+
     .toggle button {
       flex: 1;
       padding: 10px;
@@ -93,22 +109,25 @@
       background: #7c3aed;
       color: white;
     }
+
     .toggle button.active {
       background: #22c55e;
     }
 
-    /* OPTIONS */
     .options {
       margin-top: 10px;
     }
+
     .options h4 {
       margin: 10px 0 6px;
     }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 8px;
     }
+
     .grid button {
       padding: 8px;
       border-radius: 8px;
@@ -132,15 +151,47 @@
     }
 
     @media (max-width: 768px) {
-      .container { flex-direction: column; }
+      .container {
+        flex-direction: column;
+      }
     }
   </style>
 
-  <!-- AUTH CHECK -->
-  <script>
-    if (!localStorage.getItem("userName")) {
-      window.location.replace("index.html");
-    }
+  <!-- 🔐 FIREBASE AUTH CHECK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDrzhCYy4lXTl1rZZbdYhjnq-oCr0bR-Ds",
+      authDomain: "doppi-ai-mvp.firebaseapp.com",
+      projectId: "doppi-ai-mvp",
+      appId: "1:269700533804:web:328ebc557b8a97581e0b89"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // 🔥 LOGIN TEKSHIRISH (ENG MUHIM JOY)
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.replace("index.html");
+      } else {
+        document.getElementById("welcome").innerText =
+          "Xush kelibsiz, " + (user.displayName || "User");
+      }
+    });
+
+    // 🚪 LOGOUT
+    window.logout = () => {
+      signOut(auth).then(() => {
+        window.location.replace("index.html");
+      });
+    };
   </script>
 </head>
 
@@ -149,7 +200,7 @@
   <!-- HEADER -->
   <div class="header">
     <div class="logo">
-      <img src="images/logo.png">
+      <img src="images/logo.png" alt="DO‘PPI AI">
       <span>DO‘PPI AI</span>
     </div>
     <button class="logout" onclick="logout()">Chiqish</button>
@@ -158,12 +209,12 @@
   <!-- MAIN -->
   <div class="container">
 
-    <!-- LEFT RESULT -->
+    <!-- LEFT -->
     <div class="left" id="resultBox">
       Natija shu yerda chiqadi
     </div>
 
-    <!-- RIGHT CONTROLS -->
+    <!-- RIGHT -->
     <div class="right">
       <h3 id="welcome"></h3>
 
@@ -182,9 +233,6 @@
   </div>
 
   <script>
-    document.getElementById("welcome").innerText =
-      "Xush kelibsiz, " + localStorage.getItem("userName");
-
     let mode = "image";
 
     function setMode(type) {
@@ -233,11 +281,6 @@
     }
 
     renderOptions();
-
-    function logout() {
-      localStorage.clear();
-      window.location.replace("index.html");
-    }
   </script>
 
 </body>
