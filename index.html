@@ -39,14 +39,14 @@
     .google img { width:20px }
   </style>
 
-  <!-- 🔐 FIREBASE LOGIN -->
+  <!-- 🔐 FIREBASE LOGIN (TOZA VARIANT) -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
     import {
       getAuth,
       GoogleAuthProvider,
       signInWithRedirect,
-      getRedirectResult
+      onAuthStateChanged
     } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
     const firebaseConfig = {
@@ -60,17 +60,19 @@
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
 
+    // 👉 AGAR USER OLDIN LOGIN QILGAN BO‘LSA — AUTOMATIK O‘TSIN
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        window.location.replace("generate.html");
+      }
+    });
+
+    // 👉 GOOGLE LOGIN
     window.googleLogin = () => {
       signInWithRedirect(auth, provider);
     };
 
-    // ✅ faqat redirectdan qaytganda
-    getRedirectResult(auth).then((result) => {
-      if (result && result.user) {
-        window.location.href = "generate.html";
-      }
-    });
-
+    // 🌐 TIL ALMASHTIRISH
     window.setLang = (lang) => {
       const t = document.getElementById("titleText");
       const g = document.getElementById("googleText");
@@ -78,6 +80,7 @@
       if (lang==="ru"){ t.innerText="Добро пожаловать в DO‘PPI AI"; g.innerText="Войти через Google"; }
       if (lang==="en"){ t.innerText="Welcome to DO‘PPI AI"; g.innerText="Continue with Google"; }
     };
+
     window.onload = () => setLang("uz");
   </script>
 </head>
