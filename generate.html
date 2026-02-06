@@ -1,159 +1,243 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8" />
-  <title>DO'PPI AI — Generate</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>DO‘PPI AI – Generate</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
-
+    * { box-sizing: border-box; font-family: Arial, sans-serif; }
     body {
+      margin: 0;
       min-height: 100vh;
-      background: linear-gradient(135deg, #1c0f2e, #2b1450);
+      background: linear-gradient(135deg, #2b0f3a, #12001f);
       color: white;
-      display: flex;
-      flex-direction: column;
     }
 
     /* HEADER */
     .header {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      padding: 16px;
-      background: rgba(0,0,0,0.3);
+      align-items: center;
+      padding: 14px 18px;
+      background: rgba(0,0,0,0.4);
     }
-
     .logo {
       display: flex;
       align-items: center;
       gap: 10px;
-      font-weight: bold;
-      font-size: 18px;
-      color: #b48cff;
     }
-
-    .logo img {
-      width: 36px;
-      height: 36px;
-    }
-
-    .user {
-      font-size: 14px;
-      opacity: 0.9;
+    .logo img { width: 34px; height: 34px; }
+    .logo span { font-weight: bold; color: #b48cff; }
+    .logout {
+      background: #ff4d4d;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
     }
 
     /* MAIN */
-    .main {
-      flex: 1;
-      padding: 24px;
+    .container {
       display: flex;
-      flex-direction: column;
-      gap: 24px;
+      gap: 16px;
+      padding: 16px;
+      max-width: 1100px;
+      margin: auto;
+      flex-wrap: wrap;
     }
 
-    .card {
-      background: rgba(255,255,255,0.08);
+    .left, .right {
+      background: rgba(0,0,0,0.45);
       border-radius: 16px;
-      padding: 20px;
+      padding: 16px;
+    }
+
+    .left {
+      flex: 1;
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.8;
+    }
+
+    .right {
+      flex: 1;
+      min-width: 280px;
     }
 
     textarea {
       width: 100%;
-      min-height: 100px;
-      border-radius: 12px;
+      height: 100px;
+      border-radius: 10px;
       border: none;
       padding: 12px;
-      font-size: 16px;
-      outline: none;
+      resize: none;
+      margin-bottom: 12px;
+      font-size: 15px;
     }
 
-    .actions {
+    .toggle {
       display: flex;
-      gap: 12px;
-      margin-top: 12px;
+      gap: 10px;
+      margin-bottom: 12px;
     }
-
-    button {
+    .toggle button {
+      flex: 1;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
       background: #7c3aed;
       color: white;
+    }
+    .toggle button.active {
+      background: #22c55e;
+    }
+
+    /* OPTIONS */
+    .options {
+      margin-top: 10px;
+    }
+    .options h4 {
+      margin: 10px 0 6px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .grid button {
+      padding: 8px;
+      border-radius: 8px;
       border: none;
-      padding: 12px 18px;
+      background: #3b1d5c;
+      color: white;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .generate {
+      width: 100%;
+      margin-top: 14px;
+      padding: 14px;
       border-radius: 12px;
+      border: none;
       font-size: 16px;
+      background: #22c55e;
+      color: white;
       cursor: pointer;
     }
 
-    button.secondary {
-      background: rgba(255,255,255,0.15);
-    }
-
-    /* FOOTER */
-    .footer {
-      text-align: center;
-      padding: 12px;
-      font-size: 13px;
-      opacity: 0.6;
+    @media (max-width: 768px) {
+      .container { flex-direction: column; }
     }
   </style>
-</head>
-<body>
 
-  <!-- LOGIN CHECK -->
+  <!-- AUTH CHECK -->
   <script>
-    const userName = localStorage.getItem("userName");
-    if (!userName) {
-      window.location.href = "index.html";
+    if (!localStorage.getItem("userName")) {
+      window.location.replace("index.html");
     }
   </script>
+</head>
+
+<body>
 
   <!-- HEADER -->
   <div class="header">
     <div class="logo">
-      <img src="images/logo.png" alt="DO'PPI AI">
-      DO'PPI AI
+      <img src="images/logo.png">
+      <span>DO‘PPI AI</span>
     </div>
-    <div class="user">
-      👤 <span id="userName"></span>
-    </div>
+    <button class="logout" onclick="logout()">Chiqish</button>
   </div>
 
   <!-- MAIN -->
-  <div class="main">
+  <div class="container">
 
-    <div class="card">
-      <h2>🖼 Image Generation</h2>
-      <p style="margin: 8px 0 12px; opacity: 0.8;">
-        Prompt yozing (nima rasm chiqsin):
-      </p>
-      <textarea placeholder="Masalan: Anime style boy with doppi hat, cinematic light..."></textarea>
+    <!-- LEFT RESULT -->
+    <div class="left" id="resultBox">
+      Natija shu yerda chiqadi
+    </div>
 
-      <div class="actions">
-        <button>Rasm yaratish</button>
-        <button class="secondary">Tozalash</button>
+    <!-- RIGHT CONTROLS -->
+    <div class="right">
+      <h3 id="welcome"></h3>
+
+      <div class="toggle">
+        <button id="imgBtn" class="active" onclick="setMode('image')">Rasm</button>
+        <button id="vidBtn" onclick="setMode('video')">Video</button>
       </div>
+
+      <textarea placeholder="Prompt yozing..."></textarea>
+
+      <div class="options" id="optionsBox"></div>
+
+      <button class="generate">Generate</button>
     </div>
 
-    <div class="card">
-      <h2>🎥 Video Generation (tez kunda)</h2>
-      <p style="opacity: 0.7;">Bu bo‘lim keyingi bosqichda qo‘shiladi.</p>
-    </div>
-
-  </div>
-
-  <!-- FOOTER -->
-  <div class="footer">
-    © 2026 DO'PPI AI — MVP
   </div>
 
   <script>
-    document.getElementById("userName").innerText = userName;
+    document.getElementById("welcome").innerText =
+      "Xush kelibsiz, " + localStorage.getItem("userName");
+
+    let mode = "image";
+
+    function setMode(type) {
+      mode = type;
+      document.getElementById("imgBtn").classList.toggle("active", type === "image");
+      document.getElementById("vidBtn").classList.toggle("active", type === "video");
+      renderOptions();
+    }
+
+    function renderOptions() {
+      const box = document.getElementById("optionsBox");
+
+      if (mode === "image") {
+        box.innerHTML = `
+          <h4>Image Ratios</h4>
+          <div class="grid">
+            <button>1:1</button><button>4:3</button><button>3:4</button>
+            <button>16:9</button><button>9:16</button><button>2:3</button>
+          </div>
+
+          <h4>Styles</h4>
+          <div class="grid">
+            <button>Anime</button><button>Realistic</button><button>Cinematic</button>
+            <button>Illustration</button><button>Dark</button><button>Fantasy</button>
+          </div>
+        `;
+      } else {
+        box.innerHTML = `
+          <h4>Video Ratios</h4>
+          <div class="grid">
+            <button>16:9</button><button>9:16</button><button>1:1</button>
+            <button>4:5</button><button>21:9</button><button>3:4</button>
+          </div>
+
+          <h4>Quality</h4>
+          <div class="grid">
+            <button>480p</button><button>720p</button><button>1080p</button>
+          </div>
+
+          <h4>Styles</h4>
+          <div class="grid">
+            <button>Cinematic</button><button>Real</button><button>Anime</button>
+          </div>
+        `;
+      }
+    }
+
+    renderOptions();
+
+    function logout() {
+      localStorage.clear();
+      window.location.replace("index.html");
+    }
   </script>
 
 </body>
