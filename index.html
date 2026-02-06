@@ -74,6 +74,9 @@ here<!DOCTYPE html>
     }
 
     .google {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       background: white;
       color: black;
       border: none;
@@ -81,6 +84,10 @@ here<!DOCTYPE html>
       border-radius: 14px;
       font-size: 16px;
     }
+    .google-icon {
+  width: 20px;
+  height: 20px;
+} 
   </style>
   <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
@@ -139,12 +146,17 @@ window.googleLogin = function () {
     <div class="lang-buttons">
       <button onclick="setLang('uz')">UZ</button>
       <button onclick="setLang('ru')">RU</button>
-      <button onclick="setLang('en')">EN</button>
+      <button onclick="setLang('en')">ENG</button>
     </div>
 
     <!-- GOOGLE -->
-    <button class="google" onclick="googleLogin()">
-  Google bilan davom etish
+    <button class="google" onclick="googleLogin()" id="googleBtn">
+  <img
+    src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+    alt="Google"
+    class="google-icon"
+  >
+  <span id="googleText"></span>
     </button>
 
   </div>
