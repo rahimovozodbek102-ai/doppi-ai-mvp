@@ -1,54 +1,100 @@
-here<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8">
-  <title>DO‘PPI AI – Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>DO‘PPI AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
-    body {
+    * {
       margin: 0;
-      height: 100vh;
-      background: linear-gradient(135deg, #3b1d5c, #12001f);
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: url("images/boy.png") no-repeat center center / cover;
+    }
+
+    /* QORONG‘I OVERLAY */
+    .overlay {
+      min-height: 100vh;
+      background: rgba(0,0,0,0.45);
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-family: Arial, sans-serif;
-      color: white;
-    }
-    .box {
-      background: rgba(0,0,0,0.5);
-      padding: 30px;
-      border-radius: 14px;
       text-align: center;
-      width: 90%;
-      max-width: 360px;
+      color: white;
+      position: relative;
     }
-    h1 {
+
+    /* HEADER */
+    .header {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header img {
+      width: 36px;
+      height: 36px;
+    }
+
+    .header span {
+      font-size: 20px;
+      font-weight: bold;
       color: #b48cff;
+    }
+
+    h1 {
+      font-size: 28px;
       margin-bottom: 20px;
     }
-    button {
-      width: 100%;
-      padding: 14px;
+
+    /* LANG BUTTONS */
+    .lang-buttons {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .lang-buttons button {
+      background: #7c3aed;
+      color: white;
       border: none;
+      padding: 10px 18px;
       border-radius: 10px;
       font-size: 16px;
       cursor: pointer;
     }
+
+    /* GOOGLE BTN */
     .google {
-      background: white;
-      color: black;
       display: flex;
       align-items: center;
-      justify-content: center;
       gap: 10px;
+      background: white;
+      color: black;
+      border: none;
+      padding: 14px 26px;
+      border-radius: 14px;
+      font-size: 16px;
+      cursor: pointer;
     }
+
     .google img {
       width: 20px;
+      height: 20px;
     }
   </style>
 
+  <!-- FIREBASE -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
     import {
@@ -73,27 +119,50 @@ here<!DOCTYPE html>
       signInWithRedirect(auth, provider);
     };
 
-    // 🔥 Login bo‘lib qaytgach avtomatik o‘tish
+    // LOGIN DAN KEYIN
     getRedirectResult(auth)
       .then((result) => {
         if (result && result.user) {
           localStorage.setItem("userName", result.user.displayName);
-          window.location.href = "generate.html";
+          window.location.replace("generate.html");
         }
       })
-      .catch((err) => {
-        console.log(err.message);
-      });
+      .catch((e) => console.log(e.message));
+
+    // TIL ALMASHTIRISH
+    window.setLang = (lang) => {
+      const title = document.getElementById("titleText");
+      if (lang === "uz") title.innerText = "DO‘PPI AI ga xush kelibsiz";
+      if (lang === "ru") title.innerText = "Добро пожаловать в DO‘PPI AI";
+      if (lang === "en") title.innerText = "Welcome to DO‘PPI AI";
+    };
   </script>
 </head>
 
 <body>
-  <div class="box">
-    <h1>DO‘PPI AI</h1>
+  <div class="overlay">
+
+    <!-- HEADER -->
+    <div class="header">
+      <img src="images/logo.png" alt="DO‘PPI AI">
+      <span>DO‘PPI AI</span>
+    </div>
+
+    <h1 id="titleText">DO‘PPI AI ga xush kelibsiz</h1>
+
+    <!-- LANG -->
+    <div class="lang-buttons">
+      <button onclick="setLang('uz')">UZ</button>
+      <button onclick="setLang('ru')">RU</button>
+      <button onclick="setLang('en')">ENG</button>
+    </div>
+
+    <!-- GOOGLE -->
     <button class="google" onclick="googleLogin()">
-      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
       Google bilan davom etish
     </button>
+
   </div>
 </body>
 </html>
