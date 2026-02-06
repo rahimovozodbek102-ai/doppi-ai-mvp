@@ -1,63 +1,101 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DO‘PPI AI</title>
 
   <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-    body{min-height:100vh;background:url("images/boy.png") no-repeat center/cover}
-    .overlay{
-      min-height:100vh;
-      background:rgba(0,0,0,.45);
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      color:#fff;
-      text-align:center;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
     }
-    .header{
-      position:absolute;
-      top:16px;
-      left:16px;
-      display:flex;
-      gap:10px;
-      align-items:center;
+
+    body {
+      min-height: 100vh;
+      background: url("images/boy.png") no-repeat center / cover;
     }
-    .header img{width:36px}
-    .header span{font-size:20px;font-weight:bold;color:#b48cff}
-    .lang-buttons{display:flex;gap:12px;margin-bottom:24px}
-    .lang-buttons button{
-      background:#7c3aed;
-      border:none;
-      color:#fff;
-      padding:10px 16px;
-      border-radius:10px;
-      cursor:pointer;
+
+    .overlay {
+      min-height: 100vh;
+      background: rgba(0,0,0,0.45);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      position: relative;
     }
-    .google{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      background:#fff;
-      color:#000;
-      border:none;
-      padding:14px 26px;
-      border-radius:14px;
-      cursor:pointer;
+
+    .header {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
-    .google img{width:20px}
+
+    .header img {
+      width: 36px;
+    }
+
+    .header span {
+      font-size: 20px;
+      font-weight: bold;
+      color: #b48cff;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    .lang-buttons {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .lang-buttons button {
+      background: #7c3aed;
+      border: none;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .google {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      color: black;
+      border: none;
+      padding: 14px 26px;
+      border-radius: 14px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .google img {
+      width: 20px;
+    }
   </style>
 
-  <!-- 🔐 FIREBASE LOGIN (FAQAT LOGIN) -->
+  <!-- 🔐 FIREBASE AUTH (POPUP – ENG ISHONCHLI USUL) -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
     import {
       getAuth,
       GoogleAuthProvider,
-      signInWithRedirect
+      signInWithPopup,
+      onAuthStateChanged
     } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
     const firebaseConfig = {
@@ -71,16 +109,40 @@
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
 
-    window.googleLogin = () => {
-      signInWithRedirect(auth, provider);
+    // 👉 Google login (POPUP)
+    window.googleLogin = async () => {
+      try {
+        await signInWithPopup(auth, provider);
+        window.location.href = "/generate/";
+      } catch (err) {
+        alert("Login xato: " + err.message);
+      }
     };
 
+    // 👉 Agar user allaqachon login bo‘lsa
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        window.location.href = "/generate/";
+      }
+    });
+
+    // 🌍 TIL ALMASHTIRISH
     window.setLang = (lang) => {
       const t = document.getElementById("titleText");
       const g = document.getElementById("googleText");
-      if (lang==="uz"){t.innerText="DO‘PPI AI ga xush kelibsiz";g.innerText="Google bilan davom etish";}
-      if (lang==="ru"){t.innerText="Добро пожаловать в DO‘PPI AI";g.innerText="Войти через Google";}
-      if (lang==="en"){t.innerText="Welcome to DO‘PPI AI";g.innerText="Continue with Google";}
+
+      if (lang === "uz") {
+        t.innerText = "DO‘PPI AI ga xush kelibsiz";
+        g.innerText = "Google bilan davom etish";
+      }
+      if (lang === "ru") {
+        t.innerText = "Добро пожаловать в DO‘PPI AI";
+        g.innerText = "Войти через Google";
+      }
+      if (lang === "en") {
+        t.innerText = "Welcome to DO‘PPI AI";
+        g.innerText = "Continue with Google";
+      }
     };
 
     window.onload = () => setLang("uz");
@@ -89,6 +151,7 @@
 
 <body>
   <div class="overlay">
+
     <div class="header">
       <img src="images/logo.png">
       <span>DO‘PPI AI</span>
@@ -106,6 +169,7 @@
       <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
       <span id="googleText"></span>
     </button>
+
   </div>
 </body>
 </html>
