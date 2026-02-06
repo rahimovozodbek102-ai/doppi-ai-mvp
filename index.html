@@ -121,17 +121,18 @@ const provider = new GoogleAuthProvider();
 window.googleLogin = function () {
   signInWithRedirect(auth, provider);
 };
-    getRedirectResult(auth)
-  .then((result) => {
-    if (result && result.user) {
-      localStorage.setItem("userName", result.user.displayName);
-      window.location.href = "generate.html";
-    }
-  })
-  .catch((error) => {
-    console.log(error.message);
-  });
-
+    window.onload = () => {
+  getRedirectResult(auth)
+    .then((result) => {
+      if (result && result.user) {
+        localStorage.setItem("userName", result.user.displayName);
+        window.location.href = "generate.html";
+      }
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+};
   </script>
 </head>
 
