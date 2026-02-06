@@ -119,14 +119,6 @@
     };
 
     // Redirectdan qaytganda
-    getRedirectResult(auth)
-      .then((result) => {
-        if (result && result.user) {
-          localStorage.setItem("userName", result.user.displayName || "User");
-          window.location.replace("generate.html");
-        }
-      })
-      .catch((e) => console.log(e.message));
 
     // TIL ALMASHTIRISH
     window.setLang = (lang) => {
