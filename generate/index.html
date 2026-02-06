@@ -9,7 +9,7 @@
     *{box-sizing:border-box;font-family:Arial,sans-serif}
     body{margin:0;min-height:100vh;background:linear-gradient(135deg,#2b0f3a,#12001f);color:#fff}
     .header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:rgba(0,0,0,.45)}
-    .logo{display:flex;align-items:center;gap:10px}
+    .logo{display:flex;gap:10px;align-items:center}
     .logo img{width:34px}
     .logo span{font-weight:bold;color:#b48cff}
     .logout{background:#ff4d4d;border:none;padding:8px 14px;border-radius:8px;color:#fff;cursor:pointer}
@@ -21,9 +21,14 @@
     .generate{width:100%;padding:14px;border-radius:12px;border:none;background:#22c55e;color:#fff;font-size:16px}
   </style>
 
+  <!-- 🔐 FIREBASE AUTH GUARD -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDrzhCYy4lXTl1rZZbdYhjnq-oCr0bR-Ds",
@@ -35,14 +40,13 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    // ⚠️ HECH QANDAY REDIRECT YO‘Q
-    const user = auth.currentUser;
-    window.addEventListener("load", () => {
-      const el = document.getElementById("welcome");
-      if (user && el) {
-        el.innerText = "Xush kelibsiz, " + (user.displayName || "User");
-      } else if (el) {
-        el.innerText = "Login holati aniqlanmoqda...";
+    // 🔥 YAGONA TEKSHIRUV (LOOP YO‘Q)
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = "/";
+      } else {
+        document.getElementById("welcome").innerText =
+          "Xush kelibsiz, " + (user.displayName || "User");
       }
     });
 
