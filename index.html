@@ -1,8 +1,8 @@
 here<!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 <head>
   <meta charset="UTF-8" />
-  <title>DO‘PPI AI</title>
+  <title>DO'PPI AI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
@@ -10,18 +10,17 @@ here<!DOCTYPE html>
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: Arial, sans-serif;
     }
 
     body {
       min-height: 100vh;
-      font-family: Arial, sans-serif;
       background: url("images/boy.png") no-repeat center center / cover;
     }
 
-    /* QORONG‘I OVERLAY */
     .overlay {
       min-height: 100vh;
-      background: rgba(0, 0, 0, 0.45);
+      background: rgba(0,0,0,0.45);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -31,7 +30,6 @@ here<!DOCTYPE html>
       position: relative;
     }
 
-    /* LOGO + NOM */
     .header {
       position: absolute;
       top: 16px;
@@ -53,9 +51,14 @@ here<!DOCTYPE html>
     }
 
     h1 {
-      color: #b48cff;
       font-size: 28px;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+    }
+
+    #userName {
+      margin-bottom: 20px;
+      font-size: 18px;
     }
 
     .lang-buttons {
@@ -71,6 +74,7 @@ here<!DOCTYPE html>
       padding: 10px 18px;
       border-radius: 10px;
       font-size: 16px;
+      cursor: pointer;
     }
 
     .google {
@@ -83,119 +87,105 @@ here<!DOCTYPE html>
       padding: 14px 26px;
       border-radius: 14px;
       font-size: 16px;
+      cursor: pointer;
     }
+
     .google-icon {
-  width: 20px;
-  height: 20px;
-} 
-    h1 {
-  color: #ffffff;
-  font-size: 28px;
-  margin-bottom: 24px;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+      width: 20px;
+      height: 20px;
     }
   </style>
+
+  <!-- FIREBASE -->
   <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-  import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithRedirect,
-  getRedirectResult
-} from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+    import {
+      getAuth,
+      GoogleAuthProvider,
+      signInWithRedirect,
+      getRedirectResult
+    } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
+    const firebaseConfig = {
+      apiKey: "AIzaSyDrzhCYy4lXTl1rZZbdYhjnq-oCrObR-Ds",
+      authDomain: "doppi-ai-mvp.firebaseapp.com",
+      projectId: "doppi-ai-mvp",
+      storageBucket: "doppi-ai-mvp.firebasestorage.app",
+      messagingSenderId: "269700533804",
+      appId: "1:269700533804:web:328ebc557b8a97581e0b89"
+    };
 
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyDrzhCYy4lXTl1rZZbdYhjnq-oCr0bR-Ds",
-    authDomain: "doppi-ai-mvp.firebaseapp.com",
-    projectId: "doppi-ai-mvp",
-    storageBucket: "doppi-ai-mvp.firebasestorage.app",
-    messagingSenderId: "269700533804",
-    appId: "1:269700533804:web:328ebc557b8a97581e0b89"
-  };
-
-  const app = initializeApp(firebaseConfig);
+    const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
-window.googleLogin = function () {
-  signInWithRedirect(auth, provider);
-};
- getRedirectResult(auth)
-  .then((result) => {
-    if (result && result.user) {
-      localStorage.setItem("userName", result.user.displayName);
-      window.location.href = "generate.html";
-    }
-  })
-  .catch((error) => {
-    console.log(error.message);
-  });   
+    const provider = new GoogleAuthProvider();
+
+    // Google login bosilganda
+    window.googleLogin = function () {
+      signInWithRedirect(auth, provider);
+    };
+
+    // Google'dan qaytganda
+    window.onload = () => {
+      getRedirectResult(auth)
+        .then((result) => {
+          if (result && result.user) {
+            localStorage.setItem("userName", result.user.displayName);
+            window.location.href = "generate.html";
+          }
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    };
   </script>
 </head>
 
 <body>
   <div class="overlay">
-
-    <!-- LOGO -->
     <div class="header">
-      <img src="images/logo.png" alt="DOʼPPI AI Logo">
-      <span>DOʼPPI AI</span>
+      <img src="images/logo.png" alt="DO'PPI AI Logo">
+      <span>DO'PPI AI</span>
     </div>
 
-    <!-- TEXT -->
     <h1 id="welcomeText">DO'PPI AI ga xush kelibsiz</h1>
-    <p id="userName" style="margin-top:12px;font-size:18px;color:#fff;"></p>
-    <!-- LANG -->
+    <p id="userName"></p>
+
     <div class="lang-buttons">
       <button onclick="setLang('uz')">UZ</button>
       <button onclick="setLang('ru')">RU</button>
       <button onclick="setLang('en')">ENG</button>
     </div>
 
-    <!-- GOOGLE -->
-    <button class="google" onclick="googleLogin()" id="googleBtn">
-  <img
-    src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
-    alt="Google"
-    class="google-icon"
-  >
-  <span id="googleText">Continue with Google</span>
+    <button class="google" onclick="googleLogin()">
+      <img
+        src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+        class="google-icon"
+        alt="Google"
+      />
+      <span id="googleText">Google bilan davom etish</span>
     </button>
-
   </div>
 
   <script>
     function setLang(lang) {
-  const title = document.getElementById("welcomeText");
-  const userName = document.getElementById("userName");
-  const name = localStorage.getItem("userName") || "";
-  const googleText = document.getElementById("googleText");
-  if (lang === "uz") {
-    title.innerText = "DO‘PPI AI ga xush kelibsiz";
-    userName.innerHTML =
-      `Xush kelibsiz, <b>${name}</b>!<br>
-       Siz DO‘PPI AI orqali rasm va video yasashingiz mumkin.`;
-    googleText.innerText = "Google bilan davom etish";
-  }
+      const title = document.getElementById("welcomeText");
+      const googleText = document.getElementById("googleText");
 
-  if (lang === "ru") {
-    title.innerText = "Добро пожаловать в DO‘PPI AI";
-    userName.innerHTML =
-      `Добро пожаловать, <b>${name}</b>!<br>
-       Вы можете создавать изображения и видео с DO‘PPI AI.`;
-    googleText.innerText = "Продолжить с Google";
-  }
+      if (lang === "uz") {
+        title.innerText = "DO'PPI AI ga xush kelibsiz";
+        googleText.innerText = "Google bilan davom etish";
+      }
 
-  if (lang === "en") {
-    title.innerText = "Welcome to DO‘PPI AI";
-    userName.innerHTML =
-      `Welcome, <b>${name}</b>!<br>
-       You can generate images and videos using DO‘PPI AI.`;
-    googleText.innerText = "Continue with Google";
-  }
+      if (lang === "ru") {
+        title.innerText = "Добро пожаловать в DO'PPI AI";
+        googleText.innerText = "Продолжить с Google";
+      }
+
+      if (lang === "en") {
+        title.innerText = "Welcome to DO'PPI AI";
+        googleText.innerText = "Continue with Google";
+      }
     }
-    setLang("uz");
   </script>
 </body>
 </html>
