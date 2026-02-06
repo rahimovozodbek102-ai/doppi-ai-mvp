@@ -6,11 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    * {
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
-
+    * { box-sizing: border-box; font-family: Arial, sans-serif; }
     body {
       margin: 0;
       min-height: 100vh;
@@ -18,7 +14,6 @@
       color: white;
     }
 
-    /* HEADER */
     .header {
       display: flex;
       justify-content: space-between;
@@ -33,16 +28,8 @@
       gap: 10px;
     }
 
-    .logo img {
-      width: 34px;
-      height: 34px;
-    }
-
-    .logo span {
-      font-weight: bold;
-      color: #b48cff;
-      font-size: 18px;
-    }
+    .logo img { width: 34px; height: 34px; }
+    .logo span { font-weight: bold; color: #b48cff; }
 
     .logout {
       background: #ff4d4d;
@@ -53,7 +40,6 @@
       cursor: pointer;
     }
 
-    /* MAIN */
     .container {
       display: flex;
       gap: 16px;
@@ -75,7 +61,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      opacity: 0.85;
     }
 
     .right {
@@ -89,9 +74,7 @@
       border-radius: 10px;
       border: none;
       padding: 12px;
-      resize: none;
       margin-bottom: 12px;
-      font-size: 15px;
     }
 
     .toggle {
@@ -114,14 +97,6 @@
       background: #22c55e;
     }
 
-    .options {
-      margin-top: 10px;
-    }
-
-    .options h4 {
-      margin: 10px 0 6px;
-    }
-
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -135,7 +110,6 @@
       background: #3b1d5c;
       color: white;
       cursor: pointer;
-      font-size: 13px;
     }
 
     .generate {
@@ -149,15 +123,9 @@
       color: white;
       cursor: pointer;
     }
-
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-      }
-    }
   </style>
 
-  <!-- 🔐 FIREBASE AUTH CHECK -->
+  <!-- 🔐 FIREBASE -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
     import {
@@ -176,8 +144,12 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    // 🔥 LOGIN TEKSHIRISH (ENG MUHIM JOY)
+    let checked = false; // 🔥 MUHIM
+
     onAuthStateChanged(auth, (user) => {
+      if (checked) return;
+      checked = true;
+
       if (!user) {
         window.location.replace("index.html");
       } else {
@@ -186,7 +158,6 @@
       }
     });
 
-    // 🚪 LOGOUT
     window.logout = () => {
       signOut(auth).then(() => {
         window.location.replace("index.html");
@@ -197,91 +168,32 @@
 
 <body>
 
-  <!-- HEADER -->
   <div class="header">
     <div class="logo">
-      <img src="images/logo.png" alt="DO‘PPI AI">
+      <img src="images/logo.png">
       <span>DO‘PPI AI</span>
     </div>
     <button class="logout" onclick="logout()">Chiqish</button>
   </div>
 
-  <!-- MAIN -->
   <div class="container">
 
-    <!-- LEFT -->
-    <div class="left" id="resultBox">
-      Natija shu yerda chiqadi
-    </div>
+    <div class="left">Natija shu yerda chiqadi</div>
 
-    <!-- RIGHT -->
     <div class="right">
-      <h3 id="welcome"></h3>
+      <h3 id="welcome">Yuklanmoqda...</h3>
 
       <div class="toggle">
-        <button id="imgBtn" class="active" onclick="setMode('image')">Rasm</button>
-        <button id="vidBtn" onclick="setMode('video')">Video</button>
+        <button class="active">Rasm</button>
+        <button>Video</button>
       </div>
 
       <textarea placeholder="Prompt yozing..."></textarea>
-
-      <div class="options" id="optionsBox"></div>
 
       <button class="generate">Generate</button>
     </div>
 
   </div>
-
-  <script>
-    let mode = "image";
-
-    function setMode(type) {
-      mode = type;
-      document.getElementById("imgBtn").classList.toggle("active", type === "image");
-      document.getElementById("vidBtn").classList.toggle("active", type === "video");
-      renderOptions();
-    }
-
-    function renderOptions() {
-      const box = document.getElementById("optionsBox");
-
-      if (mode === "image") {
-        box.innerHTML = `
-          <h4>Image Ratios</h4>
-          <div class="grid">
-            <button>1:1</button><button>4:3</button><button>3:4</button>
-            <button>16:9</button><button>9:16</button><button>2:3</button>
-          </div>
-
-          <h4>Styles</h4>
-          <div class="grid">
-            <button>Anime</button><button>Realistic</button><button>Cinematic</button>
-            <button>Illustration</button><button>Dark</button><button>Fantasy</button>
-          </div>
-        `;
-      } else {
-        box.innerHTML = `
-          <h4>Video Ratios</h4>
-          <div class="grid">
-            <button>16:9</button><button>9:16</button><button>1:1</button>
-            <button>4:5</button><button>21:9</button><button>3:4</button>
-          </div>
-
-          <h4>Quality</h4>
-          <div class="grid">
-            <button>480p</button><button>720p</button><button>1080p</button>
-          </div>
-
-          <h4>Styles</h4>
-          <div class="grid">
-            <button>Cinematic</button><button>Real</button><button>Anime</button>
-          </div>
-        `;
-      }
-    }
-
-    renderOptions();
-  </script>
 
 </body>
 </html>
