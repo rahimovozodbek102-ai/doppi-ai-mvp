@@ -3,62 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DO‘PPI AI</title>
+  <title>DO‘PPI AI – Generate</title>
 
   <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-    body{min-height:100vh;background:url("images/boy.png") no-repeat center/cover}
-    .overlay{
-      min-height:100vh;
-      background:rgba(0,0,0,.45);
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      color:#fff;
-      text-align:center
-    }
-    .header{
-      position:absolute;
-      top:16px;
-      left:16px;
-      display:flex;
-      align-items:center;
-      gap:10px
-    }
-    .header img{width:36px}
-    .header span{font-size:20px;font-weight:bold;color:#b48cff}
-    .lang-buttons{display:flex;gap:12px;margin-bottom:24px}
-    .lang-buttons button{
-      background:#7c3aed;
-      border:none;
-      color:#fff;
-      padding:10px 16px;
-      border-radius:10px;
-      cursor:pointer
-    }
-    .google{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      background:#fff;
-      color:#000;
-      border:none;
-      padding:14px 26px;
-      border-radius:14px;
-      cursor:pointer
-    }
-    .google img{width:20px}
+    *{box-sizing:border-box;font-family:Arial,sans-serif}
+    body{margin:0;min-height:100vh;background:linear-gradient(135deg,#2b0f3a,#12001f);color:#fff}
+    .header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:rgba(0,0,0,.45)}
+    .logo{display:flex;align-items:center;gap:10px}
+    .logo img{width:34px}
+    .logo span{font-weight:bold;color:#b48cff}
+    .logout{background:#ff4d4d;border:none;padding:8px 14px;border-radius:8px;color:#fff;cursor:pointer}
+    .container{display:flex;gap:16px;padding:16px;max-width:1100px;margin:auto;flex-wrap:wrap}
+    .left,.right{background:rgba(0,0,0,.45);border-radius:16px;padding:16px}
+    .left{flex:1;min-height:300px;display:flex;align-items:center;justify-content:center}
+    .right{flex:1;min-width:280px}
+    textarea{width:100%;height:100px;border-radius:10px;border:none;padding:12px;margin-bottom:12px}
+    .generate{width:100%;padding:14px;border-radius:12px;border:none;background:#22c55e;color:#fff;font-size:16px}
   </style>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-    import {
-      getAuth,
-      GoogleAuthProvider,
-      signInWithRedirect,
-      onAuthStateChanged
-    } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDrzhCYy4lXTl1rZZbdYhjnq-oCr0bR-Ds",
@@ -69,53 +34,42 @@
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-    const provider = new GoogleAuthProvider();
 
-    // LOGIN TUGMASI
-    window.googleLogin = () => {
-      signInWithRedirect(auth, provider);
-    };
-
-    // ✅ FAQAT SHU YERDA REDIRECT BOR
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        window.location.href = "/generate/";
+    // ⚠️ HECH QANDAY REDIRECT YO‘Q
+    const user = auth.currentUser;
+    window.addEventListener("load", () => {
+      const el = document.getElementById("welcome");
+      if (user && el) {
+        el.innerText = "Xush kelibsiz, " + (user.displayName || "User");
+      } else if (el) {
+        el.innerText = "Login holati aniqlanmoqda...";
       }
     });
 
-    // TIL
-    window.setLang = (lang) => {
-      const t = document.getElementById("titleText");
-      const g = document.getElementById("googleText");
-
-      if (lang==="uz"){t.innerText="DO‘PPI AI ga xush kelibsiz";g.innerText="Google bilan davom etish";}
-      if (lang==="ru"){t.innerText="Добро пожаловать в DO‘PPI AI";g.innerText="Войти через Google";}
-      if (lang==="en"){t.innerText="Welcome to DO‘PPI AI";g.innerText="Continue with Google";}
+    window.logout = () => {
+      signOut(auth).then(() => {
+        window.location.href = "/";
+      });
     };
-
-    window.onload = () => setLang("uz");
   </script>
 </head>
 
 <body>
-  <div class="overlay">
-    <div class="header">
-      <img src="images/logo.png">
+  <div class="header">
+    <div class="logo">
+      <img src="../images/logo.png">
       <span>DO‘PPI AI</span>
     </div>
+    <button class="logout" onclick="logout()">Chiqish</button>
+  </div>
 
-    <h1 id="titleText"></h1>
-
-    <div class="lang-buttons">
-      <button onclick="setLang('uz')">🇺🇿 UZ</button>
-      <button onclick="setLang('ru')">🇷🇺 RU</button>
-      <button onclick="setLang('en')">🇺🇸 ENG</button>
+  <div class="container">
+    <div class="left">Natija shu yerda chiqadi</div>
+    <div class="right">
+      <h3 id="welcome">Yuklanmoqda...</h3>
+      <textarea placeholder="Prompt yozing..."></textarea>
+      <button class="generate">Generate</button>
     </div>
-
-    <button class="google" onclick="googleLogin()">
-      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
-      <span id="googleText"></span>
-    </button>
   </div>
 </body>
 </html>
