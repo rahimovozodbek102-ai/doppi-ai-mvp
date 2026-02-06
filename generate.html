@@ -128,18 +128,16 @@
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    window.location.href = "index.html";
+  } else {
+    document.getElementById("welcome").innerText =
+      "Xush kelibsiz, " + (user.displayName || "User");
+  }
+  }); 
     // 🔥 ENG ISHONCHLI TEKSHIRUV
-    setTimeout(() => {
-      onAuthStateChanged(auth, (user) => {
-        if (!user) {
-          window.location.href = "index.html";
-        } else {
-          document.getElementById("welcome").innerText =
-            "Xush kelibsiz, " + (user.displayName || "User");
-        }
-      });
-    }, 2000);
+    
 
     window.logout = () => {
       signOut(auth).then(() => {
