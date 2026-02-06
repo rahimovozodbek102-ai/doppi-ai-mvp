@@ -1,4 +1,4 @@
-here<script type="module">
+<script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
 import {
   getAuth,
@@ -25,12 +25,7 @@ window.googleLogin = () => {
 };
 
 /* 👉 AGAR USER ALLAQACHON LOGIN BO‘LGAN BO‘LSA */
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    localStorage.setItem("userName", user.displayName || "User");
-    window.location.replace("generate.html");
-  }
-});
+
 
 /* 👉 REDIRECTDAN QAYTGANDA */
 getRedirectResult(auth)
