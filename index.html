@@ -108,11 +108,17 @@ const provider = new GoogleAuthProvider();
 window.googleLogin = function () {
   signInWithPopup(auth, provider)
     .then((result) => {
-      alert("Xush kelibsiz, " + result.user.displayName);
-    })
-    .catch((error) => {
-      alert(error.message);
-    });
+  const user = result.user;
+
+  document.getElementById("userName").innerHTML =
+    `Xush kelibsiz, <b>${user.displayName}</b>!<br>
+     Siz DO‘PPI AI orqali rasm va video yasashingiz mumkin.`;
+
+  localStorage.setItem("userName", user.displayName);
+})
+.catch((error) => {
+  console.log(error.message);
+}); 
 };
   </script>
 </head>
