@@ -64,6 +64,56 @@
   cursor: pointer;
   transition: 0.25s;
 } 
+/* ACCOUNT */
+.account {
+  position: relative;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #7C3AED;
+}
+
+.menu {
+  position: absolute;
+  right: 0;
+  top: 48px;
+  background: #1a0628;
+  border: 1px solid #7C3AED;
+  border-radius: 12px;
+  padding: 12px;
+  width: 160px;
+  display: none;
+  z-index: 999;
+  box-shadow: 0 0 20px rgba(124,58,237,0.6);
+}
+
+.menu p {
+  margin: 0;
+  font-size: 14px;
+  color: #fff;
+}
+
+.menu hr {
+  border: none;
+  height: 1px;
+  background: #7C3AED;
+  margin: 8px 0;
+}
+
+.menu button {
+  width: 100%;
+  background: #7C3AED;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+}
+
   </style>
 
   <!-- 🔐 FIREBASE AUTH GUARD -->
@@ -92,6 +142,9 @@
       } else {
         document.getElementById("welcome").innerText =
           "Xush kelibsiz, " + (user.displayName || "User");
+        document.getElementById("userName").innerText =
+        user.displayName || "User";
+
       }
     });
 
@@ -105,11 +158,21 @@
 
 <body>
   <div class="header">
-    <div class="logo">
-      <img src="../images/logo.png">
-      <span>DO‘PPI AI</span>
+  <div class="logo">
+    <img src="images/logo.png">
+    <span>DO‘PPI AI</span>
+  </div>
+
+  <!-- ACCOUNT -->
+  <div class="account">
+    <img src="images/user.png" class="avatar" onclick="toggleMenu()">
+
+    <div class="menu" id="accountMenu">
+      <p id="userName">User</p>
+      <hr>
+      <button onclick="logout()">Logout</button>
     </div>
-    <button class="logout" onclick="logout()">Chiqish</button>
+  </div>
   </div>
 
 <div class="container">
@@ -126,5 +189,21 @@
 
 </div>
   </div>
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById("accountMenu");
+    menu.style.display =
+      menu.style.display === "block" ? "none" : "block";
+  }
+
+  // Tashqariga bossang yopilsin
+  document.addEventListener("click", function (e) {
+    const acc = document.querySelector(".account");
+    if (!acc.contains(e.target)) {
+      document.getElementById("accountMenu").style.display = "none";
+    }
+  });
+</script>
+
 </body>
 </html>
