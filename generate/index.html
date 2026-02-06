@@ -1,8 +1,8 @@
-Enter<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DO‘PPI AI – Generate</title>
 
   <style>
@@ -21,9 +21,14 @@ Enter<!DOCTYPE html>
     .generate{width:100%;padding:14px;border-radius:12px;border:none;background:#22c55e;color:#fff;font-size:16px}
   </style>
 
+  <!-- 🔐 FIREBASE AUTH -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDrzhCYy4lXTl1rZZbdYhjnq-oCr0bR-Ds",
@@ -35,7 +40,7 @@ Enter<!DOCTYPE html>
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    // ❗ AGAR LOGIN YO‘Q BO‘LSA → LOGIN PAGE
+    // 🔥 FAQAT SHU YERDA LOGIN TEKSHIRILADI
     onAuthStateChanged(auth, (user) => {
       if (!user) {
         window.location.replace("/");
@@ -45,6 +50,7 @@ Enter<!DOCTYPE html>
       }
     });
 
+    // 🚪 Logout
     window.logout = () => {
       signOut(auth).then(() => window.location.replace("/"));
     };
@@ -54,7 +60,7 @@ Enter<!DOCTYPE html>
 <body>
   <div class="header">
     <div class="logo">
-      <img src="../images/logo.png">
+      <img src="../images/logo.png" />
       <span>DO‘PPI AI</span>
     </div>
     <button class="logout" onclick="logout()">Chiqish</button>
