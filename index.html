@@ -151,17 +151,30 @@ window.googleLogin = function () {
 
   <script>
     function setLang(lang) {
-      const text = document.getElementById("welcomeText");
+  const title = document.getElementById("welcomeText");
+  const userName = document.getElementById("userName");
+  const name = localStorage.getItem("userName") || "";
 
-      if (lang === "uz") {
-        text.innerText = "DO'PPI AI ga xush kelibsiz";
-      }
-      if (lang === "ru") {
-        text.innerText = "Добро пожаловать в DO‘PPI AI";
-      }
-      if (lang === "en") {
-        text.innerText = "Welcome to DO‘PPI AI";
-      }
+  if (lang === "uz") {
+    title.innerText = "DO‘PPI AI ga xush kelibsiz";
+    userName.innerHTML =
+      `Xush kelibsiz, <b>${name}</b>!<br>
+       Siz DO‘PPI AI orqali rasm va video yasashingiz mumkin.`;
+  }
+
+  if (lang === "ru") {
+    title.innerText = "Добро пожаловать в DO‘PPI AI";
+    userName.innerHTML =
+      `Добро пожаловать, <b>${name}</b>!<br>
+       Вы можете создавать изображения и видео с DO‘PPI AI.`;
+  }
+
+  if (lang === "en") {
+    title.innerText = "Welcome to DO‘PPI AI";
+    userName.innerHTML =
+      `Welcome, <b>${name}</b>!<br>
+       You can generate images and videos using DO‘PPI AI.`;
+  }
     }
   </script>
 </body>
