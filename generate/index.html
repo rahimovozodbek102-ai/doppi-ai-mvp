@@ -11,10 +11,10 @@
   margin:0;
   min-height:100vh;
   background:
-    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
-    url("../images/bg.png") no-repeat center center / cover;
+    linear-gradient(rgba(8,3,20,0.75), rgba(8,3,20,0.75)),
+    url("images/bg.png") no-repeat center/cover;
   color:#fff;
-}
+   }
    .header{
   display:flex;
   justify-content:space-between;
@@ -33,18 +33,19 @@
     .container{
   display:flex;
   gap:20px;
-  padding:40px 16px;
   max-width:1100px;
-  margin:auto;
-  flex-wrap:wrap;
-  align-items:flex-start;
+  margin:0 auto;
+  padding:0 16px;
+  min-height:calc(100vh - 80px);
+  align-items:center;
 } 
+  .panel{
   background:rgba(20, 10, 30, 0.75);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius:18px;
   padding:18px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  box-shadow:0 10px 30px rgba(0,0,0,0.45);
 } 
     .left{flex:1;min-height:300px;display:flex;align-items:center;justify-content:center}
     .right{flex:1;min-width:280px}
@@ -98,13 +99,19 @@
     <button class="logout" onclick="logout()">Chiqish</button>
   </div>
 
-  <div class="container">
-    <div class="left">Natija shu yerda chiqadi</div>
-    <div class="right">
-      <h3 id="welcome">Yuklanmoqda...</h3>
-      <textarea placeholder="Prompt yozing..."></textarea>
-      <button class="generate">Generate</button>
-    </div>
+<div class="container">
+
+  <div class="panel left">
+    Natija shu yerda chiqadi
+  </div>
+
+  <div class="panel right">
+    <h3 id="welcome">Yuklanmoqda...</h3>
+    <textarea placeholder="Prompt yozing..."></textarea>
+    <button class="generate">Generate</button>
+  </div>
+
+</div>
   </div>
 </body>
 </html>
