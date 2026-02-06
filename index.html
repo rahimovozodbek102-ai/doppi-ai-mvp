@@ -130,12 +130,30 @@
       .catch((e) => console.log(e.message));
 
     // TIL ALMASHTIRISH
-    window.setLang = (lang) => {
-      const title = document.getElementById("titleText");
-      if (lang === "uz") title.innerText = "DO‘PPI AI ga xush kelibsiz";
-      if (lang === "ru") title.innerText = "Добро пожаловать в DO‘PPI AI";
-      if (lang === "en") title.innerText = "Welcome to DO‘PPI AI";
-    };
+    window.setLang = function (lang) {
+  const title = document.getElementById("titleText");
+  const googleText = document.getElementById("googleText");
+
+  if (!title || !googleText) return;
+
+  if (lang === "uz") {
+    title.innerText = "DO‘PPI AI ga xush kelibsiz";
+    googleText.innerText = "Google bilan davom etish";
+  }
+
+  if (lang === "ru") {
+    title.innerText = "Добро пожаловать в DO‘PPI AI";
+    googleText.innerText = "Войти через Google";
+  }
+
+  if (lang === "en") {
+    title.innerText = "Welcome to DO‘PPI AI";
+    googleText.innerText = "Continue with Google";
+  }
+};
+window.onload = () => {
+  setLang("uz");
+};
   </script>
 </head>
 
@@ -152,15 +170,15 @@
 
     <!-- LANG -->
     <div class="lang-buttons">
-      <button onclick="setLang('uz')">UZ</button>
-      <button onclick="setLang('ru')">RU</button>
-      <button onclick="setLang('en')">ENG</button>
+  <button onclick="setLang('uz')">🇺🇿 UZ</button>
+  <button onclick="setLang('ru')">🇷🇺 RU</button>
+  <button onclick="setLang('en')">🇺🇸 ENG</button>
     </div>
 
     <!-- GOOGLE -->
     <button class="google" onclick="googleLogin()">
-      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
-      Google bilan davom etish
+  <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
+  <span id="googleText">Google bilan davom etish</span>
     </button>
 
   </div>
