@@ -41,14 +41,21 @@
     const auth = getAuth(app);
 
     // 🔥 FAQAT SHU YERDA LOGIN TEKSHIRILADI
-    onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        window.location.replace("/");
-      } else {
-        document.getElementById("welcome").innerText =
-          "Xush kelibsiz, " + (user.displayName || "User");
-      }
-    });
+    let checked = false;
+
+onAuthStateChanged(auth, (user) => {
+  if (checked) return;
+  checked = true;
+
+  if (!user) {
+    // ❗ login yo‘q → bosh sahifa
+    window.location.replace("/");
+  } else {
+    // ✅ login bor → generate ochiq qoladi
+    document.getElementById("welcome").innerText =
+      "Xush kelibsiz, " + (user.displayName || "User");
+  }
+});
 
     // 🚪 Logout
     window.logout = () => {
