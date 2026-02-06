@@ -88,6 +88,12 @@ here<!DOCTYPE html>
   width: 20px;
   height: 20px;
 } 
+    h1 {
+  color: #ffffff;
+  font-size: 28px;
+  margin-bottom: 24px;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+    }
   </style>
   <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
@@ -156,7 +162,7 @@ window.googleLogin = function () {
     alt="Google"
     class="google-icon"
   >
-  <span id="googleText"></span>
+  <span id="googleText">Continue with Google</span>
     </button>
 
   </div>
@@ -166,12 +172,13 @@ window.googleLogin = function () {
   const title = document.getElementById("welcomeText");
   const userName = document.getElementById("userName");
   const name = localStorage.getItem("userName") || "";
-
+  const googleText = document.getElementById("googleText");
   if (lang === "uz") {
     title.innerText = "DO‘PPI AI ga xush kelibsiz";
     userName.innerHTML =
       `Xush kelibsiz, <b>${name}</b>!<br>
        Siz DO‘PPI AI orqali rasm va video yasashingiz mumkin.`;
+    googleText.innerText = "Google bilan davom etish";
   }
 
   if (lang === "ru") {
@@ -179,6 +186,7 @@ window.googleLogin = function () {
     userName.innerHTML =
       `Добро пожаловать, <b>${name}</b>!<br>
        Вы можете создавать изображения и видео с DO‘PPI AI.`;
+    googleText.innerText = "Продолжить с Google";
   }
 
   if (lang === "en") {
@@ -186,6 +194,7 @@ window.googleLogin = function () {
     userName.innerHTML =
       `Welcome, <b>${name}</b>!<br>
        You can generate images and videos using DO‘PPI AI.`;
+    googleText.innerText = "Continue with Google";
   }
     }
   </script>
