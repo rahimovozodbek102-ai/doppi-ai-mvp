@@ -1,1 +1,160 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <title>DO'PPI AI — Generate</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1c0f2e, #2b1450);
+      color: white;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* HEADER */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px;
+      background: rgba(0,0,0,0.3);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: bold;
+      font-size: 18px;
+      color: #b48cff;
+    }
+
+    .logo img {
+      width: 36px;
+      height: 36px;
+    }
+
+    .user {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    /* MAIN */
+    .main {
+      flex: 1;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 100px;
+      border-radius: 12px;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    button {
+      background: #7c3aed;
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button.secondary {
+      background: rgba(255,255,255,0.15);
+    }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      padding: 12px;
+      font-size: 13px;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN CHECK -->
+  <script>
+    const userName = localStorage.getItem("userName");
+    if (!userName) {
+      window.location.href = "index.html";
+    }
+  </script>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo">
+      <img src="images/logo.png" alt="DO'PPI AI">
+      DO'PPI AI
+    </div>
+    <div class="user">
+      👤 <span id="userName"></span>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <div class="card">
+      <h2>🖼 Image Generation</h2>
+      <p style="margin: 8px 0 12px; opacity: 0.8;">
+        Prompt yozing (nima rasm chiqsin):
+      </p>
+      <textarea placeholder="Masalan: Anime style boy with doppi hat, cinematic light..."></textarea>
+
+      <div class="actions">
+        <button>Rasm yaratish</button>
+        <button class="secondary">Tozalash</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🎥 Video Generation (tez kunda)</h2>
+      <p style="opacity: 0.7;">Bu bo‘lim keyingi bosqichda qo‘shiladi.</p>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    © 2026 DO'PPI AI — MVP
+  </div>
+
+  <script>
+    document.getElementById("userName").innerText = userName;
+  </script>
+
+</body>
+</html>
