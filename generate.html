@@ -1,92 +1,53 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8">
-  <title>DO‘PPI AI – Generate</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>DO‘PPI AI – Generate</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    *{box-sizing:border-box;font-family:Arial,sans-serif}
-    body{margin:0;min-height:100vh;background:linear-gradient(135deg,#2b0f3a,#12001f);color:#fff}
-    .header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:rgba(0,0,0,.45)}
-    .logo{display:flex;align-items:center;gap:10px}
-    .logo img{width:34px}
-    .logo span{font-weight:bold;color:#b48cff}
-    .logout{background:#ff4d4d;border:none;padding:8px 14px;border-radius:8px;color:#fff;cursor:pointer}
-    .container{display:flex;gap:16px;padding:16px;max-width:1100px;margin:auto;flex-wrap:wrap}
-    .left,.right{background:rgba(0,0,0,.45);border-radius:16px;padding:16px}
-    .left{flex:1;min-height:300px;display:flex;align-items:center;justify-content:center}
-    .right{flex:1;min-width:280px}
-    textarea{width:100%;height:100px;border-radius:10px;border:none;padding:12px;margin-bottom:12px}
-    .toggle{display:flex;gap:10px;margin-bottom:12px}
-    .toggle button{flex:1;padding:10px;border-radius:10px;border:none;cursor:pointer;background:#7c3aed;color:#fff}
-    .toggle .active{background:#22c55e}
-    .generate{width:100%;margin-top:14px;padding:14px;border-radius:12px;border:none;background:#22c55e;color:#fff;font-size:16px}
-  </style>
+<style>
+body{margin:0;background:#12001f;color:#fff;font-family:Arial}
+h2{text-align:center;margin-top:40px}
+button{padding:10px 18px;border:none;border-radius:10px;cursor:pointer}
+</style>
 
-  <!-- 🔐 FIREBASE AUTH -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-    import {
-      getAuth,
-      onAuthStateChanged,
-      signOut
-    } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut }
+  from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyDrzhCYy4lXTl1rZZbdYhjnq-oCr0bR-Ds",
-      authDomain: "doppi-ai-mvp.firebaseapp.com",
-      projectId: "doppi-ai-mvp",
-      appId: "1:269700533804:web:328ebc557b8a97581e0b89"
-    };
+const firebaseConfig = {
+  apiKey: "AIzaSyDrzhCYy4lXTl1rZZbdYhjnq-oCr0bR-Ds",
+  authDomain: "doppi-ai-mvp.firebaseapp.com",
+  projectId: "doppi-ai-mvp",
+  appId: "1:269700533804:web:328ebc557b8a97581e0b89"
+};
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-    // 🔥 LOGIN MAJBURIY TEKSHIRUV
-    onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        window.location.replace("index.html");
-      } else {
-        const w = document.getElementById("welcome");
-        if (w) w.innerText = "Xush kelibsiz, " + (user.displayName || "User");
-      }
-    });
+// 🔥 FAQAT SHU YERDA TEKSHIRAMIZ
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    window.location.href = "index.html";
+  } else {
+    document.getElementById("name").innerText =
+      user.displayName || "User";
+  }
+});
 
-    // 🚪 LOGOUT
-    window.logout = () => {
-      signOut(auth).then(() => {
-        window.location.replace("index.html");
-      });
-    };
-  </script>
+window.logout = () => {
+  signOut(auth).then(() => {
+    window.location.href = "index.html";
+  });
+};
+</script>
 </head>
 
 <body>
-
-  <div class="header">
-    <div class="logo">
-      <img src="images/logo.png">
-      <span>DO‘PPI AI</span>
-    </div>
-    <button class="logout" onclick="logout()">Chiqish</button>
+  <h2>Xush kelibsiz, <span id="name">...</span></h2>
+  <div style="text-align:center">
+    <button onclick="logout()">Chiqish</button>
   </div>
-
-  <div class="container">
-    <div class="left">Natija shu yerda chiqadi</div>
-
-    <div class="right">
-      <h3 id="welcome">Yuklanmoqda...</h3>
-
-      <div class="toggle">
-        <button class="active">Rasm</button>
-        <button>Video</button>
-      </div>
-
-      <textarea placeholder="Prompt yozing..."></textarea>
-      <button class="generate">Generate</button>
-    </div>
-  </div>
-
 </body>
 </html>
