@@ -83,6 +83,35 @@ textarea{
   color:#fff;cursor:pointer
 }
 .option-btn.active{background:#7C3AED}
+  /* ===== MOBILE SODDA LAYOUT ===== */
+@media (max-width: 768px) {
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 14px;
+  }
+
+  .panel {
+    width: 100%;
+    border-radius: 18px;
+    padding: 16px;
+  }
+
+  .panel.left,
+  .panel.right {
+    order: unset;
+  }
+
+  .panel.left {
+    gap: 12px;
+  }
+
+  .result-area {
+    min-height: 140px;
+  }
+}
 </style>
 
 <!-- FIREBASE AUTH -->
