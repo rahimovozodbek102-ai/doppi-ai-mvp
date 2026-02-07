@@ -127,9 +127,10 @@ textarea{
 
   <div class="user-box">
     <div class="user-avatar" id="userAvatar">👤</div>
+
     <div class="user-menu" id="userMenu">
-      <p id="userName">Xush kelibsiz, User</p>
-      <button>Logout</button>
+      <p id="welcomeText">Xush kelibsiz</p>
+      <button id="logoutBtn">Logout</button>
     </div>
   </div>
 </div>
@@ -222,9 +223,19 @@ textarea{
 
 <script>
 /* USER MENU */
-const avatar=document.getElementById("userAvatar");
-const menu=document.getElementById("userMenu");
-avatar.onclick=()=>menu.style.display=menu.style.display==="block"?"none":"block";
+<script>
+const avatar = document.getElementById("userAvatar");
+const menu = document.getElementById("userMenu");
+
+avatar.addEventListener("click", (e) => {
+  e.stopPropagation();
+  menu.style.display = menu.style.display === "block" ? "none" : "block";
+});
+
+document.addEventListener("click", () => {
+  menu.style.display = "none";
+});
+</script>
 
 /* TYPE SWITCH */
 const typeBtns=document.querySelectorAll(".type-btn");
