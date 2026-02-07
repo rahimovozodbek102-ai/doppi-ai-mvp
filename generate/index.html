@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+Enter<!DOCTYPE html>
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
@@ -14,13 +14,13 @@ body{
   color:#fff
 }
 
-/* ===== HEADER ===== */
+/* HEADER */
 .header{
   height:64px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 18px;
+  padding:0 16px;
   background:rgba(15,5,25,.85);
   backdrop-filter:blur(8px);
   position:sticky;
@@ -31,153 +31,149 @@ body{
 .logo img{width:36px}
 .logo span{font-size:20px;font-weight:700;color:#7C3AED}
 
-/* ===== USER MENU ===== */
+/* USER */
 .user-box{position:relative}
-.user-avatar{
-  width:38px;height:38px;
+.avatar{
+  width:36px;height:36px;
   border-radius:50%;
-  background:linear-gradient(135deg,#7C3AED,#A855F7);
+  background:#7C3AED;
   display:flex;align-items:center;justify-content:center;
   cursor:pointer;
-  box-shadow:0 0 12px rgba(124,58,237,.8)
 }
-.user-menu{
+.menu{
   position:absolute;
-  right:0;
-  top:48px;
-  background:rgba(20,10,40,.95);
-  border:1px solid #7C3AED;
-  border-radius:14px;
-  padding:12px;
-  width:180px;
+  right:0;top:46px;
+  background:#1a0d2d;
+  border-radius:12px;
+  padding:10px;
   display:none;
-  box-shadow:0 0 20px rgba(124,58,237,.6)
 }
-.user-menu p{margin:0 0 10px;font-size:14px}
-.user-menu button{
+.menu button{
   width:100%;
-  padding:8px;
-  border:none;
-  border-radius:8px;
   background:#7C3AED;
+  border:none;
+  padding:8px;
+  border-radius:8px;
   color:#fff;
-  cursor:pointer
+  cursor:pointer;
 }
 
-/* ===== TYPE ===== */
+/* TYPE */
 .type-selector{
   display:flex;justify-content:center;
   gap:20px;margin:18px 0
 }
 .type-btn{
-  padding:12px 30px;border-radius:999px;
+  padding:12px 30px;
+  border-radius:999px;
   border:1px solid #7C3AED;
   background:rgba(20,10,40,.7);
-  color:#fff;font-size:16px;cursor:pointer
+  color:#fff;
+  cursor:pointer
 }
 .type-btn.active{
   background:#7C3AED;
-  box-shadow:0 0 22px rgba(124,58,237,.85)
+  box-shadow:0 0 18px rgba(124,58,237,.8)
 }
 
-/* ===== MAIN ===== */
+/* MAIN */
 .container{
-  max-width:1100px;margin:0 auto;padding:16px;
-  display:flex;gap:20px
+  max-width:1100px;
+  margin:0 auto;
+  padding:16px;
+  display:flex;
+  gap:20px
 }
 .panel{
   background:rgba(20,10,30,.75);
-  border-radius:18px;padding:18px
+  border-radius:18px;
+  padding:18px
 }
 .panel.left{flex:1;display:flex;flex-direction:column;gap:14px}
 .panel.right{flex:1}
 
-.result-area{
-  min-height:180px;border-radius:14px;
+/* RESULT */
+.result-box{
+  min-height:180px;
+  border-radius:14px;
   background:rgba(0,0,0,.25);
-  display:flex;align-items:center;justify-content:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   color:#aaa
 }
 
 /* UPLOAD */
 .upload-area{
   border:2px dashed rgba(124,58,237,.6);
-  border-radius:14px;padding:18px;
-  text-align:center;cursor:pointer
+  border-radius:14px;
+  padding:18px;
+  text-align:center;
+  cursor:pointer
 }
 
 textarea{
-  width:100%;height:100px;border-radius:10px;
-  border:none;padding:12px;margin-bottom:12px
+  width:100%;
+  height:100px;
+  border-radius:10px;
+  border:none;
+  padding:12px;
+  margin-bottom:12px
 }
 
 .generate{
-  width:100%;padding:14px;border-radius:12px;
-  border:none;background:#7C3AED;color:#fff;
-  font-size:16px;cursor:pointer
+  width:100%;
+  padding:14px;
+  border-radius:12px;
+  border:none;
+  background:#7C3AED;
+  color:#fff;
+  font-size:16px;
+  cursor:pointer
 }
 
 /* OPTIONS */
 .option-panel{display:none;margin-bottom:12px}
 .option-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:8px
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px
 }
 .option-btn{
-  padding:8px;border-radius:10px;
+  padding:8px;
+  border-radius:10px;
   border:1px solid #7C3AED;
   background:rgba(20,10,40,.6);
-  color:#fff;cursor:pointer
+  color:#fff;
+  cursor:pointer
 }
-.option-btn.active{background:#7C3AED}
+.option-btn.active{
+  background:#7C3AED;
+  box-shadow:0 0 10px rgba(124,58,237,.8)
+}
 
-/* ===== MOBILE ===== */
+/* MOBILE */
 @media(max-width:768px){
   .container{flex-direction:column}
+  .panel.right{display:flex;flex-direction:column}
+  .generate{order:1}
+  .result-box{order:2;margin-top:14px}
 }
 </style>
-
-<!-- ===== FIREBASE AUTH ===== -->
-<script type="module">
-import {initializeApp} from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-import {getAuth,onAuthStateChanged,signOut} from
-"https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
-
-const firebaseConfig={
-  apiKey:"AIzaSyDrzhCYy4lXTl1rZZbdYhjnq-oCr0bR-Ds",
-  authDomain:"doppi-ai-mvp.firebaseapp.com",
-  projectId:"doppi-ai-mvp",
-  appId:"1:269700533804:web:328ebc557b8a97581e0b89"
-};
-
-const app=initializeApp(firebaseConfig);
-const auth=getAuth(app);
-
-onAuthStateChanged(auth,user=>{
-  if(!user) window.location.href="/";
-  document.getElementById("welcomeText").innerText =
-    "Xush kelibsiz, " + (user?.displayName || "User");
-  document.getElementById("menuUserName").innerText =
-    user?.displayName || "User";
-});
-
-window.logout=()=>signOut(auth).then(()=>location.href="/");
-</script>
 </head>
 
 <body>
 
-<!-- ===== HEADER ===== -->
+<!-- HEADER -->
 <div class="header">
   <div class="logo">
     <img src="/images/logo.png">
     <span>DO‘PPI AI</span>
   </div>
-
   <div class="user-box">
-    <div class="user-avatar" id="avatarBtn">👤</div>
-    <div class="user-menu" id="userMenu">
-      <p id="menuUserName">User</p>
-      <button onclick="logout()">Logout</button>
+    <div class="avatar" onclick="toggleMenu()">👤</div>
+    <div class="menu" id="userMenu">
+      <button>Logout</button>
     </div>
   </div>
 </div>
@@ -192,39 +188,40 @@ window.logout=()=>signOut(auth).then(()=>location.href="/");
 
 <!-- LEFT -->
 <div class="panel left">
-
-  <div class="upload-box" id="videoUpload" style="display:none;">
-    <label class="upload-area">
-      <input type="file" id="videoImageInput" accept="image/*" hidden>
-      <span>📤 Video uchun rasm yuklang</span>
-    </label>
+  <div class="upload-area" id="uploadBox" style="display:none;">
+    <input type="file" id="imageInput" hidden>
+    Rasm yuklang
   </div>
 
-  <div class="result-area" id="imagePreview">Rasm preview</div>
-  <div class="result-area" id="videoResult" style="display:none;">Video natija</div>
-
+  <div class="result-box" id="resultBox">
+    Natija shu yerda
+  </div>
 </div>
 
 <!-- RIGHT -->
 <div class="panel right">
 
-<h3 id="welcomeText">Xush kelibsiz, User</h3>
-
+<b>Xush kelibsiz, User</b>
 <textarea placeholder="Prompt yozing..."></textarea>
 
-<div class="option-panel ratio-panel" data-for="photo video">
+<div class="option-panel" data-for="photo video">
   <b>Ratio</b>
   <div class="option-grid">
     <button class="option-btn">1:1</button>
     <button class="option-btn">4:5</button>
-    <button class="option-btn">3:2</button>
     <button class="option-btn">16:9</button>
-    <button class="option-btn">9:16</button>
-    <button class="option-btn">21:9</button>
   </div>
 </div>
 
-<div class="option-panel duration-panel" data-for="video">
+<div class="option-panel" data-for="photo">
+  <b>Style</b>
+  <div class="option-grid">
+    <button class="option-btn">Anime</button>
+    <button class="option-btn">Realistic</button>
+  </div>
+</div>
+
+<div class="option-panel" data-for="video">
   <b>Duration</b>
   <div class="option-grid">
     <button class="option-btn">5s</button>
@@ -238,51 +235,44 @@ window.logout=()=>signOut(auth).then(()=>location.href="/");
 </div>
 
 <script>
-/* USER MENU TOGGLE */
-const avatar=document.getElementById("avatarBtn");
-const menu=document.getElementById("userMenu");
-avatar.onclick=()=>menu.style.display=menu.style.display==="block"?"none":"block";
-document.addEventListener("click",e=>{
-  if(!avatar.contains(e.target)&&!menu.contains(e.target))
-    menu.style.display="none";
-});
+/* USER MENU */
+function toggleMenu(){
+  const m=document.getElementById("userMenu");
+  m.style.display=m.style.display==="block"?"none":"block";
+}
 
 /* TYPE SWITCH */
 const typeBtns=document.querySelectorAll(".type-btn");
-const panels=document.querySelectorAll(".option-panel");
-const upload=document.getElementById("videoUpload");
-const img=document.getElementById("imagePreview");
-const vid=document.getElementById("videoResult");
+const optionPanels=document.querySelectorAll(".option-panel");
+const uploadBox=document.getElementById("uploadBox");
 
-function switchType(t){
-  panels.forEach(p=>p.style.display=p.dataset.for.includes(t)?"block":"none");
-  upload.style.display=t==="video"?"block":"none";
-  img.style.display=t==="video"?"flex":"none";
-  vid.style.display="none";
-}
-typeBtns.forEach(b=>{
-  b.onclick=()=>{
-    typeBtns.forEach(x=>x.classList.remove("active"));
-    b.classList.add("active");
-    switchType(b.dataset.type);
+typeBtns.forEach(btn=>{
+  btn.onclick=()=>{
+    typeBtns.forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    const type=btn.dataset.type;
+
+    optionPanels.forEach(p=>{
+      p.style.display=p.dataset.for.includes(type)?"block":"none";
+    });
+    uploadBox.style.display=type==="video"?"block":"none";
   }
 });
-switchType("photo");
 
-/* IMAGE PREVIEW */
-videoImageInput.onchange=e=>{
-  const f=e.target.files[0]; if(!f)return;
-  const r=new FileReader();
-  r.onload=()=>img.innerHTML=`<img src="${r.result}" style="width:100%;border-radius:14px">`;
-  r.readAsDataURL(f);
-};
+/* OPTION ACTIVE */
+document.querySelectorAll(".option-btn").forEach(b=>{
+  b.onclick=()=>{
+    b.parentElement.querySelectorAll(".option-btn").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");
+  }
+});
 
-/* FAKE VIDEO */
+/* FAKE GENERATE */
 document.querySelector(".generate").onclick=()=>{
-  if(!document.querySelector(".type-btn.active").dataset.type==="video")return;
-  vid.style.display="flex";
-  vid.innerHTML=`<video controls autoplay loop style="width:100%;border-radius:14px">
-  <source src="https://www.w3schools.com/html/mov_bbb.mp4"></video>`;
+  document.getElementById("resultBox").innerHTML=
+  `<video controls autoplay loop style="width:100%;border-radius:14px">
+    <source src="https://www.w3schools.com/html/mov_bbb.mp4">
+  </video>`;
 };
 </script>
 
