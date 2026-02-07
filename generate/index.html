@@ -299,9 +299,27 @@
     <button class="type-btn" data-type="video">🎥 Video</button>
   </div>
   <div class="container">
-  <div class="panel left">
+<div class="panel left">
+
+  <!-- VIDEO UPLOAD (faqat video rejimda ko‘rinadi) -->
+  <div class="upload-box" id="videoUpload" style="display:none;">
+    <label class="upload-area">
+      <input type="file" accept="image/*" hidden>
+      <span>📤 Rasm yuklang (video uchun)</span>
+    </label>
+
+    <!-- Preview -->
+    <div class="upload-preview" id="uploadPreview" style="display:none;">
+      <img src="" alt="preview">
+    </div>
+  </div>
+
+  <!-- RESULT AREA -->
+  <div class="result-area" id="resultArea">
     Natija shu yerda chiqadi
   </div>
+
+</div>
 
   <div class="panel right">
     <h3 id="welcome">Yuklanmoqda...</h3>
