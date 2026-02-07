@@ -14,23 +14,65 @@ body{
   color:#fff
 }
 
-/* HEADER */
+/* ===== HEADER ===== */
 .header{
-  height:64px;display:flex;align-items:center;justify-content:space-between;
-  padding:0 18px;background:rgba(15,5,25,.85);
-  backdrop-filter:blur(8px);position:sticky;top:0;z-index:10
+  height:64px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 18px;
+  background:rgba(15,5,25,.85);
+  backdrop-filter:blur(8px);
+  position:sticky;
+  top:0;
+  z-index:10
 }
 .logo{display:flex;align-items:center;gap:10px}
 .logo img{width:36px}
 .logo span{font-size:20px;font-weight:700;color:#7C3AED}
 
-/* TYPE */
+/* ===== USER MENU ===== */
+.user-box{position:relative}
+.user-avatar{
+  width:38px;height:38px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#7C3AED,#A855F7);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  box-shadow:0 0 12px rgba(124,58,237,.8)
+}
+.user-menu{
+  position:absolute;
+  right:0;
+  top:48px;
+  background:rgba(20,10,40,.95);
+  border:1px solid #7C3AED;
+  border-radius:14px;
+  padding:12px;
+  width:180px;
+  display:none;
+  box-shadow:0 0 20px rgba(124,58,237,.6)
+}
+.user-menu p{margin:0 0 10px;font-size:14px}
+.user-menu button{
+  width:100%;
+  padding:8px;
+  border:none;
+  border-radius:8px;
+  background:#7C3AED;
+  color:#fff;
+  cursor:pointer
+}
+
+/* ===== TYPE ===== */
 .type-selector{
-  display:flex;justify-content:center;gap:20px;margin:18px 0
+  display:flex;justify-content:center;
+  gap:20px;margin:18px 0
 }
 .type-btn{
   padding:12px 30px;border-radius:999px;
-  border:1px solid #7C3AED;background:rgba(20,10,40,.7);
+  border:1px solid #7C3AED;
+  background:rgba(20,10,40,.7);
   color:#fff;font-size:16px;cursor:pointer
 }
 .type-btn.active{
@@ -38,7 +80,7 @@ body{
   box-shadow:0 0 22px rgba(124,58,237,.85)
 }
 
-/* MAIN */
+/* ===== MAIN ===== */
 .container{
   max-width:1100px;margin:0 auto;padding:16px;
   display:flex;gap:20px
@@ -50,7 +92,7 @@ body{
 .panel.left{flex:1;display:flex;flex-direction:column;gap:14px}
 .panel.right{flex:1}
 
-.result{
+.result-area{
   min-height:180px;border-radius:14px;
   background:rgba(0,0,0,.25);
   display:flex;align-items:center;justify-content:center;
@@ -60,7 +102,8 @@ body{
 /* UPLOAD */
 .upload-area{
   border:2px dashed rgba(124,58,237,.6);
-  border-radius:14px;padding:18px;text-align:center;cursor:pointer
+  border-radius:14px;padding:18px;
+  text-align:center;cursor:pointer
 }
 
 textarea{
@@ -76,63 +119,28 @@ textarea{
 
 /* OPTIONS */
 .option-panel{display:none;margin-bottom:12px}
-.option-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.option-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:8px
+}
 .option-btn{
   padding:8px;border-radius:10px;
-  border:1px solid #7C3AED;background:rgba(20,10,40,.6);
+  border:1px solid #7C3AED;
+  background:rgba(20,10,40,.6);
   color:#fff;cursor:pointer
 }
 .option-btn.active{background:#7C3AED}
-  /* ===== MOBILE SODDA LAYOUT ===== */
-@media (max-width: 768px) {
 
-  .container {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 0 14px;
-  }
-
-  .panel {
-    width: 100%;
-    border-radius: 18px;
-    padding: 16px;
-  }
-
-  .panel.left,
-  .panel.right {
-    order: unset;
-  }
-
-  .panel.left {
-    gap: 12px;
-  }
-
-  .result-area {
-    min-height: 140px;
-  }
+/* ===== MOBILE ===== */
+@media(max-width:768px){
+  .container{flex-direction:column}
 }
-  @media (max-width: 768px) {
-
-  #imagePreview,
-  #videoResult {
-    height: 220px;
-    flex: none;
-  }
-
-  #imagePreview img,
-  #videoResult video {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-  }
 </style>
 
-<!-- FIREBASE AUTH -->
+<!-- ===== FIREBASE AUTH ===== -->
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-import {getAuth,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+import {getAuth,onAuthStateChanged,signOut} from
+"https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
 const firebaseConfig={
   apiKey:"AIzaSyDrzhCYy4lXTl1rZZbdYhjnq-oCr0bR-Ds",
@@ -140,24 +148,41 @@ const firebaseConfig={
   projectId:"doppi-ai-mvp",
   appId:"1:269700533804:web:328ebc557b8a97581e0b89"
 };
+
 const app=initializeApp(firebaseConfig);
 const auth=getAuth(app);
 
 onAuthStateChanged(auth,user=>{
   if(!user) window.location.href="/";
+  document.getElementById("welcomeText").innerText =
+    "Xush kelibsiz, " + (user?.displayName || "User");
+  document.getElementById("menuUserName").innerText =
+    user?.displayName || "User";
 });
+
+window.logout=()=>signOut(auth).then(()=>location.href="/");
 </script>
 </head>
 
 <body>
 
+<!-- ===== HEADER ===== -->
 <div class="header">
   <div class="logo">
     <img src="/images/logo.png">
     <span>DO‘PPI AI</span>
   </div>
+
+  <div class="user-box">
+    <div class="user-avatar" id="avatarBtn">👤</div>
+    <div class="user-menu" id="userMenu">
+      <p id="menuUserName">User</p>
+      <button onclick="logout()">Logout</button>
+    </div>
+  </div>
 </div>
 
+<!-- TYPE -->
 <div class="type-selector">
   <button class="type-btn active" data-type="photo">📸 Photo</button>
   <button class="type-btn" data-type="video">🎥 Video</button>
@@ -168,27 +193,22 @@ onAuthStateChanged(auth,user=>{
 <!-- LEFT -->
 <div class="panel left">
 
-  <!-- 1️⃣ IMAGE UPLOAD -->
   <div class="upload-box" id="videoUpload" style="display:none;">
     <label class="upload-area">
-      <input
-        type="file"
-        id="videoImageInput"
-        accept="image/*"
-        hidden
-      >
+      <input type="file" id="videoImageInput" accept="image/*" hidden>
       <span>📤 Video uchun rasm yuklang</span>
     </label>
   </div>
 
-  <!-- 2️⃣ IMAGE PREVIEW -->
-  <div class="result-area" id="imagePreview">
-    Rasm preview
-  </div>
+  <div class="result-area" id="imagePreview">Rasm preview</div>
+  <div class="result-area" id="videoResult" style="display:none;">Video natija</div>
 
 </div>
+
 <!-- RIGHT -->
 <div class="panel right">
+
+<h3 id="welcomeText">Xush kelibsiz, User</h3>
 
 <textarea placeholder="Prompt yozing..."></textarea>
 
@@ -201,25 +221,6 @@ onAuthStateChanged(auth,user=>{
     <button class="option-btn">16:9</button>
     <button class="option-btn">9:16</button>
     <button class="option-btn">21:9</button>
-  </div>
-</div>
-<!-- 3️⃣ VIDEO RESULT (PASTDA, GENERATE OSTIDA) -->
-<div class="container">
-  <div class="panel left">
-    <div class="result-area" id="videoResult">
-      Video natija
-    </div>
-  </div>
-</div>
-<div class="option-panel style-panel" data-for="photo">
-  <b>Style</b>
-  <div class="option-grid">
-    <button class="option-btn">Anime</button>
-    <button class="option-btn">Realistic</button>
-    <button class="option-btn">Cinematic</button>
-    <button class="option-btn">Illustration</button>
-    <button class="option-btn">Dark</button>
-    <button class="option-btn">Rationiy</button>
   </div>
 </div>
 
@@ -237,27 +238,28 @@ onAuthStateChanged(auth,user=>{
 </div>
 
 <script>
+/* USER MENU TOGGLE */
+const avatar=document.getElementById("avatarBtn");
+const menu=document.getElementById("userMenu");
+avatar.onclick=()=>menu.style.display=menu.style.display==="block"?"none":"block";
+document.addEventListener("click",e=>{
+  if(!avatar.contains(e.target)&&!menu.contains(e.target))
+    menu.style.display="none";
+});
+
+/* TYPE SWITCH */
 const typeBtns=document.querySelectorAll(".type-btn");
 const panels=document.querySelectorAll(".option-panel");
-const uploadBox=document.getElementById("uploadBox");
-const imgPrev=document.getElementById("imagePreview");
-const vidRes=document.getElementById("videoResult");
+const upload=document.getElementById("videoUpload");
+const img=document.getElementById("imagePreview");
+const vid=document.getElementById("videoResult");
 
-function switchType(type){
-  panels.forEach(p=>{
-    p.style.display=p.dataset.for.includes(type)?"block":"none";
-  });
-  if(type==="video"){
-    uploadBox.style.display="block";
-    imgPrev.style.display="flex";
-    vidRes.style.display="flex";
-  }else{
-    uploadBox.style.display="none";
-    imgPrev.style.display="none";
-    vidRes.style.display="none";
-  }
+function switchType(t){
+  panels.forEach(p=>p.style.display=p.dataset.for.includes(t)?"block":"none");
+  upload.style.display=t==="video"?"block":"none";
+  img.style.display=t==="video"?"flex":"none";
+  vid.style.display="none";
 }
-
 typeBtns.forEach(b=>{
   b.onclick=()=>{
     typeBtns.forEach(x=>x.classList.remove("active"));
@@ -265,20 +267,21 @@ typeBtns.forEach(b=>{
     switchType(b.dataset.type);
   }
 });
-
 switchType("photo");
 
 /* IMAGE PREVIEW */
-document.getElementById("videoImageInput").onchange=e=>{
-  const f=e.target.files[0]; if(!f) return;
+videoImageInput.onchange=e=>{
+  const f=e.target.files[0]; if(!f)return;
   const r=new FileReader();
-  r.onload=()=>imgPrev.innerHTML=`<img src="${r.result}" style="width:100%;max-height:260px;object-fit:contain;border-radius:14px">`;
+  r.onload=()=>img.innerHTML=`<img src="${r.result}" style="width:100%;border-radius:14px">`;
   r.readAsDataURL(f);
 };
 
-/* FAKE VIDEO RESULT */
+/* FAKE VIDEO */
 document.querySelector(".generate").onclick=()=>{
-  vidRes.innerHTML=`<video controls autoplay loop style="width:100%;border-radius:14px">
+  if(!document.querySelector(".type-btn.active").dataset.type==="video")return;
+  vid.style.display="flex";
+  vid.innerHTML=`<video controls autoplay loop style="width:100%;border-radius:14px">
   <source src="https://www.w3schools.com/html/mov_bbb.mp4"></video>`;
 };
 </script>
