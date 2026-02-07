@@ -235,14 +235,14 @@
       menu.style.display === "block" ? "none" : "block";
   }
 
-  // Tashqariga bossang yopilsin
   document.addEventListener("click", function (e) {
-    const acc = document.querySelector(".account");
-    if (!acc.contains(e.target)) {
-      document.getElementById("accountMenu").style.display = "none";
+    const account = document.querySelector(".account");
+    const menu = document.getElementById("accountMenu");
+
+    if (!account.contains(e.target)) {
+      menu.style.display = "none";
     }
   });
 </script>
-
 </body>
 </html>
