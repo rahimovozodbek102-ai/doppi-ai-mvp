@@ -123,14 +123,26 @@
     }
 
     .panel.left {
-      flex: 1;
-      min-height: 300px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      order: 1;
-    }
-
+  flex: 1;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;      /* 🔑 MUHIM */
+  gap: 14px;                   /* upload va natija oralig‘i */
+  align-items: stretch;        /* kenglikni to‘liq oladi */
+  justify-content: flex-start; /* yuqoridan boshlanadi */
+  order: 1;
+} 
+    .result-area {
+  flex: 1;                     /* panel ichida joy egallasin */
+  min-height: 180px;           /* 🔑 ENG MUHIMI */
+  border-radius: 14px;
+  background: rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #bbb;
+  font-size: 14px;
+} 
     .panel.right {
       flex: 1;
       min-width: 280px;
