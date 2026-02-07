@@ -1,9 +1,4 @@
-<style.generate:hover {
-  background: #8B5CF6;
-  box-shadow:
-    0 0 12px rgba(124,58,237,0.8),
-    0 0 30px rgba(124,58,237,0.5);
-}YPE html>
+<!DOCTYPE html>
 <html lang="uz">
 <head>
   <meta charset="UTF-8" />
@@ -11,175 +6,216 @@
   <title>DO‘PPI AI – Generate</title>
 
   <style>
-    *{box-sizing:border-box;font-family:Arial,sans-serif}
-   body{
-  margin:0;
-  min-height:100vh;
-  background:
-    linear-gradient(rgba(8,3,20,0.55), rgba(8,3,20,0.55)),
-    url("../images/bg.png") no-repeat center center / cover;
-     background-attachment: fixed;
-  color:#fff;
-   }
-   .header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:14px 18px;
-  background:rgba(15, 5, 25, 0.85);
-  backdrop-filter: blur(8px);
-  position:sticky;
-  top:0;
-  z-index:10;
-} 
-    .logo{display:flex;gap:10px;align-items:center}
+    * { box-sizing: border-box; font-family: Arial, sans-serif; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        linear-gradient(rgba(8,3,20,0.55), rgba(8,3,20,0.55)),
+        url("../images/bg.png") no-repeat center center / cover;
+      background-attachment: fixed;
+      color: #fff;
+    }
+
+    /* ===== HEADER ===== */
+    .header {
+      min-height: 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 18px;
+      background: rgba(15,5,25,0.85);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
     .logo img {
-  width: 48px;   /* 👈 logo kattalashdi */
-  height: auto;
-}
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
 
-.logo span {
-  font-weight: 700;
-  font-size: 20px;   /* 👈 DO‘PPI AI kattaroq */
-  color: #b48cff;
-} 
-    .logout{background:#ff4d4d;border:none;padding:8px 14px;border-radius:8px;color:#fff;cursor:pointer}
-    .container{
-  display:flex;
-  gap:20px;
-  max-width:1100px;
-  margin:80px auto 0 auto;
-  padding:0 16px;
-} 
-  .panel{
-  background: rgba(20,10,30,0.75);
-  border-radius:18px;
-  padding:18px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.45);
-} 
-    .left{flex:1;min-height:300px;display:flex;align-items:center;justify-content:center}
-    .right{flex:1;min-width:280px}
-    textarea{width:100%;height:100px;border-radius:10px;border:none;padding:12px;margin-bottom:12px}
+    .logo span {
+      font-size: 20px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* ===== ACCOUNT ===== */
+    .account {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7C3AED, #A855F7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 0 12px rgba(124,58,237,0.9);
+    }
+
+    .menu {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 8px);
+      background: rgba(20,10,40,0.95);
+      border: 1px solid #7C3AED;
+      border-radius: 14px;
+      padding: 14px;
+      width: 180px;
+      display: none;
+      z-index: 999;
+      box-shadow: 0 0 25px rgba(124,58,237,0.6);
+    }
+
+    .menu p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .menu hr {
+      border: none;
+      height: 1px;
+      background: #7C3AED;
+      margin: 8px 0;
+    }
+
+    .menu button {
+      width: 100%;
+      background: #7C3AED;
+      border: none;
+      padding: 8px;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* ===== MAIN ===== */
+    .container {
+      display: flex;
+      gap: 20px;
+      max-width: 1100px;
+      margin: 80px auto 0;
+      padding: 0 16px;
+    }
+
+    .panel {
+      background: rgba(20,10,30,0.75);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+    }
+
+    .panel.left {
+      flex: 1;
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      order: 1;
+    }
+
+    .panel.right {
+      flex: 1;
+      min-width: 280px;
+      order: 2;
+    }
+
+    textarea {
+      width: 100%;
+      height: 100px;
+      border-radius: 10px;
+      border: none;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+
     .generate {
-  width: 100%;
-  margin-top: 14px;
-  padding: 14px;
-  border-radius: 12px;
-  border: none;
-  font-size: 16px;
-  background: #7C3AED;        /* 👈 ASOSIY PURPLE */
-  color: white;
-  cursor: pointer;
-  transition: 0.25s;
-} 
-/* ACCOUNT */
-.account {
-  position: relative;
-}
-.avatar {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #7C3AED, #A855F7);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  cursor: pointer;
-  box-shadow: 0 0 12px rgba(124,58,237,0.9);
-} 
-  .menu {
-  position: absolute;
-  right: 0;
-  top: 52px;
-  background: rgba(20,10,40,0.95);
-  border: 1px solid #7C3AED;
-  border-radius: 14px;
-  padding: 14px;
-  width: 180px;
-  display: none;
-  z-index: 999;
-  box-shadow: 0 0 25px rgba(124,58,237,0.6);
-  }  
+      width: 100%;
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      font-size: 16px;
+      background: #7C3AED;
+      color: white;
+      cursor: pointer;
+      transition: 0.25s;
+    }
 
-.menu p {
-  margin: 0;
-  font-size: 14px;
-  color: #fff;
-}
+    .generate:hover {
+      background: #8B5CF6;
+      box-shadow:
+        0 0 12px rgba(124,58,237,0.8),
+        0 0 30px rgba(124,58,237,0.5);
+    }
 
-.menu hr {
-  border: none;
-  height: 1px;
-  background: #7C3AED;
-  margin: 8px 0;
-}
+    /* ===== MOBILE ===== */
+    @media (max-width: 768px) {
 
-.menu button {
-  width: 100%;
-  background: #7C3AED;
-  border: none;
-  padding: 8px;
-  border-radius: 8px;
-  color: white;
-  cursor: pointer;
-}
-    /* ===== DESKTOP DEFAULT (DO NOT TOUCH) ===== */
-.container {
-  display: flex;
-  gap: 20px;
-  max-width: 1100px; 
-  margin: 80px auto 0; 
-}
+      .header {
+        padding: 10px 12px;
+      }
 
-.panel.left {
-  order: 1;   /* natija chapda */
-}
+      .logo img {
+        width: 32px;
+        height: 32px;
+      }
 
-.panel.right {
-  order: 2;  /* prompt o‘ngda */
-}
-/* ==== MOBILE LAYOUT ==== */
-@media (max-width: 768px) {
+      .logo span {
+        font-size: 17px;
+      }
 
-  .container {
-    flex-direction: column;
-    padding-top: 20px;
-  }
+      .avatar {
+        width: 32px;
+        height: 32px;
+      }
 
-  .panel.right {
-    order: 1;
-  }
+      .container {
+        flex-direction: column;
+        margin-top: 60px;
+        gap: 16px;
+      }
 
-  .panel.left {
-    order: 2;
-    margin-top: 16px;
-  }
+      .panel.right {
+        order: 1;
+      }
 
-  .panel.right h3 {
-    text-align: center;
-  }
+      .panel.left {
+        order: 2;
+        min-height: 220px;
+      }
 
-  textarea {
-    height: 120px;
-  }
+      textarea {
+        height: 110px;
+        font-size: 14px;
+      }
 
-  .generate {
-    font-size: 18px;
-    padding: 16px;
-  }
-}
+      .generate {
+        font-size: 17px;
+      }
+    }
   </style>
 
-  <!-- 🔐 FIREBASE AUTH GUARD -->
+  <!-- 🔐 FIREBASE AUTH -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-    import {
-      getAuth,
-      onAuthStateChanged,
-      signOut
-    } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDrzhCYy4lXTl1rZZbdYhjnq-oCr0bR-Ds",
@@ -191,7 +227,6 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    // 🔥 YAGONA TEKSHIRUV (LOOP YO‘Q)
     onAuthStateChanged(auth, (user) => {
       if (!user) {
         window.location.href = "/";
@@ -199,66 +234,60 @@
         document.getElementById("welcome").innerText =
           "Xush kelibsiz, " + (user.displayName || "User");
         document.getElementById("userName").innerText =
-        user.displayName || "User";
-
+          user.displayName || "User";
       }
     });
 
     window.logout = () => {
-      signOut(auth).then(() => {
-        window.location.href = "/";
-      });
+      signOut(auth).then(() => window.location.href = "/");
     };
   </script>
 </head>
 
 <body>
+
   <div class="header">
-  <div class="logo">
-    <img src="/images/logo.png">
-    <span>DO‘PPI AI</span>
+    <div class="logo">
+      <img src="/images/logo.png">
+      <span>DO‘PPI AI</span>
+    </div>
+
+    <div class="account">
+      <div class="avatar" onclick="toggleMenu()"></div>
+      <div class="menu" id="accountMenu">
+        <p id="userName">User</p>
+        <hr>
+        <button onclick="logout()">Logout</button>
+      </div>
+    </div>
   </div>
 
-  <!-- ACCOUNT -->
-  <div class="account">
-  <div class="avatar" onclick="toggleMenu()"></div>
+  <div class="container">
+    <div class="panel left">
+      Natija shu yerda chiqadi
+    </div>
 
-  <div class="menu" id="accountMenu" style="display:none;">
-    <p id="userName">User</p>
-    <hr>
-    <button onclick="logout()">Logout</button>
-  </div>
-  </div>
-
-<div class="container">
-
-  <div class="panel left">
-    Natija shu yerda chiqadi
+    <div class="panel right">
+      <h3 id="welcome">Yuklanmoqda...</h3>
+      <textarea placeholder="Prompt yozing..."></textarea>
+      <button class="generate">Generate</button>
+    </div>
   </div>
 
-  <div class="panel right">
-    <h3 id="welcome">Yuklanmoqda...</h3>
-    <textarea placeholder="Prompt yozing..."></textarea>
-    <button class="generate">Generate</button>
-  </div>
-
-</div>
-  </div>
-<script>
-  function toggleMenu() {
-    const menu = document.getElementById("accountMenu");
-    menu.style.display =
-      menu.style.display === "block" ? "none" : "block";
-  }
-
-  document.addEventListener("click", function (e) {
-    const account = document.querySelector(".account");
-    const menu = document.getElementById("accountMenu");
-
-    if (!account.contains(e.target)) {
-      menu.style.display = "none";
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById("accountMenu");
+      menu.style.display = menu.style.display === "block" ? "none" : "block";
     }
-  });
-</script>
+
+    document.addEventListener("click", (e) => {
+      const account = document.querySelector(".account");
+      const menu = document.getElementById("accountMenu");
+      if (!account.contains(e.target)) {
+        menu.style.display = "none";
+      }
+    });
+  </script>
+
 </body>
 </html>
