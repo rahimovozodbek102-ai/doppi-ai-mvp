@@ -14,7 +14,7 @@ body{
   color:#fff
 }
 
-/* ================= HEADER ================= */
+/* HEADER */
 .header{
   height:64px;display:flex;align-items:center;justify-content:space-between;
   padding:0 18px;background:rgba(15,5,25,.9);
@@ -47,7 +47,7 @@ body{
   padding:8px;background:#7C3AED;color:#fff;cursor:pointer
 }
 
-/* ================= TYPE ================= */
+/* TYPE */
 .type-selector{
   display:flex;justify-content:center;gap:20px;margin:18px 0
 }
@@ -61,7 +61,7 @@ body{
   box-shadow:0 0 22px rgba(124,58,237,.85)
 }
 
-/* ================= MAIN ================= */
+/* MAIN */
 .container{
   max-width:1100px;margin:0 auto;padding:16px;
   display:flex;gap:20px
@@ -108,17 +108,16 @@ textarea{
 }
 .option-btn.active{background:#7C3AED}
 
-/* ================= MOBILE ================= */
+/* MOBILE */
 @media (max-width:768px){
   .container{flex-direction:column}
-  .panel{padding:16px}
 }
 </style>
 </head>
 
 <body>
 
-<!-- ================= HEADER ================= -->
+<!-- HEADER -->
 <div class="header">
   <div class="logo">
     <img src="/images/logo.png">
@@ -127,15 +126,14 @@ textarea{
 
   <div class="user-box">
     <div class="user-avatar" id="userAvatar">👤</div>
-
     <div class="user-menu" id="userMenu">
       <p id="welcomeText">Xush kelibsiz</p>
-      <button id="logoutBtn">Logout</button>
+      <button>Logout</button>
     </div>
   </div>
 </div>
 
-<!-- ================= TYPE ================= -->
+<!-- TYPE -->
 <div class="type-selector">
   <button class="type-btn active" data-type="photo">📸 Photo</button>
   <button class="type-btn" data-type="video">🎥 Video</button>
@@ -143,10 +141,9 @@ textarea{
 
 <div class="container">
 
-<!-- ================= LEFT ================= -->
+<!-- LEFT -->
 <div class="panel left">
 
-  <!-- VIDEO UPLOAD -->
   <div id="videoUpload" style="display:none">
     <label class="upload-area">
       <input type="file" id="videoImageInput" accept="image/*" hidden>
@@ -154,25 +151,23 @@ textarea{
     </label>
   </div>
 
-  <!-- IMAGE PREVIEW (faqat VIDEO) -->
   <div class="result" id="imagePreview" style="display:none">
     Yuklangan rasm
   </div>
 
-  <!-- RESULT -->
   <div class="result" id="resultPanel">
     Natija shu yerda chiqadi
   </div>
 
 </div>
 
-<!-- ================= RIGHT ================= -->
+<!-- RIGHT -->
 <div class="panel right">
-  <h3 id="welcomeText">Xush kelibsiz</h3>
+
+  <h3 id="welcomeTitle">Xush kelibsiz</h3>
 
   <textarea placeholder="Prompt yozing..."></textarea>
 
-  <!-- RATIO PHOTO -->
   <div class="option-panel" id="photoRatio">
     <b>Ratio</b>
     <div class="option-grid">
@@ -185,7 +180,6 @@ textarea{
     </div>
   </div>
 
-  <!-- STYLE PHOTO -->
   <div class="option-panel" id="photoStyle">
     <b>Style</b>
     <div class="option-grid">
@@ -198,7 +192,6 @@ textarea{
     </div>
   </div>
 
-  <!-- RATIO VIDEO -->
   <div class="option-panel" id="videoRatio">
     <b>Ratio</b>
     <div class="option-grid">
@@ -207,7 +200,6 @@ textarea{
     </div>
   </div>
 
-  <!-- DURATION VIDEO -->
   <div class="option-panel" id="videoDuration">
     <b>Duration</b>
     <div class="option-grid">
@@ -223,19 +215,14 @@ textarea{
 
 <script>
 /* USER MENU */
-<script>
-const avatar = document.getElementById("userAvatar");
-const menu = document.getElementById("userMenu");
+const avatar=document.getElementById("userAvatar");
+const menu=document.getElementById("userMenu");
 
-avatar.addEventListener("click", (e) => {
+avatar.onclick=(e)=>{
   e.stopPropagation();
-  menu.style.display = menu.style.display === "block" ? "none" : "block";
-});
-
-document.addEventListener("click", () => {
-  menu.style.display = "none";
-});
-</script>
+  menu.style.display=menu.style.display==="block"?"none":"block";
+};
+document.onclick=()=>menu.style.display="none";
 
 /* TYPE SWITCH */
 const typeBtns=document.querySelectorAll(".type-btn");
@@ -256,7 +243,7 @@ function switchType(type){
     photoStyle.style.display="block";
     videoRatio.style.display="none";
     videoDuration.style.display="none";
-    resultPanel.innerHTML="Photo natija shu yerda";
+    resultPanel.innerHTML="📸 Photo natija shu yerda";
   }else{
     videoUpload.style.display="block";
     imagePreview.style.display="flex";
@@ -264,7 +251,7 @@ function switchType(type){
     photoStyle.style.display="none";
     videoRatio.style.display="block";
     videoDuration.style.display="block";
-    resultPanel.innerHTML="Video natija shu yerda";
+    resultPanel.innerHTML="🎥 Video natija shu yerda";
   }
 }
 
@@ -290,7 +277,7 @@ document.getElementById("videoImageInput").onchange=e=>{
 document.querySelector(".generate").onclick=()=>{
   const type=document.querySelector(".type-btn.active").dataset.type;
   if(type==="photo"){
-    resultPanel.innerHTML="📸 Photo generated!";
+    resultPanel.innerHTML="✅ Photo generated!";
   }else{
     resultPanel.innerHTML=
     `<video controls autoplay loop style="width:100%;border-radius:14px">
