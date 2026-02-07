@@ -112,6 +112,21 @@ textarea{
     min-height: 140px;
   }
 }
+  @media (max-width: 768px) {
+
+  #imagePreview,
+  #videoResult {
+    height: 220px;
+    flex: none;
+  }
+
+  #imagePreview img,
+  #videoResult video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  }
 </style>
 
 <!-- FIREBASE AUTH -->
@@ -153,23 +168,25 @@ onAuthStateChanged(auth,user=>{
 <!-- LEFT -->
 <div class="panel left">
 
-  <div id="uploadBox" style="display:none">
+  <!-- 1️⃣ IMAGE UPLOAD -->
+  <div class="upload-box" id="videoUpload" style="display:none;">
     <label class="upload-area">
-      <input type="file" id="videoImageInput" accept="image/*" hidden>
-      📤 Video uchun rasm yuklang
+      <input
+        type="file"
+        id="videoImageInput"
+        accept="image/*"
+        hidden
+      >
+      <span>📤 Video uchun rasm yuklang</span>
     </label>
   </div>
 
-  <div class="result" id="imagePreview" style="display:none">
+  <!-- 2️⃣ IMAGE PREVIEW -->
+  <div class="result-area" id="imagePreview">
     Rasm preview
   </div>
 
-  <div class="result" id="videoResult" style="display:none">
-    Video natija
-  </div>
-
 </div>
-
 <!-- RIGHT -->
 <div class="panel right">
 
@@ -186,7 +203,14 @@ onAuthStateChanged(auth,user=>{
     <button class="option-btn">21:9</button>
   </div>
 </div>
-
+<!-- 3️⃣ VIDEO RESULT (PASTDA, GENERATE OSTIDA) -->
+<div class="container">
+  <div class="panel left">
+    <div class="result-area" id="videoResult">
+      Video natija
+    </div>
+  </div>
+</div>
 <div class="option-panel style-panel" data-for="photo">
   <b>Style</b>
   <div class="option-grid">
