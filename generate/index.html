@@ -211,6 +211,9 @@
         font-size: 17px;
       }
     }
+    .option-panel {
+  display: none;
+} 
     /* TYPE SELECTOR */
 /* PHOTO / VIDEO – O‘RTADA, KATTA */
 .type-selector.center {
@@ -376,6 +379,32 @@
       }
     });
   </script>
+  <script>
+  const typeButtons = document.querySelectorAll(".type-btn");
+  const optionPanels = document.querySelectorAll(".option-panel");
+  const videoUpload = document.getElementById("videoUpload");
 
+  function switchType(type) {
+    optionPanels.forEach(panel => {
+      const forType = panel.dataset.for;
+      if (!forType) return;
+
+      panel.style.display = forType.includes(type) ? "block" : "none";
+    });
+
+    videoUpload.style.display = type === "video" ? "block" : "none";
+  }
+
+  typeButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      typeButtons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      switchType(btn.dataset.type);
+    });
+  });
+
+  // default holat
+  switchType("photo");
+  </script>
 </body>
 </html>
