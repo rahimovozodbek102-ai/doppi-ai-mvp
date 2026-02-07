@@ -213,13 +213,35 @@
       }
     }
     /* TYPE SELECTOR */
-.type-selector.top {
+/* PHOTO / VIDEO – O‘RTADA, KATTA */
+.type-selector.center {
+  width: 100%;
   display: flex;
   justify-content: center;
-  gap: 14px;
-  margin: 14px auto 10px; /* 👈 ANCHA YAQIN */
-} 
+  gap: 22px;
+  margin: 0 auto 14px; /* panelga YAQIN */
+}
 
+.type-btn {
+  padding: 14px 30px;        /* 🔥 KATTAROQ */
+  border-radius: 999px;
+  border: 1px solid #7C3AED;
+  background: rgba(20,10,40,0.7);
+  color: #fff;
+  font-size: 17px;           /* 🔥 KATTAROQ */
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.type-btn:hover {
+  background: rgba(124,58,237,0.25);
+}
+
+.type-btn.active {
+  background: #7C3AED;
+  box-shadow: 0 0 22px rgba(124,58,237,0.85);
+}
 .type-btn{
   padding:8px 18px;
   border-radius:999px;
@@ -286,13 +308,25 @@
       </div>
     </div>
   </div>
-<!-- ===== TYPE SELECT (PHOTO / VIDEO) ===== -->
-<div class="type-selector">
-  <button class="type-btn active" data-type="photo">🖼 Photo</button>
-  <button class="type-btn" data-type="video">🎥 Video</button>
-</div>
-<!-- ====================================== -->     
+
   <div class="container">
+     <!-- PHOTO / VIDEO SELECTOR (O‘RTADA) -->
+  <div class="type-selector center">
+    <button class="type-btn active" data-type="photo">📸 Photo</button>
+    <button class="type-btn" data-type="video">🎥 Video</button>
+  </div>
+
+  <div class="panel left">
+    Natija shu yerda chiqadi
+  </div>
+
+  <div class="panel right">
+    <h3 id="welcome">Yuklanmoqda...</h3>
+    <textarea placeholder="Prompt yozing..."></textarea>
+    <button class="generate">Generate</button>
+  </div>
+
+  </div>
     <div class="panel left">
       Natija shu yerda chiqadi
     </div>
