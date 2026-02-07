@@ -33,8 +33,16 @@
   z-index:10;
 } 
     .logo{display:flex;gap:10px;align-items:center}
-    .logo img{width:34px}
-    .logo span{font-weight:bold;color:#b48cff}
+    .logo img {
+  width: 48px;   /* 👈 logo kattalashdi */
+  height: auto;
+}
+
+.logo span {
+  font-weight: 700;
+  font-size: 20px;   /* 👈 DO‘PPI AI kattaroq */
+  color: #b48cff;
+} 
     .logout{background:#ff4d4d;border:none;padding:8px 14px;border-radius:8px;color:#fff;cursor:pointer}
     .container{
   display:flex;
@@ -81,20 +89,19 @@
   cursor: pointer;
   box-shadow: 0 0 12px rgba(124,58,237,0.9);
 } 
-    
-.menu {
+  .menu {
   position: absolute;
   right: 0;
-  top: 48px;
-  background: #1a0628;
+  top: 52px;
+  background: rgba(20,10,40,0.95);
   border: 1px solid #7C3AED;
-  border-radius: 12px;
-  padding: 12px;
-  width: 160px;
+  border-radius: 14px;
+  padding: 14px;
+  width: 180px;
   display: none;
   z-index: 999;
-  box-shadow: 0 0 20px rgba(124,58,237,0.6);
-}
+  box-shadow: 0 0 25px rgba(124,58,237,0.6);
+  }  
 
 .menu p {
   margin: 0;
@@ -118,7 +125,36 @@
   color: white;
   cursor: pointer;
 }
+/* ==== MOBILE LAYOUT ==== */
+@media (max-width: 768px) {
 
+  .container {
+    flex-direction: column;
+    margin-top: 60px;
+  }
+
+  .panel.right {
+    order: 1;
+  }
+
+  .panel.left {
+    order: 2;
+    margin-top: 16px;
+  }
+
+  .panel.right h3 {
+    text-align: center;
+  }
+
+  textarea {
+    height: 120px;
+  }
+
+  .generate {
+    font-size: 18px;
+    padding: 16px;
+  }
+}
   </style>
 
   <!-- 🔐 FIREBASE AUTH GUARD -->
