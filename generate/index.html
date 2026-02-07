@@ -212,6 +212,29 @@
         font-size: 17px;
       }
     }
+    /* TYPE SELECTOR */
+.type-selector{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  margin:16px auto 0;
+}
+
+.type-btn{
+  padding:8px 18px;
+  border-radius:999px;
+  border:1px solid #7C3AED;
+  background:rgba(20,10,40,0.6);
+  color:#fff;
+  cursor:pointer;
+  font-size:14px;
+  transition:.25s;
+}
+
+.type-btn.active{
+  background:#7C3AED;
+  box-shadow:0 0 18px rgba(124,58,237,.8);
+}
   </style>
 
   <!-- 🔐 FIREBASE AUTH -->
@@ -263,7 +286,7 @@
       </div>
     </div>
   </div>
-
+  
   <div class="container">
     <div class="panel left">
       Natija shu yerda chiqadi
@@ -271,6 +294,12 @@
 
     <div class="panel right">
       <h3 id="welcome">Yuklanmoqda...</h3>
+   <!-- ===== TYPE SELECT (PHOTO / VIDEO) ===== -->
+<div class="type-selector">
+  <button class="type-btn active" data-type="photo">🖼 Photo</button>
+  <button class="type-btn" data-type="video">🎥 Video</button>
+</div>
+<!-- ====================================== -->   
       <textarea placeholder="Prompt yozing..."></textarea>
       <button class="generate">Generate</button>
     </div>
