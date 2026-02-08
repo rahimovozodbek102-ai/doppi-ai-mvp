@@ -164,8 +164,7 @@ textarea{
 <!-- RIGHT -->
 <div class="panel right">
 <h3>
-  Xush kelibsiz,
-  <span id="panelUserName">User</span>
+  <span id="panelUserName"></span>
   <br>
   Nima xoxlaysiz yozing👇🏻
 </h3>
@@ -312,25 +311,22 @@ onAuthStateChanged(auth, (user) => {
     return;
   }
 
-  const name = user.displayName
-    || (user.email ? user.email.split("@")[0] : "User");
+  const name =
+    user.displayName ||
+    (user.email ? user.email.split("@")[0] : "User");
 
-  // 🔝 HEADER menu ichidagi ism
+  // RIGHT PANEL
+  const panelName = document.getElementById("panelUserName");
+  if (panelName) {
+    panelName.innerText = "Xush kelibsiz, " + name;
+  }
+
+  // HEADER MENU
   const headerName = document.getElementById("headerUserName");
   if (headerName) {
     headerName.innerText = "Xush kelibsiz, " + name;
   }
-
-  // ➡️ RIGHT panel ichidagi ism
-  const panelName = document.getElementById("panelUserName");
-  if (panelName) {
-    panelName.innerText = "Xush kelibsiz, " + name + "\nNima xohlaysiz yozing 👇🏻";
-  }
 });
-  const panelName = document.getElementById("panelUserName");
-if (panelName) {
-  panelName.innerText = name;
-}
 </script>
 </body>
 </html>
