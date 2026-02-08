@@ -163,8 +163,12 @@ textarea{
 
 <!-- RIGHT -->
 <div class="panel right">
-
-  <h3 id="panelUserName">Xush kelibsiz Nima xoxlaysiz yozing👇🏻</h3>
+<h3>
+  Xush kelibsiz,
+  <span id="panelUserName">User</span>
+  <br>
+  Nima xoxlaysiz yozing👇🏻
+</h3>
 
   <textarea placeholder="Prompt yozing..."></textarea>
 
@@ -326,7 +330,7 @@ document.getElementById("logoutBtn").onclick = () => {
 };
   const panelName = document.getElementById("panelUserName");
 if (panelName) {
-  panelName.innerText = "Xush kelibsiz, " + name;
+  panelName.innerText = name;
 }
 </script>
 </body>
