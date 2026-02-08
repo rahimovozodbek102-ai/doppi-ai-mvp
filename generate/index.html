@@ -312,22 +312,21 @@ onAuthStateChanged(auth, (user) => {
     return;
   }
 
-  const name = user.email
-    ? user.email.split("@")[0]
-    : "User";
+  const name = user.displayName
+    || (user.email ? user.email.split("@")[0] : "User");
 
+  // 🔝 HEADER menu ichidagi ism
+  const headerName = document.getElementById("headerUserName");
+  if (headerName) {
+    headerName.innerText = "Xush kelibsiz, " + name;
+  }
+
+  // ➡️ RIGHT panel ichidagi ism
   const panelName = document.getElementById("panelUserName");
   if (panelName) {
-    panelName.innerText = name;
+    panelName.innerText = "Xush kelibsiz, " + name + "\nNima xohlaysiz yozing 👇🏻";
   }
 });
-
-/* LOGOUT */
-document.getElementById("logoutBtn").onclick = () => {
-  signOut(auth).then(() => {
-    window.location.href = "/";
-  });
-};
   const panelName = document.getElementById("panelUserName");
 if (panelName) {
   panelName.innerText = name;
