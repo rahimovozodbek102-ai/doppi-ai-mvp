@@ -164,7 +164,7 @@ textarea{
 <!-- RIGHT -->
 <div class="panel right">
 
-  <h3 id="panelUserName">Xush kelibsiz</h3>
+  <h3 id="panelUserName">Xush kelibsiz Nima xoxlaysiz yozing👇🏻</h3>
 
   <textarea placeholder="Prompt yozing..."></textarea>
 
@@ -324,6 +324,10 @@ document.getElementById("logoutBtn").onclick = () => {
     window.location.href = "/";
   });
 };
+  const panelName = document.getElementById("panelUserName");
+if (panelName) {
+  panelName.innerText = "Xush kelibsiz, " + name;
+}
 </script>
 </body>
 </html>
