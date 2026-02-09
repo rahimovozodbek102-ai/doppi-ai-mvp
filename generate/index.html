@@ -136,8 +136,32 @@ textarea{
   #videoUpload {
     order: 0;
   }
+} 
+@media (max-width: 768px) {
+
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* LEFT va RIGHT ni bitta oqimga aylantiramiz */
+  .panel.left,
+  .panel.right {
+    display: contents;
+  }
+
+  /* Tartib */
+  #videoUpload { order: 1; }
+  #imagePreview { order: 2; }
+  .panel.right h3 { order: 3; }
+  .panel.right textarea { order: 4; }
+  #photoRatio, #videoRatio { order: 5; }
+  #photoStyle, #videoDuration { order: 6; }
+  .generate { order: 7; }
+  #resultPanel { order: 8; }
 
 }
+
 </style>
 </head>
 
