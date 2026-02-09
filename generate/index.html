@@ -252,13 +252,7 @@ textarea{
   Nima xoxlaysiz yozing👇🏻
 </h3>
 <textarea id="promptInput" placeholder="Prompt yozing..."></textarea>
- <p id="promptWarning" style="
-  display:none;
-  color:#FCA5A5;
-  font-size:13px;
-  margin:-6px 0 12px;
-">
- </p>
+ <p class="form-error" id="promptWarning"></p>
   <div class="option-panel" id="photoRatio">
     <b>Ratio</b>
     <div class="option-grid">
@@ -308,6 +302,49 @@ textarea{
 </div>
 
 <script>
+  // 🌍 TILNI O‘QIYAPMIZ
+const currentLang = localStorage.getItem("lang") || "uz";
+  // 🧠 MATNLAR LUG‘ATI
+const i18n = {
+  uz: {
+    welcome: "Xush kelibsiz",
+    promptPlaceholder: "Prompt yozing...",
+    generate: "Generate",
+    ratio: "Ratio",
+    style: "Style",
+    duration: "Davomiylik",
+    needPrompt: "Iltimos, yaratishdan avval prompt yozing ✨",
+    needRatio: "Iltimos, ratio tanlang 📐",
+    needStyle: "Iltimos, style tanlang 🎨",
+    needDuration: "Iltimos, davomiylikni tanlang ⏱"
+  },
+  ru: {
+    welcome: "Добро пожаловать",
+    promptPlaceholder: "Введите prompt...",
+    generate: "Создать",
+    ratio: "Соотношение",
+    style: "Стиль",
+    duration: "Длительность",
+    needPrompt: "Пожалуйста, введите prompt ✨",
+    needRatio: "Пожалуйста, выберите соотношение 📐",
+    needStyle: "Пожалуйста, выберите стиль 🎨",
+    needDuration: "Пожалуйста, выберите длительность ⏱"
+  },
+  en: {
+    welcome: "Welcome",
+    promptPlaceholder: "Enter your prompt...",
+    generate: "Generate",
+    ratio: "Ratio",
+    style: "Style",
+    duration: "Duration",
+    needPrompt: "Please enter a prompt ✨",
+    needRatio: "Please select a ratio 📐",
+    needStyle: "Please select a style 🎨",
+    needDuration: "Please select duration ⏱"
+  }
+};
+  // ✨ UI MATNLARNI ALMASHTIRISH
+const t = i18n[currentLang];
   function show(id){
   document.getElementById(id).style.display = "block";
 }
@@ -497,49 +534,7 @@ document.querySelectorAll(".option-btn").forEach((btn) => {
     }
   });
 });
-  // 🌍 TILNI O‘QIYAPMIZ
-const currentLang = localStorage.getItem("lang") || "uz";
-  // 🧠 MATNLAR LUG‘ATI
-const i18n = {
-  uz: {
-    welcome: "Xush kelibsiz",
-    promptPlaceholder: "Prompt yozing...",
-    generate: "Generate",
-    ratio: "Ratio",
-    style: "Style",
-    duration: "Davomiylik",
-    needPrompt: "Iltimos, yaratishdan avval prompt yozing ✨",
-    needRatio: "Iltimos, ratio tanlang 📐",
-    needStyle: "Iltimos, style tanlang 🎨",
-    needDuration: "Iltimos, davomiylikni tanlang ⏱"
-  },
-  ru: {
-    welcome: "Добро пожаловать",
-    promptPlaceholder: "Введите prompt...",
-    generate: "Создать",
-    ratio: "Соотношение",
-    style: "Стиль",
-    duration: "Длительность",
-    needPrompt: "Пожалуйста, введите prompt ✨",
-    needRatio: "Пожалуйста, выберите соотношение 📐",
-    needStyle: "Пожалуйста, выберите стиль 🎨",
-    needDuration: "Пожалуйста, выберите длительность ⏱"
-  },
-  en: {
-    welcome: "Welcome",
-    promptPlaceholder: "Enter your prompt...",
-    generate: "Generate",
-    ratio: "Ratio",
-    style: "Style",
-    duration: "Duration",
-    needPrompt: "Please enter a prompt ✨",
-    needRatio: "Please select a ratio 📐",
-    needStyle: "Please select a style 🎨",
-    needDuration: "Please select duration ⏱"
-  }
-};
-  // ✨ UI MATNLARNI ALMASHTIRISH
-const t = i18n[currentLang];
+  
 
 // RIGHT PANEL
 const panelName = document.getElementById("panelUserName");
@@ -551,12 +546,6 @@ if (panelName) {
 const promptInput = document.getElementById("promptInput");
 if (promptInput) {
   promptInput.placeholder = t.promptPlaceholder;
-}
-
-// GENERATE BUTTON
-const generateBtn = document.querySelector(".generate");
-if (generateBtn) {
-  generateBtn.innerText = t.generate;
 }
   
 </script>
