@@ -592,8 +592,9 @@ onAuthStateChanged(auth, (user) => {
 
 if (logoutBtn) {
   logoutBtn.addEventListener("click", async () => {
-    await signOut(auth);
-    window.location.href = "/";
+    await signOut(auth);                 // 🔐 chiqish
+    localStorage.removeItem("lang");     // 🌍 tilni o‘chiramiz
+    window.location.href = "/";          // 🔁 bosh sahifa
   });
 }
 </script>
