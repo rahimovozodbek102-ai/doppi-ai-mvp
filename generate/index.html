@@ -382,19 +382,39 @@ document.getElementById("videoImageInput").onchange = (e) => {
 const generateBtn = document.querySelector(".generate");
 generateBtn.onclick = () => {
   const type = document.querySelector(".type-btn.active").dataset.type;
-  const promptInput = document.getElementById("promptInput");
-  const promptWarning = document.getElementById("promptWarning");
-  const prompt = promptInput.value.trim();
+  const prompt = document.getElementById("promptInput").value.trim();
 
-  // ❗ Prompt tekshiruvi
+  // 1️⃣ PROMPT TEKSHIRUV
   if (!prompt) {
-    promptWarning.style.display = "block";
-    promptInput.focus();
-    return;
-  } else {
-    promptWarning.style.display = "none";
+    alert("Iltimos, avval prompt yozing ✨");
+    return; // ⛔ TO‘XTAT
   }
 
+  // 2️⃣ PHOTO TEKSHIRUV
+  if (type === "photo") {
+    if (!selectedRatio) {
+      alert("Iltimos, ratio tanlang 📐");
+      return; // ⛔ TO‘XTAT
+    }
+    if (!selectedStyle) {
+      alert("Iltimos, style tanlang 🎨");
+      return; // ⛔ TO‘XTAT
+    }
+  }
+
+  // 3️⃣ VIDEO TEKSHIRUV
+  if (type === "video") {
+    if (!selectedRatio) {
+      alert("Iltimos, ratio tanlang 📐");
+      return; // ⛔ TO‘XTAT
+    }
+    if (!selectedDuration) {
+      alert("Iltimos, video davomiyligini tanlang ⏱");
+      return; // ⛔ TO‘XTAT
+    }
+  }
+
+  // 4️⃣ HAMMASI TO‘G‘RI BO‘LSA – ENDIGINA GENERATE
   generateBtn.classList.add("loading");
 
   setTimeout(() => {
@@ -407,36 +427,11 @@ generateBtn.onclick = () => {
         </video>
       `;
     }
-// TEKSHIRUVLAR
-if (!prompt) {
-  alert("Iltimos, avval prompt yozing ✨");
-  return;
-}
 
-if (type === "photo") {
-  if (!selectedRatio) {
-    alert("Iltimos, ratio tanlang 📐");
-    return;
-  }
-  if (!selectedStyle) {
-    alert("Iltimos, style tanlang 🎨");
-    return;
-  }
-}
-
-if (type === "video") {
-  if (!selectedRatio) {
-    alert("Iltimos, ratio tanlang 📐");
-    return;
-  }
-  if (!selectedDuration) {
-    alert("Iltimos, video davomiyligini tanlang ⏱");
-    return;
-  }
-}
     generateBtn.classList.remove("loading");
   }, 2000);
 };
+    
 
 /* OPTION ACTIVE */
 document.querySelectorAll(".option-btn").forEach((btn) => {
