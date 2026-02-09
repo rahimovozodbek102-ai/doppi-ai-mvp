@@ -211,7 +211,7 @@ textarea{
     <div class="user-avatar" id="userAvatar">👤</div>
     <div class="user-menu" id="userMenu">
       <p id="headerUserName">Xush kelibsiz</p>
-      <button>Logout</button>
+      <button id="logoutBtn">Logout</button> 
     </div>
   </div>
 </div>
@@ -549,12 +549,12 @@ if (promptInput) {
 }
   
 </script>
-
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } 
 from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
+/* 🔧 FIREBASE CONFIG */
 const firebaseConfig = {
   apiKey: "AIzaSyDrzhCYy4lXTl1rZZbdYhjnq-oCr0bR-Ds",
   authDomain: "doppi-ai-mvp.firebaseapp.com",
@@ -562,12 +562,14 @@ const firebaseConfig = {
   appId: "1:269700533804:web:328ebc557b8a97581e0b89"
 };
 
+/* 🔥 INIT */
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-/* USER NAME */
+/* 👤 USER TEKSHIRISH */
 onAuthStateChanged(auth, (user) => {
   if (!user) {
+    // login bo‘lmasa — bosh sahifa
     window.location.href = "/";
     return;
   }
@@ -576,27 +578,31 @@ onAuthStateChanged(auth, (user) => {
     user.displayName ||
     (user.email ? user.email.split("@")[0] : "User");
 
-  // RIGHT PANEL (katta yozuv)
+  // RIGHT PANEL
   const panelName = document.getElementById("panelUserName");
-  if (panelName) {
+  if (panelName && window.t) {
     panelName.innerText = window.t.welcome + ", " + name;
   }
 
-  // HEADER MENU (avatar bosilganda)
+  // HEADER MENU
   const headerName = document.getElementById("headerUserName");
-  if (headerName) {
+  if (headerName && window.t) {
     headerName.innerText = window.t.welcome + ", " + name;
   }
 });
-  const logoutBtn = document.querySelector(".user-menu button");
+
+/* 🚪 LOGOUT (YAGONA) */
+const logoutBtn = document.getElementById("logoutBtn");
 
 if (logoutBtn) {
-  logoutBtn.addEventListener("click", async () => {
-    await signOut(auth);                 // 🔐 chiqish
-    localStorage.removeItem("lang");     // 🌍 tilni o‘chiramiz
-    window.location.href = "/";          // 🔁 bosh sahifa
+  logoutBtn.addEventListener("click", async (e) => {
+    e.stopPropagation();            // menyu yopilib ketmasin
+    await signOut(auth);            // 🔐 Firebase logout
+    localStorage.removeItem("lang"); // 🌍 tilni tozalash
+    window.location.href = "/";     // 🔁 bosh sahifa
   });
 }
 </script>
+
 </body>
 </html>
