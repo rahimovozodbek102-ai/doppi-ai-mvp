@@ -244,6 +244,18 @@ function setLang(lang, btn = null) {
   setLang(savedLang);
 };
 </script>
+<script>
+window.onload = () => {
+  const savedLang = localStorage.getItem("lang");
 
+  if (!savedLang) {
+    // 🔤 Til tanlash ko‘rinadi
+    document.getElementById("langSection").style.display = "block";
+  } else {
+    // ✅ Avval tanlangan til bilan davom etadi
+    setLang(savedLang);
+  }
+};
+</script>
 </body>
 </html>
