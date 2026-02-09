@@ -549,65 +549,55 @@ if (promptInput) {
 }
   
 </script>
-<script type="module">  
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";  
-import { getAuth, onAuthStateChanged, signOut }   
-from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";  
-  
-const firebaseConfig = {  
-  apiKey: "AIzaSyDrzhCYy4lXTl1rZZbdYhjnq-oCr0bR-Ds",  
-  authDomain: "doppi-ai-mvp.firebaseapp.com",  
-  projectId: "doppi-ai-mvp",  
-  appId: "1:269700533804:web:328ebc557b8a97581e0b89"  
-};  
-  
-const app = initializeApp(firebaseConfig);  
-const auth = getAuth(app);  
-  
-/* USER NAME */  
-onAuthStateChanged(auth, (user) => {  
-  if (!user) {  
-    window.location.href = "/";  
-    return;  
-  }  
-  
-  const name =  
-    user.displayName ||  
-    (user.email ? user.email.split("@")[0] : "User");  
-  
-  // RIGHT PANEL (katta yozuv)  
-  const panelName = document.getElementById("panelUserName");  
-  if (panelName) {  
-    panelName.innerText = window.t.welcome + ", " + name;  
-  }  
-  
-  // HEADER MENU (avatar bosilganda)  
-  const headerName = document.getElementById("headerUserName");  
-  if (headerName) {  
-    headerName.innerText = window.t.welcome + ", " + name;  
-  }  
-});  
-  const logoutBtn = document.querySelector(".user-menu button");  
-  
-if (logoutBtn) {  
-  logoutBtn.addEventListener("click", async () => {  
-    await signOut(auth);                 // 🔐 chiqish  
-    localStorage.removeItem("lang");     // 🌍 tilni o‘chiramiz  
-    window.location.href = "/";          // 🔁 bosh sahifa  
-  });  
-}  
-const logoutBtn = document.getElementById("logoutBtn");  
-  
-if (logoutBtn) {  
-  logoutBtn.addEventListener("click", async (e) => {  
-    e.stopPropagation();          // menyu yopilib ketmasin  
-    await signOut(auth);          // firebase logout  
-    localStorage.removeItem("lang"); // tilni tozalaymiz  
-    window.location.href = "/";   // bosh sahifa  
-  });  
-}  
-  
-</script>  
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } 
+from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDrzhCYy4lXTl1rZZbdYhjnq-oCr0bR-Ds",
+  authDomain: "doppi-ai-mvp.firebaseapp.com",
+  projectId: "doppi-ai-mvp",
+  appId: "1:269700533804:web:328ebc557b8a97581e0b89"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+/* 👤 USER */
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    window.location.href = "/";
+    return;
+  }
+
+  const name =
+    user.displayName ||
+    (user.email ? user.email.split("@")[0] : "User");
+
+  const panelName = document.getElementById("panelUserName");
+  if (panelName) {
+    panelName.innerText = window.t.welcome + ", " + name;
+  }
+
+  const headerName = document.getElementById("headerUserName");
+  if (headerName) {
+    headerName.innerText = window.t.welcome + ", " + name;
+  }
+});
+
+/* 🚪 LOGOUT */
+const logoutBtn = document.getElementById("logoutBtn");
+
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", async (e) => {
+    e.stopPropagation();
+    await signOut(auth);
+    localStorage.removeItem("lang"); // 🔥 MUHIM
+    window.location.href = "/";
+  });
+}
+ </script>
 
 </body>
 </html>
