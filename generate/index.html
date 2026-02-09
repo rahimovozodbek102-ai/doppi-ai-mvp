@@ -125,7 +125,22 @@ textarea{
   transform: translate(-50%, -50%);
   font-size: 14px;
 }
-  
+  .form-error{
+  display:none;
+  margin:6px 0 12px;
+  font-size:13px;
+  color:#FEE2E2;                  /* och qizil matn */
+  background:rgba(239,68,68,0.15); /* yumshoq qizil fon */
+  border-left:4px solid #EF4444;  /* aniq qizil signal */
+  padding:8px 12px;
+  border-radius:8px;
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(-4px)}
+  to{opacity:1;transform:translateY(0)}
+} 
   /* ===== MOBILE FLOW FIX ===== */
 @media (max-width: 768px) {
 
@@ -256,7 +271,9 @@ textarea{
       <button class="option-btn">21:9</button>
     </div>
   </div>
-
+<p class="form-error" id="ratioWarning">
+  Iltimos, ratio tanlang 📐
+</p>
   <div class="option-panel" id="photoStyle">
     <b>Style</b>
     <div class="option-grid">
@@ -268,7 +285,9 @@ textarea{
       <button class="option-btn">Rationiy</button>
     </div>
   </div>
-
+<p class="form-error" id="styleWarning">
+  Iltimos, style tanlang 🎨
+</p>
   <div class="option-panel" id="videoRatio">
     <b>Ratio</b>
     <div class="option-grid">
@@ -284,13 +303,21 @@ textarea{
       <button class="option-btn">10s</button>
     </div>
   </div>
-
+<p class="form-error" id="durationWarning">
+  Iltimos, davomiylik tanlang ⏱
+</p>
   <button class="generate">Generate</button>
 </div>
 
 </div>
 
 <script>
+  function show(id){
+  document.getElementById(id).style.display = "block";
+}
+function hide(id){
+  document.getElementById(id).style.display = "none";
+}
   // TANLANGAN QIYMATLAR
 let selectedRatio = null;
 let selectedStyle = null;
@@ -383,52 +410,54 @@ document.getElementById("videoImageInput").onchange = (e) => {
 const generateBtn = document.querySelector(".generate");
 generateBtn.onclick = () => {
   const type = document.querySelector(".type-btn.active").dataset.type;
-  const prompt = document.getElementById("promptInput").value.trim();
+  const prompt = promptInput.value.trim();
 
-  // 1️⃣ PROMPT TEKSHIRUV
+  // 🔄 eski xabarlarni tozalaymiz
+  hide("promptWarning");
+  hide("ratioWarning");
+  hide("styleWarning");
+  hide("durationWarning");
+
+  // 1️⃣ PROMPT
   if (!prompt) {
-    alert("Iltimos, avval prompt yozing ✨");
-    return; // ⛔ TO‘XTAT
+    show("promptWarning");
+    return;
   }
 
-  // 2️⃣ PHOTO TEKSHIRUV
+  // 2️⃣ PHOTO
   if (type === "photo") {
     if (!selectedRatio) {
-      alert("Iltimos, ratio tanlang 📐");
-      return; // ⛔ TO‘XTAT
+      show("ratioWarning");
+      return;
     }
     if (!selectedStyle) {
-      alert("Iltimos, style tanlang 🎨");
-      return; // ⛔ TO‘XTAT
+      show("styleWarning");
+      return;
     }
   }
 
-  // 3️⃣ VIDEO TEKSHIRUV
+  // 3️⃣ VIDEO
   if (type === "video") {
     if (!selectedRatio) {
-      alert("Iltimos, ratio tanlang 📐");
-      return; // ⛔ TO‘XTAT
+      show("ratioWarning");
+      return;
     }
     if (!selectedDuration) {
-      alert("Iltimos, video davomiyligini tanlang ⏱");
-      return; // ⛔ TO‘XTAT
+      show("durationWarning");
+      return;
     }
   }
 
-  // 4️⃣ HAMMASI TO‘G‘RI BO‘LSA – ENDIGINA GENERATE
+  // 4️⃣ HAMMASI OK
   generateBtn.classList.add("loading");
 
   setTimeout(() => {
-    if (type === "photo") {
-      resultPanel.innerHTML = "📸 Photo generated!";
-    } else {
-      resultPanel.innerHTML = `
-        <video controls autoplay loop style="width:100%;border-radius:14px">
-          <source src="https://www.w3schools.com/html/mov_bbb.mp4">
-        </video>
-      `;
-    }
-
+    resultPanel.innerHTML =
+      type === "photo"
+        ? "📸 Photo generated!"
+        : `<video controls autoplay loop style="width:100%;border-radius:14px">
+             <source src="https://www.w3schools.com/html/mov_bbb.mp4">
+           </video>`;
     generateBtn.classList.remove("loading");
   }, 2000);
 };
