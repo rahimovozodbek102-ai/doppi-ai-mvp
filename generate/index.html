@@ -579,13 +579,13 @@ onAuthStateChanged(auth, (user) => {
   // RIGHT PANEL
   const panelName = document.getElementById("panelUserName");
   if (panelName) {
-    panelName.innerText = "Xush kelibsiz, " + name;
+    panelName.innerText = window.t.welcome + ", " + name;
   }
 
   // HEADER MENU
   const headerName = document.getElementById("headerUserName");
   if (headerName) {
-    headerName.innerText = "Xush kelibsiz, " + name;
+    headerName.innerText = window.t.welcome + ", " + name;
   }
 });
   const logoutBtn = document.querySelector(".user-menu button");
