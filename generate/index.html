@@ -258,7 +258,6 @@ textarea{
   font-size:13px;
   margin:-6px 0 12px;
 ">
-  Iltimos, yaratishdan avval prompt yozing! ✨
  </p>
   <div class="option-panel" id="photoRatio">
     <b>Ratio</b>
@@ -272,7 +271,6 @@ textarea{
     </div>
   </div>
 <p class="form-error" id="ratioWarning">
-  Iltimos, ratio tanlang 📐
 </p>
   <div class="option-panel" id="photoStyle">
     <b>Style</b>
@@ -286,7 +284,6 @@ textarea{
     </div>
   </div>
 <p class="form-error" id="styleWarning">
-  Iltimos, style tanlang 🎨
 </p>
   <div class="option-panel" id="videoRatio">
     <b>Ratio</b>
@@ -304,7 +301,6 @@ textarea{
     </div>
   </div>
 <p class="form-error" id="durationWarning">
-  Iltimos, davomiylik tanlang ⏱
 </p>
   <button class="generate">Generate</button>
 </div>
@@ -412,7 +408,7 @@ generateBtn.onclick = () => {
   const type = document.querySelector(".type-btn.active").dataset.type;
   const prompt = promptInput.value.trim();
 
-  // 🔄 eski xabarlarni tozalaymiz
+  // 🔄 eski warninglarni yashiramiz
   hide("promptWarning");
   hide("ratioWarning");
   hide("styleWarning");
@@ -420,6 +416,8 @@ generateBtn.onclick = () => {
 
   // 1️⃣ PROMPT
   if (!prompt) {
+    const el = document.getElementById("promptWarning");
+    el.innerText = t.needPrompt;
     show("promptWarning");
     return;
   }
@@ -427,10 +425,14 @@ generateBtn.onclick = () => {
   // 2️⃣ PHOTO
   if (type === "photo") {
     if (!selectedRatio) {
+      const el = document.getElementById("ratioWarning");
+      el.innerText = t.needRatio;
       show("ratioWarning");
       return;
     }
     if (!selectedStyle) {
+      const el = document.getElementById("styleWarning");
+      el.innerText = t.needStyle;
       show("styleWarning");
       return;
     }
@@ -439,10 +441,14 @@ generateBtn.onclick = () => {
   // 3️⃣ VIDEO
   if (type === "video") {
     if (!selectedRatio) {
+      const el = document.getElementById("ratioWarning");
+      el.innerText = t.needRatio;
       show("ratioWarning");
       return;
     }
     if (!selectedDuration) {
+      const el = document.getElementById("durationWarning");
+      el.innerText = t.needDuration;
       show("durationWarning");
       return;
     }
@@ -491,6 +497,68 @@ document.querySelectorAll(".option-btn").forEach((btn) => {
     }
   });
 });
+  // 🌍 TILNI O‘QIYAPMIZ
+const currentLang = localStorage.getItem("lang") || "uz";
+  // 🧠 MATNLAR LUG‘ATI
+const i18n = {
+  uz: {
+    welcome: "Xush kelibsiz",
+    promptPlaceholder: "Prompt yozing...",
+    generate: "Generate",
+    ratio: "Ratio",
+    style: "Style",
+    duration: "Davomiylik",
+    needPrompt: "Iltimos, yaratishdan avval prompt yozing ✨",
+    needRatio: "Iltimos, ratio tanlang 📐",
+    needStyle: "Iltimos, style tanlang 🎨",
+    needDuration: "Iltimos, davomiylikni tanlang ⏱"
+  },
+  ru: {
+    welcome: "Добро пожаловать",
+    promptPlaceholder: "Введите prompt...",
+    generate: "Создать",
+    ratio: "Соотношение",
+    style: "Стиль",
+    duration: "Длительность",
+    needPrompt: "Пожалуйста, введите prompt ✨",
+    needRatio: "Пожалуйста, выберите соотношение 📐",
+    needStyle: "Пожалуйста, выберите стиль 🎨",
+    needDuration: "Пожалуйста, выберите длительность ⏱"
+  },
+  en: {
+    welcome: "Welcome",
+    promptPlaceholder: "Enter your prompt...",
+    generate: "Generate",
+    ratio: "Ratio",
+    style: "Style",
+    duration: "Duration",
+    needPrompt: "Please enter a prompt ✨",
+    needRatio: "Please select a ratio 📐",
+    needStyle: "Please select a style 🎨",
+    needDuration: "Please select duration ⏱"
+  }
+};
+  // ✨ UI MATNLARNI ALMASHTIRISH
+const t = i18n[currentLang];
+
+// RIGHT PANEL
+const panelName = document.getElementById("panelUserName");
+if (panelName) {
+  panelName.innerText = t.welcome;
+}
+
+// PROMPT
+const promptInput = document.getElementById("promptInput");
+if (promptInput) {
+  promptInput.placeholder = t.promptPlaceholder;
+}
+
+// GENERATE BUTTON
+const generateBtn = document.querySelector(".generate");
+if (generateBtn) {
+  generateBtn.innerText = t.generate;
+}
+  
 </script>
 
 <script type="module">
