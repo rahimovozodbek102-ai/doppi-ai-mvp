@@ -237,7 +237,14 @@ textarea{
   Nima xoxlaysiz yozing👇🏻
 </h3>
 <textarea id="promptInput" placeholder="Prompt yozing..."></textarea>
- 
+ <p id="promptWarning" style="
+  display:none;
+  color:#FCA5A5;
+  font-size:13px;
+  margin:-6px 0 12px;
+">
+  Iltimos, yaratishdan avval prompt yozing! ✨
+ </p>
   <div class="option-panel" id="photoRatio">
     <b>Ratio</b>
     <div class="option-grid">
@@ -351,18 +358,23 @@ document.getElementById("videoImageInput").onchange = (e) => {
 
 /* GENERATE */
 const generateBtn = document.querySelector(".generate");
-
 generateBtn.onclick = () => {
   const type = document.querySelector(".type-btn.active").dataset.type;
+  const promptInput = document.getElementById("promptInput");
+  const promptWarning = document.getElementById("promptWarning");
+  const prompt = promptInput.value.trim();
+
+  // ❗ Prompt tekshiruvi
+  if (!prompt) {
+    promptWarning.style.display = "block";
+    promptInput.focus();
+    return;
+  } else {
+    promptWarning.style.display = "none";
+  }
 
   generateBtn.classList.add("loading");
-const prompt = document.getElementById("promptInput").value.trim();
 
-if (!prompt) {
-  alert("Iltimos, prompt yozing");
-  generateBtn.classList.remove("loading");
-  return;
-      }
   setTimeout(() => {
     if (type === "photo") {
       resultPanel.innerHTML = "📸 Photo generated!";
