@@ -344,7 +344,7 @@ const i18n = {
   }
 };
   // ✨ UI MATNLARNI ALMASHTIRISH
-const t = i18n[currentLang];
+window.t = i18n[currentLang];
   function show(id){
   document.getElementById(id).style.display = "block";
 }
