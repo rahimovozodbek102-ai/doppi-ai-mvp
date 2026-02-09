@@ -236,9 +236,8 @@ textarea{
   <br>
   Nima xoxlaysiz yozing👇🏻
 </h3>
-
-  <textarea placeholder="Prompt yozing..."></textarea>
-
+<textarea id="promptInput" placeholder="Prompt yozing..."></textarea>
+ 
   <div class="option-panel" id="photoRatio">
     <b>Ratio</b>
     <div class="option-grid">
@@ -286,72 +285,84 @@ textarea{
 
 <script>
 /* USER MENU */
-const avatar=document.getElementById("userAvatar");
-const menu=document.getElementById("userMenu");
+const avatar = document.getElementById("userAvatar");
+const menu = document.getElementById("userMenu");
 
-avatar.onclick=(e)=>{
+avatar.onclick = (e) => {
   e.stopPropagation();
-  menu.style.display=menu.style.display==="block"?"none":"block";
+  menu.style.display = menu.style.display === "block" ? "none" : "block";
 };
-document.onclick=()=>menu.style.display="none";
+document.onclick = () => menu.style.display = "none";
 
 /* TYPE SWITCH */
-const typeBtns=document.querySelectorAll(".type-btn");
-const videoUpload=document.getElementById("videoUpload");
-const imagePreview=document.getElementById("imagePreview");
-const resultPanel=document.getElementById("resultPanel");
+const typeBtns = document.querySelectorAll(".type-btn");
+const videoUpload = document.getElementById("videoUpload");
+const imagePreview = document.getElementById("imagePreview");
+const resultPanel = document.getElementById("resultPanel");
 
-const photoRatio=document.getElementById("photoRatio");
-const photoStyle=document.getElementById("photoStyle");
-const videoRatio=document.getElementById("videoRatio");
-const videoDuration=document.getElementById("videoDuration");
+const photoRatio = document.getElementById("photoRatio");
+const photoStyle = document.getElementById("photoStyle");
+const videoRatio = document.getElementById("videoRatio");
+const videoDuration = document.getElementById("videoDuration");
 
-function switchType(type){
-  if(type==="photo"){
-    videoUpload.style.display="none";
-    imagePreview.style.display="none";
-    photoRatio.style.display="block";
-    photoStyle.style.display="block";
-    videoRatio.style.display="none";
-    videoDuration.style.display="none";
-    resultPanel.innerHTML="📸 Photo natija shu yerda";
-  }else{
-    videoUpload.style.display="block";
-    imagePreview.style.display="flex";
-    photoRatio.style.display="none";
-    photoStyle.style.display="none";
-    videoRatio.style.display="block";
-    videoDuration.style.display="block";
-    resultPanel.innerHTML="🎥 Video natija shu yerda";
+function switchType(type) {
+  if (type === "photo") {
+    videoUpload.style.display = "none";
+    imagePreview.style.display = "none";
+    photoRatio.style.display = "block";
+    photoStyle.style.display = "block";
+    videoRatio.style.display = "none";
+    videoDuration.style.display = "none";
+    resultPanel.innerHTML = "📸 Photo natija shu yerda";
+  } else {
+    videoUpload.style.display = "block";
+    imagePreview.style.display = "flex";
+    photoRatio.style.display = "none";
+    photoStyle.style.display = "none";
+    videoRatio.style.display = "block";
+    videoDuration.style.display = "block";
+    resultPanel.innerHTML = "🎥 Video natija shu yerda";
   }
 }
 
-typeBtns.forEach(b=>{
-  b.onclick=()=>{
-    typeBtns.forEach(x=>x.classList.remove("active"));
+typeBtns.forEach((b) => {
+  b.onclick = () => {
+    typeBtns.forEach((x) => x.classList.remove("active"));
     b.classList.add("active");
     switchType(b.dataset.type);
-  }
+  };
 });
 switchType("photo");
 
 /* IMAGE PREVIEW */
-document.getElementById("videoImageInput").onchange=e=>{
-  const f=e.target.files[0]; if(!f) return;
-  const r=new FileReader();
-  r.onload=()=>imagePreview.innerHTML=
-    `<img src="${r.result}" style="width:100%;max-height:260px;object-fit:contain;border-radius:14px">`;
+document.getElementById("videoImageInput").onchange = (e) => {
+  const f = e.target.files[0];
+  if (!f) return;
+
+  const r = new FileReader();
+  r.onload = () => {
+    imagePreview.innerHTML = `
+      <img src="${r.result}"
+           style="width:100%;max-height:260px;object-fit:contain;border-radius:14px">
+    `;
+  };
   r.readAsDataURL(f);
 };
+
+/* GENERATE */
 const generateBtn = document.querySelector(".generate");
-const resultPanel = document.getElementById("resultPanel");
 
 generateBtn.onclick = () => {
   const type = document.querySelector(".type-btn.active").dataset.type;
 
-  // loading holati
   generateBtn.classList.add("loading");
+const prompt = document.getElementById("promptInput").value.trim();
 
+if (!prompt) {
+  alert("Iltimos, prompt yozing");
+  generateBtn.classList.remove("loading");
+  return;
+      }
   setTimeout(() => {
     if (type === "photo") {
       resultPanel.innerHTML = "📸 Photo generated!";
@@ -366,18 +377,19 @@ generateBtn.onclick = () => {
     generateBtn.classList.remove("loading");
   }, 2000);
 };
-  document.querySelectorAll(".option-btn").forEach(btn=>{
-  btn.addEventListener("click", ()=>{
-    // faqat o‘sha panel ichida active bo‘lsin
+
+/* OPTION ACTIVE */
+document.querySelectorAll(".option-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
     const parent = btn.closest(".option-grid");
     parent.querySelectorAll(".option-btn")
-      .forEach(b=>b.classList.remove("active"));
+      .forEach((b) => b.classList.remove("active"));
 
     btn.classList.add("active");
   });
 });
-
 </script>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } 
@@ -416,6 +428,14 @@ onAuthStateChanged(auth, (user) => {
     headerName.innerText = "Xush kelibsiz, " + name;
   }
 });
+  const logoutBtn = document.querySelector(".user-menu button");
+
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", async () => {
+    await signOut(auth);
+    window.location.href = "/";
+  });
+}
 </script>
 </body>
 </html>
