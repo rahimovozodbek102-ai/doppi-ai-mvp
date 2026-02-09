@@ -389,7 +389,33 @@ generateBtn.onclick = () => {
         </video>
       `;
     }
+// TEKSHIRUVLAR
+if (!prompt) {
+  alert("Iltimos, avval prompt yozing ✨");
+  return;
+}
 
+if (type === "photo") {
+  if (!selectedRatio) {
+    alert("Iltimos, ratio tanlang 📐");
+    return;
+  }
+  if (!selectedStyle) {
+    alert("Iltimos, style tanlang 🎨");
+    return;
+  }
+}
+
+if (type === "video") {
+  if (!selectedRatio) {
+    alert("Iltimos, ratio tanlang 📐");
+    return;
+  }
+  if (!selectedDuration) {
+    alert("Iltimos, video davomiyligini tanlang ⏱");
+    return;
+  }
+}
     generateBtn.classList.remove("loading");
   }, 2000);
 };
