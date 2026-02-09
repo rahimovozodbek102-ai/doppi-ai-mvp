@@ -106,7 +106,25 @@ textarea{
   border:1px solid #7C3AED;background:rgba(20,10,40,.6);
   color:#fff;cursor:pointer
 }
-.option-btn.active{background:#7C3AED}
+.option-btn.active{
+  background:#7C3AED;
+  box-shadow:0 0 12px rgba(124,58,237,.8);
+} 
+  /* LOADING */
+.generate.loading {
+  opacity: 0.6;
+  pointer-events: none;
+  position: relative;
+}
+
+.generate.loading::after {
+  content: "⏳ Generating...";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+}
   
   /* ===== MOBILE FLOW FIX ===== */
 @media (max-width: 768px) {
@@ -325,19 +343,30 @@ document.getElementById("videoImageInput").onchange=e=>{
     `<img src="${r.result}" style="width:100%;max-height:260px;object-fit:contain;border-radius:14px">`;
   r.readAsDataURL(f);
 };
+const generateBtn = document.querySelector(".generate");
+const resultPanel = document.getElementById("resultPanel");
 
-/* FAKE GENERATE */
-document.querySelector(".generate").onclick=()=>{
-  const type=document.querySelector(".type-btn.active").dataset.type;
-  if(type==="photo"){
-    resultPanel.innerHTML="✅ Photo generated!";
-  }else{
-    resultPanel.innerHTML=
-    `<video controls autoplay loop style="width:100%;border-radius:14px">
-      <source src="https://www.w3schools.com/html/mov_bbb.mp4">
-    </video>`;
-  }
+generateBtn.onclick = () => {
+  const type = document.querySelector(".type-btn.active").dataset.type;
+
+  // loading holati
+  generateBtn.classList.add("loading");
+
+  setTimeout(() => {
+    if (type === "photo") {
+      resultPanel.innerHTML = "📸 Photo generated!";
+    } else {
+      resultPanel.innerHTML = `
+        <video controls autoplay loop style="width:100%;border-radius:14px">
+          <source src="https://www.w3schools.com/html/mov_bbb.mp4">
+        </video>
+      `;
+    }
+
+    generateBtn.classList.remove("loading");
+  }, 2000);
 };
+
 </script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
@@ -376,6 +405,16 @@ onAuthStateChanged(auth, (user) => {
   if (headerName) {
     headerName.innerText = "Xush kelibsiz, " + name;
   }
+});
+  document.querySelectorAll(".option-btn").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    // faqat o‘sha panel ichida active bo‘lsin
+    const parent = btn.closest(".option-grid");
+    parent.querySelectorAll(".option-btn")
+      .forEach(b=>b.classList.remove("active"));
+
+    btn.classList.add("active");
+  });
 });
 </script>
 </body>
