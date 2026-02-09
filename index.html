@@ -192,38 +192,57 @@
 </div>
 
 <script>
-function setLang(lang,btn){
-  localStorage.setItem("lang",lang);
+function setLang(lang, btn = null) {
+  // 1️⃣ Tilni saqlaymiz
+  localStorage.setItem("lang", lang);
 
-  document.querySelectorAll(".lang-buttons button").forEach(b=>{
-    b.classList.add("disabled");
+  // 2️⃣ Tugmalarni boshqarish (agar btn berilgan bo‘lsa)
+  document.querySelectorAll(".lang-buttons button").forEach(b => {
     b.classList.remove("active");
+    b.classList.add("disabled");
   });
-  btn.classList.add("active");
 
-  const title=document.getElementById("infoTitle");
-  const text=document.getElementById("infoText");
-  const gText=document.getElementById("googleText");
-
-  if(lang==="uz"){
-    title.innerText="DO‘PPI AI — sun’iy intellekt yordamchingiz";
-    text.innerText="Matn yozing — AI rasm va video yaratadi. Boshlash bepul, tajriba talab qilinmaydi.";
-    gText.innerText="Google bilan bepul boshlash";
-  }
-  if(lang==="ru"){
-    title.innerText="DO‘PPI AI — ваш AI помощник";
-    text.innerText="Введите текст — AI создаст изображение или видео. Начните бесплатно.";
-    gText.innerText="Начать бесплатно через Google";
-  }
-  if(lang==="en"){
-    title.innerText="DO‘PPI AI — your AI creative assistant";
-    text.innerText="Type a prompt — AI creates images and videos. Start free, no experience needed.";
-    gText.innerText="Start free with Google";
+  if (btn) {
+    btn.classList.add("active");
   }
 
-  document.getElementById("infoBox").style.display="block";
-  document.getElementById("googleBtn").style.display="flex";
+  // 3️⃣ Matn elementlari
+  const title = document.getElementById("infoTitle");
+  const text  = document.getElementById("infoText");
+  const gText = document.getElementById("googleText");
+
+  // 4️⃣ Matnlar
+  const content = {
+    uz: {
+      title: "DO‘PPI AI — sun’iy intellekt yordamchingiz",
+      text: "Matn yozing — AI rasm va video yaratadi. Boshlash bepul, tajriba talab qilinmaydi.",
+      google: "Google bilan bepul boshlash"
+    },
+    ru: {
+      title: "DO‘PPI AI — ваш AI помощник",
+      text: "Введите текст — AI создаст изображение или видео. Начните бесплатно.",
+      google: "Начать бесплатно через Google"
+    },
+    en: {
+      title: "DO‘PPI AI — your AI creative assistant",
+      text: "Type a prompt — AI creates images and videos. Start free, no experience needed.",
+      google: "Start free with Google"
+    }
+  };
+
+  // 5️⃣ UI ni yangilaymiz
+  title.innerText = content[lang].title;
+  text.innerText  = content[lang].text;
+  gText.innerText = content[lang].google;
+
+  // 6️⃣ Ko‘rsatamiz
+  document.getElementById("infoBox").style.display = "block";
+  document.getElementById("googleBtn").style.display = "flex";
 }
+  window.onload = () => {
+  const savedLang = localStorage.getItem("lang") || "uz";
+  setLang(savedLang);
+};
 </script>
 
 </body>
