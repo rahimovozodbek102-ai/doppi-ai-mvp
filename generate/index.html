@@ -316,8 +316,26 @@ const photoRatio = document.getElementById("photoRatio");
 const photoStyle = document.getElementById("photoStyle");
 const videoRatio = document.getElementById("videoRatio");
 const videoDuration = document.getElementById("videoDuration");
-
+  
 function switchType(type) {
+
+  // 🔄 1. PROMPTNI TOZALAYMIZ
+  const promptInput = document.getElementById("promptInput");
+  if (promptInput) {
+    promptInput.value = "";
+  }
+
+  // 🔄 2. TANLANGAN QIYMATLARNI RESET QILAMIZ
+  selectedRatio = null;
+  selectedStyle = null;
+  selectedDuration = null;
+
+  // 🔄 3. ACTIVE CLASSLARNI TOZALAYMIZ
+  document.querySelectorAll(".option-btn").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  // ⬇️ 4. TYPE BO‘YICHA UI BOSHQARUV (ESKI KODING)
   if (type === "photo") {
     videoUpload.style.display = "none";
     imagePreview.style.display = "none";
@@ -335,7 +353,7 @@ function switchType(type) {
     videoDuration.style.display = "block";
     resultPanel.innerHTML = "🎥 Video natija shu yerda";
   }
-}
+  }
 
 typeBtns.forEach((b) => {
   b.onclick = () => {
