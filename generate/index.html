@@ -112,6 +112,36 @@ textarea{
 @media (max-width:768px){
   .container{flex-direction:column}
 }
+  /* ===== MOBILE FLOW FIX ===== */
+@media (max-width: 768px) {
+
+  .container {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .panel.left,
+  .panel.right {
+    width: 100%;
+  }
+
+  /* Natija har doim pastda */
+  #resultPanel {
+    order: 99;
+    min-height: 180px;
+  }
+
+  /* Video rasm preview yuqorida */
+  #imagePreview {
+    order: 1;
+  }
+
+  /* Upload eng tepada */
+  #videoUpload {
+    order: 0;
+  }
+
+}
 </style>
 </head>
 
