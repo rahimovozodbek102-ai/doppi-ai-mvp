@@ -291,6 +291,10 @@ textarea{
 </div>
 
 <script>
+  // TANLANGAN QIYMATLAR
+let selectedRatio = null;
+let selectedStyle = null;
+let selectedDuration = null;
 /* USER MENU */
 const avatar = document.getElementById("userAvatar");
 const menu = document.getElementById("userMenu");
@@ -393,11 +397,29 @@ generateBtn.onclick = () => {
 /* OPTION ACTIVE */
 document.querySelectorAll(".option-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
-    const parent = btn.closest(".option-grid");
+    const parent = btn.closest(".option-panel");
+
+    // faqat shu blok ichida active bo‘lsin
     parent.querySelectorAll(".option-btn")
-      .forEach((b) => b.classList.remove("active"));
+      .forEach(b => b.classList.remove("active"));
 
     btn.classList.add("active");
+
+    // qaysi panel ekanini aniqlaymiz
+    if (parent.id === "photoRatio" || parent.id === "videoRatio") {
+      selectedRatio = btn.innerText;
+      console.log("Selected ratio:", selectedRatio);
+    }
+
+    if (parent.id === "photoStyle") {
+      selectedStyle = btn.innerText;
+      console.log("Selected style:", selectedStyle);
+    }
+
+    if (parent.id === "videoDuration") {
+      selectedDuration = btn.innerText;
+      console.log("Selected duration:", selectedDuration);
+    }
   });
 });
 </script>
