@@ -366,6 +366,16 @@ generateBtn.onclick = () => {
     generateBtn.classList.remove("loading");
   }, 2000);
 };
+  document.querySelectorAll(".option-btn").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    // faqat o‘sha panel ichida active bo‘lsin
+    const parent = btn.closest(".option-grid");
+    parent.querySelectorAll(".option-btn")
+      .forEach(b=>b.classList.remove("active"));
+
+    btn.classList.add("active");
+  });
+});
 
 </script>
 <script type="module">
@@ -405,16 +415,6 @@ onAuthStateChanged(auth, (user) => {
   if (headerName) {
     headerName.innerText = "Xush kelibsiz, " + name;
   }
-});
-  document.querySelectorAll(".option-btn").forEach(btn=>{
-  btn.addEventListener("click", ()=>{
-    // faqat o‘sha panel ichida active bo‘lsin
-    const parent = btn.closest(".option-grid");
-    parent.querySelectorAll(".option-btn")
-      .forEach(b=>b.classList.remove("active"));
-
-    btn.classList.add("active");
-  });
 });
 </script>
 </body>
