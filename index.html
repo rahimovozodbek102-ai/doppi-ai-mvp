@@ -6,89 +6,127 @@
   <title>DO‘PPI AI</title>
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial,sans-serif;
     }
 
-    body {
-      min-height: 100vh;
-      background: url("images/boy.png") no-repeat center / cover;
+    body{
+      min-height:100vh;
+      background:url("images/boy.png") no-repeat center/cover;
     }
 
-    .overlay {
-      min-height: 100vh;
-      background: rgba(0,0,0,0.45);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      text-align: center;
-      position: relative;
+    .overlay{
+      min-height:100vh;
+      background:rgba(0,0,0,.5);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      color:#fff;
+      padding:20px;
     }
 
-    .header {
-      position: absolute;
-      top: 16px;
-      left: 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .header{
+      position:absolute;
+      top:16px;
+      left:16px;
+      display:flex;
+      align-items:center;
+      gap:10px;
     }
 
-    .header img {
-      width: 36px;
+    .header img{width:36px}
+    .header span{
+      font-size:20px;
+      font-weight:700;
+      color:#B48CFF;
     }
 
-    .header span {
-      font-size: 20px;
-      font-weight: bold;
-      color: #b48cff;
+    h1{
+      font-size:26px;
+      margin-bottom:10px;
     }
 
-    h1 {
-      margin-bottom: 20px;
-      font-size: 28px;
+    .subtitle{
+      font-size:15px;
+      opacity:.9;
+      margin-bottom:24px;
     }
 
-    .lang-buttons {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 24px;
+    .lang-buttons{
+      display:flex;
+      gap:12px;
+      margin-bottom:24px;
     }
 
-    .lang-buttons button {
-      background: #7c3aed;
-      border: none;
-      color: white;
-      padding: 10px 16px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 15px;
+    .lang-buttons button{
+      padding:10px 16px;
+      border-radius:10px;
+      border:none;
+      background:#7C3AED;
+      color:white;
+      cursor:pointer;
+      font-size:15px;
+      transition:.2s;
     }
 
-    .google {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: white;
-      color: black;
-      border: none;
-      padding: 14px 26px;
-      border-radius: 14px;
-      font-size: 16px;
-      cursor: pointer;
+    .lang-buttons button.active{
+      box-shadow:0 0 18px rgba(124,58,237,.9);
     }
 
-    .google img {
-      width: 20px;
+    .lang-buttons button.disabled{
+      opacity:.4;
+      pointer-events:none;
+    }
+
+    .info-box{
+      display:none;
+      max-width:420px;
+      background:rgba(20,10,40,.7);
+      padding:20px;
+      border-radius:16px;
+      margin-bottom:24px;
+      animation:fade .3s ease;
+    }
+
+    .info-box h2{
+      font-size:20px;
+      margin-bottom:10px;
+      color:#D8B4FE;
+    }
+
+    .info-box p{
+      font-size:14px;
+      line-height:1.6;
+      opacity:.95;
+    }
+
+    .google-btn{
+      display:none;
+      align-items:center;
+      gap:10px;
+      background:white;
+      color:black;
+      border:none;
+      padding:14px 26px;
+      border-radius:14px;
+      font-size:16px;
+      cursor:pointer;
+    }
+
+    .google-btn img{width:20px}
+
+    @keyframes fade{
+      from{opacity:0;transform:translateY(8px)}
+      to{opacity:1;transform:translateY(0)}
     }
   </style>
 
-  <!-- 🔐 FIREBASE AUTH (POPUP – ENG ISHONCHLI USUL) -->
+  <!-- 🔐 FIREBASE AUTH -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
     import {
@@ -109,67 +147,84 @@
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
 
-    // 👉 Google login (POPUP)
     window.googleLogin = async () => {
-      try {
+      try{
         await signInWithPopup(auth, provider);
         window.location.href = "/generate/";
-      } catch (err) {
+      }catch(err){
         alert("Login xato: " + err.message);
       }
     };
 
-    // 👉 Agar user allaqachon login bo‘lsa
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        window.location.href = "/generate/";
-      }
+    onAuthStateChanged(auth,(user)=>{
+      if(user) window.location.href="/generate/";
     });
-
-    // 🌍 TIL ALMASHTIRISH
-    window.setLang = (lang) => {
-      const t = document.getElementById("titleText");
-      const g = document.getElementById("googleText");
-
-      if (lang === "uz") {
-        t.innerText = "DO‘PPI AI ga xush kelibsiz";
-        g.innerText = "Google bilan davom etish";
-      }
-      if (lang === "ru") {
-        t.innerText = "Добро пожаловать в DO‘PPI AI";
-        g.innerText = "Войти через Google";
-      }
-      if (lang === "en") {
-        t.innerText = "Welcome to DO‘PPI AI";
-        g.innerText = "Continue with Google";
-      }
-    };
-
-    window.onload = () => setLang("uz");
   </script>
 </head>
 
 <body>
-  <div class="overlay">
+<div class="overlay">
 
-    <div class="header">
-      <img src="images/logo.png">
-      <span>DO‘PPI AI</span>
-    </div>
-
-    <h1 id="titleText"></h1>
-
-    <div class="lang-buttons">
-      <button onclick="setLang('uz')">🇺🇿 UZ</button>
-      <button onclick="setLang('ru')">🇷🇺 RU</button>
-      <button onclick="setLang('en')">🇺🇸 ENG</button>
-    </div>
-
-    <button class="google" onclick="googleLogin()">
-      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
-      <span id="googleText"></span>
-    </button>
-
+  <div class="header">
+    <img src="images/logo.png">
+    <span>DO‘PPI AI</span>
   </div>
+
+  <h1 id="mainTitle">Iltimos, davom etish uchun tilni tanlang</h1>
+  <div class="subtitle">Please select your preferred language 👇</div>
+
+  <div class="lang-buttons">
+    <button onclick="setLang('uz',this)">🇺🇿 UZ</button>
+    <button onclick="setLang('ru',this)">🇷🇺 RU</button>
+    <button onclick="setLang('en',this)">🇺🇸 ENG</button>
+  </div>
+
+  <div class="info-box" id="infoBox">
+    <h2 id="infoTitle"></h2>
+    <p id="infoText"></p>
+  </div>
+
+  <button class="google-btn" id="googleBtn" onclick="googleLogin()">
+    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
+    <span id="googleText"></span>
+  </button>
+
+</div>
+
+<script>
+function setLang(lang,btn){
+  localStorage.setItem("lang",lang);
+
+  document.querySelectorAll(".lang-buttons button").forEach(b=>{
+    b.classList.add("disabled");
+    b.classList.remove("active");
+  });
+  btn.classList.add("active");
+
+  const title=document.getElementById("infoTitle");
+  const text=document.getElementById("infoText");
+  const gText=document.getElementById("googleText");
+
+  if(lang==="uz"){
+    title.innerText="DO‘PPI AI — sun’iy intellekt yordamchingiz";
+    text.innerText="Matn yozing — AI rasm va video yaratadi. Boshlash bepul, tajriba talab qilinmaydi.";
+    gText.innerText="Google bilan bepul boshlash";
+  }
+  if(lang==="ru"){
+    title.innerText="DO‘PPI AI — ваш AI помощник";
+    text.innerText="Введите текст — AI создаст изображение или видео. Начните бесплатно.";
+    gText.innerText="Начать бесплатно через Google";
+  }
+  if(lang==="en"){
+    title.innerText="DO‘PPI AI — your AI creative assistant";
+    text.innerText="Type a prompt — AI creates images and videos. Start free, no experience needed.";
+    gText.innerText="Start free with Google";
+  }
+
+  document.getElementById("infoBox").style.display="block";
+  document.getElementById("googleBtn").style.display="flex";
+}
+</script>
+
 </body>
 </html>
