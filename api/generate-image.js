@@ -96,12 +96,16 @@ function ratioHint(ratio) {
 
 function buildPrompt({ prompt, style, ratio }) {
   return [
+    subjectHint(prompt),
     prompt,
+    sceneHint(style),
+    backgroundHint(ratio),
     STYLE_MAP[style] || "",
     ratioHint(ratio),
     QUALITY_BOOST
   ].filter(Boolean).join(", ");
 }
+
 // ===== PROMPT SAFETY HELPERS =====
 function normalizePrompt(prompt, maxLength = 500) {
   if (!prompt) return "";
@@ -122,6 +126,74 @@ function cleanPromptByStyle(prompt, style) {
   }
 
   return p.trim();
+}
+// ===== SCENE / SUBJECT / BACKGROUND HELPERS =====
+
+// Subject – asosiy obyektni aniqlashtiradi
+function subjectHint(prompt) {
+  const p = prompt.toLowerCase();
+
+  if (
+    p.includes("man") ||
+    p.includes("woman") ||
+    p.includes("person") ||
+    p.includes("portrait") ||
+    p.includes("face")
+  ) {
+    return "clear human subject, realistic proportions, well-defined face";
+  }
+
+  if (
+    p.includes("car") ||
+    p.includes("vehicle") ||
+    p.includes("bike")
+  ) {
+    return "detailed main object, centered composition, realistic scale";
+  }
+
+  if (
+    p.includes("animal") ||
+    p.includes("cat") ||
+    p.includes("dog")
+  ) {
+    return "clear animal subject, sharp focus, natural anatomy";
+  }
+
+  return "clear main subject, strong focal point";
+}
+
+// Scene – nima bo‘layotganini tushuntiradi
+function sceneHint(style) {
+  if (style === "Cinematic") {
+    return "cinematic scene, dramatic lighting, shallow depth of field";
+  }
+
+  if (style === "Realistic") {
+    return "natural scene, realistic lighting, real-world perspective";
+  }
+
+  if (style === "Anime") {
+    return "anime scene, expressive pose, dynamic composition";
+  }
+
+  if (style === "Dark") {
+    return "dark atmospheric scene, moody lighting, strong contrast";
+  }
+
+  return "well-composed scene, balanced lighting";
+}
+
+// Background – fonni boyitadi
+function backgroundHint(ratio) {
+  if (ratio === "16:9" || ratio === "21:9") {
+    return "wide detailed background, depth, layered environment";
+  }
+
+  if (ratio === "9:16") {
+    return "vertical background, full body framing, clean depth";
+  }
+
+  return "clean detailed background, depth and perspective";
 }
 // ===== API HANDLER =====
 
