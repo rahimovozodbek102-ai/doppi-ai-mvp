@@ -1,3 +1,70 @@
+// ===== NEGATIVE BLOCKS =====
+
+const BASE_NEGATIVE = `
+low quality, blurry, jpeg artifacts, watermark, logo, text,
+cropped, out of frame, oversharpened
+`;
+
+const FACE_NEGATIVE = `
+bad face, distorted face, asymmetrical face, cross eye, lazy eye,
+bad anatomy, deformed head
+`;
+
+const HAND_NEGATIVE = `
+bad hands, extra fingers, missing fingers,
+deformed hands, fused fingers
+`;
+
+const REALISTIC_NEGATIVE = `
+cartoon, anime, illustration, painting, unreal
+`;
+
+const ANIME_NEGATIVE = `
+photorealistic, realistic skin, real photo
+`;
+
+const DARK_NEGATIVE = `
+overexposed, flat lighting
+`;
+
+const WIDE_NEGATIVE = `
+empty background, low detail background, flat perspective
+`;
+
+// ===== NEGATIVE BUILDER =====
+function buildNegativePrompt({ prompt, style, ratio }) {
+  let negative = BASE_NEGATIVE;
+
+  const p = prompt.toLowerCase();
+
+  if (
+    p.includes("face") ||
+    p.includes("portrait") ||
+    p.includes("man") ||
+    p.includes("woman")
+  ) {
+    negative += FACE_NEGATIVE + HAND_NEGATIVE;
+  }
+
+  if (style === "Realistic" || style === "Cinematic") {
+    negative += REALISTIC_NEGATIVE;
+  }
+
+  if (style === "Anime") {
+    negative += ANIME_NEGATIVE;
+  }
+
+  if (style === "Dark") {
+    negative += DARK_NEGATIVE;
+  }
+
+  if (ratio === "16:9" || ratio === "21:9") {
+    negative += WIDE_NEGATIVE;
+  }
+
+  return negative;
+}
+
 // ===== PROMPT HELPERS =====
 
 const STYLE_MAP = {
@@ -37,13 +104,6 @@ function buildPrompt({ prompt, style, ratio }) {
   ].filter(Boolean).join(", ");
 }
 
-const NEGATIVE_PROMPT = `
-low quality, blurry, bad anatomy, bad hands, extra fingers, missing fingers,
-deformed hands, deformed face, distorted face, cross-eye, lazy eye,
-poor lighting, flat lighting, oversaturated, undersaturated,
-jpeg artifacts, watermark, logo, text, cropped, out of frame
-`;
-
 // ===== API HANDLER =====
 
 export default async function handler(req, res) {
@@ -52,18 +112,18 @@ export default async function handler(req, res) {
   }
 
   const { prompt, ratio, style } = req.body;
-
   if (!prompt) {
     return res.status(400).json({ error: "Prompt required" });
   }
 
   try {
     const finalPrompt = buildPrompt({ prompt, style, ratio });
+    const negativePrompt = buildNegativePrompt({ prompt, style, ratio });
 
     const formData = new FormData();
     formData.append("model", "sd3.5-large-turbo");
     formData.append("prompt", finalPrompt);
-    formData.append("negative_prompt", NEGATIVE_PROMPT);
+    formData.append("negative_prompt", negativePrompt);
     formData.append("aspect_ratio", ratio || "1:1");
     formData.append("output_format", "png");
 
@@ -88,10 +148,10 @@ export default async function handler(req, res) {
 
     return res.status(200).json({
       image: data.image,
-      used_prompt: finalPrompt // debug uchun (keyin o‘chirsa bo‘ladi)
+      used_prompt: finalPrompt // debug (keyin olib tashlaysan)
     });
 
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
-}
+ }
