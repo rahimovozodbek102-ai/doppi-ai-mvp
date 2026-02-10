@@ -441,7 +441,7 @@ document.getElementById("videoImageInput").onchange = (e) => {
 
 /* GENERATE */
 const generateBtn = document.querySelector(".generate");
-generateBtn.onclick = () => {
+generateBtn.onclick = async () => {
   const type = document.querySelector(".type-btn.active").dataset.type;
   const prompt = promptInput.value.trim();
 
@@ -520,10 +520,8 @@ try {
   resultPanel.innerText = "❌ Xatolik yuz berdi";
   console.error(err);
 }
-
 generateBtn.classList.remove("loading");
-    
-
+};    
 /* OPTION ACTIVE */
 document.querySelectorAll(".option-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
