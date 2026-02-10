@@ -102,7 +102,27 @@ function buildPrompt({ prompt, style, ratio }) {
     QUALITY_BOOST
   ].filter(Boolean).join(", ");
 }
+// ===== PROMPT SAFETY HELPERS =====
+function normalizePrompt(prompt, maxLength = 500) {
+  if (!prompt) return "";
+  return prompt.length > maxLength
+    ? prompt.slice(0, maxLength)
+    : prompt;
+}
 
+function cleanPromptByStyle(prompt, style) {
+  let p = prompt.toLowerCase();
+
+  if (style === "Anime") {
+    p = p.replace(/realistic|photorealistic|photo|real photo/gi, "");
+  }
+
+  if (style === "Realistic" || style === "Cinematic") {
+    p = p.replace(/anime|cartoon|illustration|drawing/gi, "");
+  }
+
+  return p.trim();
+}
 // ===== API HANDLER =====
 
 export default async function handler(req, res) {
@@ -116,8 +136,19 @@ export default async function handler(req, res) {
   }
 
   try {
-    const finalPrompt = buildPrompt({ prompt, style, ratio });
-    const negativePrompt = buildNegativePrompt({ prompt, style, ratio });
+    const safePrompt = normalizePrompt(prompt);
+const balancedPrompt = cleanPromptByStyle(safePrompt, style);
+
+const finalPrompt = buildPrompt({
+  prompt: balancedPrompt,
+  style,
+  ratio
+});
+    const negativePrompt = buildNegativePrompt({
+  prompt: balancedPrompt,
+  style,
+  ratio
+});
 
     const formData = new FormData();
     formData.append("model", "sd3.5-large-turbo");
