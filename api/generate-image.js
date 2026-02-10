@@ -10,6 +10,12 @@ export default async function handler(req, res) {
   }
 
   try {
+    const formData = new FormData();
+    formData.append("model", "sd3.5-large-turbo");
+    formData.append("prompt", `${prompt}, style: ${style || "realistic"}`);
+    formData.append("aspect_ratio", ratio || "1:1");
+    formData.append("output_format", "png");
+
     const response = await fetch(
       "https://api.stability.ai/v2beta/stable-image/generate/sd3",
       {
@@ -17,24 +23,21 @@ export default async function handler(req, res) {
         headers: {
           Authorization: `Bearer ${process.env.STABILITY_API_KEY}`,
           Accept: "application/json",
-          "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          prompt,
-          aspect_ratio: ratio || "1:1",
-          style_preset: style || "realistic",
-          output_format: "png",
-        }),
+        body: formData,
       }
     );
 
-    const data = await response.json();
-
-    if (!data.image) {
-      return res.status(500).json({ error: "No image returned" });
+    if (!response.ok) {
+      const err = await response.text();
+      return res.status(500).json({ error: err });
     }
 
-    res.status(200).json({ image: data.image });
+    const data = await response.json();
+
+    res.status(200).json({
+      image: data.image,
+    });
 
   } catch (err) {
     res.status(500).json({ error: err.message });
