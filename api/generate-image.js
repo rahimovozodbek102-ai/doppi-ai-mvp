@@ -34,7 +34,6 @@ empty background, low detail background, flat perspective
 // ===== NEGATIVE BUILDER =====
 function buildNegativePrompt({ prompt, style, ratio }) {
   let negative = BASE_NEGATIVE;
-
   const p = prompt.toLowerCase();
 
   if (
@@ -83,7 +82,7 @@ const STYLE_MAP = {
 };
 
 const QUALITY_BOOST =
-  "ultra high quality, sharp focus, 8k, professional composition, masterpiece";
+  "ultra high quality, sharp focus, professional composition, masterpiece";
 
 function ratioHint(ratio) {
   if (ratio === "16:9" || ratio === "21:9") {
@@ -147,11 +146,10 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     return res.status(200).json({
-      image: data.image,
-      used_prompt: finalPrompt // debug (keyin olib tashlaysan)
+      image: data.image
     });
 
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
- }
+}
