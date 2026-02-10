@@ -15,30 +15,26 @@ export default async function handler(req, res) {
       {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${process.env.STABILITY_API_KEY}`,
+          Authorization: `Bearer ${process.env.STABILITY_API_KEY}`,
+          Accept: "application/json",
           "Content-Type": "application/json",
-          "Accept": "application/json"
         },
         body: JSON.stringify({
-          model: "sd3.5-large-turbo",
-          prompt: `${prompt}, style: ${style || "realistic"}`,
+          prompt,
           aspect_ratio: ratio || "1:1",
-          output_format: "png"
-        })
+          style_preset: style || "realistic",
+          output_format: "png",
+        }),
       }
     );
 
-    if (!response.ok) {
-      const err = await response.text();
-      return res.status(500).json({ error: err });
-    }
-
     const data = await response.json();
 
-    res.status(200).json({
-      success: true,
-      image: data.image
-    });
+    if (!data.image) {
+      return res.status(500).json({ error: "No image returned" });
+    }
+
+    res.status(200).json({ image: data.image });
 
   } catch (err) {
     res.status(500).json({ error: err.message });
