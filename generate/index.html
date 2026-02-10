@@ -491,19 +491,37 @@ generateBtn.onclick = () => {
     }
   }
 
-  // 4️⃣ HAMMASI OK
-  generateBtn.classList.add("loading");
+// 4️⃣ HAMMASI OK — REAL API
+generateBtn.classList.add("loading");
 
-  setTimeout(() => {
-    resultPanel.innerHTML =
-      type === "photo"
-        ? "📸 Photo generated!"
-        : `<video controls autoplay loop style="width:100%;border-radius:14px">
-             <source src="https://www.w3schools.com/html/mov_bbb.mp4">
-           </video>`;
-    generateBtn.classList.remove("loading");
-  }, 2000);
-};
+try {
+  const res = await fetch("/api/generate-image", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      prompt,
+      ratio: selectedRatio,
+      style: selectedStyle
+    })
+  });
+
+  const data = await res.json();
+
+  if (data.image) {
+    resultPanel.innerHTML = `
+      <img src="data:image/png;base64,${data.image}"
+           style="width:100%;border-radius:14px" />
+    `;
+  } else {
+    resultPanel.innerText = "❌ Rasm yaratilmadi";
+  }
+
+} catch (err) {
+  resultPanel.innerText = "❌ Xatolik yuz berdi";
+  console.error(err);
+}
+
+generateBtn.classList.remove("loading");
     
 
 /* OPTION ACTIVE */
