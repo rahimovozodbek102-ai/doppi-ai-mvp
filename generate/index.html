@@ -141,6 +141,53 @@ textarea{
   from{opacity:0;transform:translateY(-4px)}
   to{opacity:1;transform:translateY(0)}
 } 
+  /* ===== MODAL ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(8px);
+  background: rgba(0,0,0,0.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-box {
+  background: rgba(20,10,40,.95);
+  border: 1px solid #7C3AED;
+  border-radius: 18px;
+  padding: 28px;
+  width: 90%;
+  max-width: 380px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(124,58,237,.6);
+  animation: pop 0.25s ease;
+}
+
+.modal-box h2 {
+  margin-bottom: 12px;
+}
+
+.modal-box p {
+  font-size: 14px;
+  opacity: 0.85;
+  margin-bottom: 18px;
+}
+
+.modal-box button {
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: none;
+  background: #7C3AED;
+  color: white;
+  cursor: pointer;
+}
+
+@keyframes pop {
+  from { transform: scale(.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
   /* ===== MOBILE FLOW FIX ===== */
 @media (max-width: 768px) {
 
@@ -300,7 +347,17 @@ textarea{
 </div>
 
 </div>
-
+<!-- VIDEO COMING SOON MODAL -->
+<div id="videoModalOverlay" class="modal-overlay">
+  <div class="modal-box">
+    <h2>🎥 Video generatsiya</h2>
+    <p>
+      Video bo‘limi tez orada ishga tushadi.
+      Hozircha rasm generatsiyadan foydalanishingiz mumkin.
+    </p>
+    <button id="closeVideoModal">Tushunarli</button>
+  </div>
+</div>
 <script>
   // 🌍 TILNI O‘QIYAPMIZ
 const currentLang = localStorage.getItem("lang") || "uz";
@@ -418,13 +475,20 @@ function switchType(type) {
 
 typeBtns.forEach((b) => {
   b.onclick = () => {
+
+    // 🎥 Agar Video bosilsa — modal chiqadi
+    if (b.dataset.type === "video") {
+      document.getElementById("videoModal").style.display = "flex";
+      return; // switchType ishlamaydi
+    }
+
     typeBtns.forEach((x) => x.classList.remove("active"));
     b.classList.add("active");
     switchType(b.dataset.type);
   };
 });
-switchType("photo");
 
+switchType("photo");
 /* IMAGE PREVIEW */
 document.getElementById("videoImageInput").onchange = (e) => {
   const f = e.target.files[0];
