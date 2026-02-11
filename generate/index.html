@@ -662,14 +662,23 @@ generateBtn.onclick = async () => {
 
     if (type === "photo") {
       if (data.image) {
-        resultPanel.innerHTML = `
-  <img src="data:image/png;base64,${data.image}"
+        const fakeImage = "https://picsum.photos/800/800";
+
+resultPanel.innerHTML = `
+  <img src="${fakeImage}"
        style="width:100%;border-radius:14px" />
 
   <button id="downloadBtn" class="download-btn">
     ⬇ Download Image
   </button>
 `;
+
+document.getElementById("downloadBtn").onclick = () => {
+  const a = document.createElement("a");
+  a.href = fakeImage;
+  a.download = "doppi-ai-test.jpg";
+  a.click();
+};
         const downloadBtn = document.getElementById("downloadBtn");
 
 if (downloadBtn) {
