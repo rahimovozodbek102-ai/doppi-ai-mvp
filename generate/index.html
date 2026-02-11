@@ -491,37 +491,69 @@ generateBtn.onclick = async () => {
     }
   }
 
-// 4️⃣ HAMMASI OK — REAL API
+// 4️⃣ HAMMASI OK — API
 generateBtn.classList.add("loading");
 
 try {
-  const res = await fetch("/api/generate-image", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
+
+  let endpoint = "";
+  let bodyData = {};
+
+  if (type === "photo") {
+    endpoint = "/api/generate-image";
+    bodyData = {
       prompt,
       ratio: selectedRatio,
       style: selectedStyle
-    })
+    };
+  }
+
+  if (type === "video") {
+    endpoint = "/api/generate-video";
+    bodyData = {
+      prompt,
+      ratio: selectedRatio,
+      duration: selectedDuration
+    };
+  }
+
+  const res = await fetch(endpoint, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(bodyData)
   });
 
   const data = await res.json();
 
-  if (data.image) {
+  // PHOTO
+  if (type === "photo") {
+    if (data.image) {
+      resultPanel.innerHTML = `
+        <img src="data:image/png;base64,${data.image}"
+             style="width:100%;border-radius:14px" />
+      `;
+    } else {
+      resultPanel.innerText = "❌ Rasm yaratilmadi";
+    }
+  }
+
+  // VIDEO (mock)
+  if (type === "video") {
     resultPanel.innerHTML = `
-      <img src="data:image/png;base64,${data.image}"
-           style="width:100%;border-radius:14px" />
+      <div style="padding:20px;text-align:center">
+        🎥 Video tayyor!
+        <br><br>
+        <small>(Hozircha mock versiya)</small>
+      </div>
     `;
-  } else {
-    resultPanel.innerText = "❌ Rasm yaratilmadi";
   }
 
 } catch (err) {
   resultPanel.innerText = "❌ Xatolik yuz berdi";
   console.error(err);
 }
+
 generateBtn.classList.remove("loading");
-};    
 /* OPTION ACTIVE */
 document.querySelectorAll(".option-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
