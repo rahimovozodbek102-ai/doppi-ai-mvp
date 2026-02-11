@@ -352,8 +352,15 @@ textarea{
   <div class="modal-box">
     <h2>🎥 Video generatsiya</h2>
     <p>
-      Video bo‘limi tez orada ishga tushadi.
-      Hozircha rasm generatsiyadan foydalanishingiz mumkin.
+      🇺🇿UZ
+Video bo‘limi tez orada ishga tushadi.
+Hozircha rasm generatsiyasidan foydalanishingiz mumkin.
+🇷🇺 RU
+Раздел видео скоро будет запущен.
+Пока вы можете пользоваться генерацией изображений.
+🇺🇸ENG
+The video section will be launched soon.
+For now, you can use the image generation feature.
     </p>
     <button id="closeVideoModal">Tushunarli</button>
   </div>
@@ -478,7 +485,7 @@ typeBtns.forEach((b) => {
 
     // 🎥 Agar Video bosilsa — modal chiqadi
     if (b.dataset.type === "video") {
-      document.getElementById("videoModal").style.display = "flex";
+      document.getElementById("videoModalOverlay").style.display = "flex";
       return; // switchType ishlamaydi
     }
 
@@ -511,13 +518,11 @@ generateBtn.onclick = async () => {
   const type = document.querySelector(".type-btn.active").dataset.type;
   const prompt = promptInput.value.trim();
 
-  // 🔄 eski warninglarni yashiramiz
   hide("promptWarning");
   hide("ratioWarning");
   hide("styleWarning");
   hide("durationWarning");
 
-  // 1️⃣ PROMPT
   if (!prompt) {
     const el = document.getElementById("promptWarning");
     el.innerText = t.needPrompt;
@@ -525,7 +530,7 @@ generateBtn.onclick = async () => {
     return;
   }
 
-  // 2️⃣ PHOTO
+  // PHOTO VALIDATION
   if (type === "photo") {
     if (!selectedRatio) {
       const el = document.getElementById("ratioWarning");
@@ -541,26 +546,77 @@ generateBtn.onclick = async () => {
     }
   }
 
-  // 3️⃣ VIDEO
+  // VIDEO VALIDATION
   if (type === "video") {
-
-  if (!uploadedImageBase64) {
-    resultPanel.innerText = "❌ Avval rasm yuklang";
-    generateBtn.classList.remove("loading");
-    return;
+    if (!uploadedImageBase64) {
+      resultPanel.innerText = "❌ Avval rasm yuklang";
+      return;
+    }
   }
 
-  endpoint = "/api/generate-video";
+  generateBtn.classList.add("loading");
 
-  bodyData = {
-    prompt,
-    ratio: selectedRatio,
-    duration: selectedDuration,
-    image: uploadedImageBase64
-  };
+  try {
+    let endpoint = "";
+    let bodyData = {};
+
+    if (type === "photo") {
+      endpoint = "/api/generate-image";
+      bodyData = {
+        prompt,
+        ratio: selectedRatio,
+        style: selectedStyle
+      };
+    }
+
+    if (type === "video") {
+      endpoint = "/api/generate-video";
+      bodyData = {
+        prompt,
+        ratio: selectedRatio,
+        duration: selectedDuration,
+        image: uploadedImageBase64
+      };
+    }
+
+    const res = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(bodyData)
+    });
+
+    const data = await res.json();
+
+    if (type === "photo") {
+      if (data.image) {
+        resultPanel.innerHTML = `
+          <img src="data:image/png;base64,${data.image}"
+               style="width:100%;border-radius:14px" />
+        `;
+      } else {
+        resultPanel.innerText = "❌ Rasm yaratilmadi";
+      }
+    }
+
+    if (type === "video") {
+      resultPanel.innerHTML = `
+        <video controls autoplay loop style="width:100%;border-radius:14px">
+          <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+        </video>
+        <div style="margin-top:8px;font-size:12px;color:#aaa">
+          🎥 Mock preview (real API tez orada)
+        </div>
+      `;
+    }
+
+  } catch (err) {
+    resultPanel.innerText = "❌ Xatolik yuz berdi";
+    console.error(err);
   }
 
-// 4️⃣ HAMMASI OK — API
+  generateBtn.classList.remove("loading");
+};
+  // 4️⃣ HAMMASI OK — API
 generateBtn.classList.add("loading");
 
 try {
@@ -667,7 +723,13 @@ const promptInput = document.getElementById("promptInput");
 if (promptInput) {
   promptInput.placeholder = t.promptPlaceholder;
 }
-  
+  // Modal yopish
+const closeBtn = document.getElementById("closeVideoModal");
+if (closeBtn) {
+  closeBtn.onclick = () => {
+    document.getElementById("videoModalOverlay").style.display = "none";
+  };
+} 
 </script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
