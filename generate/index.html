@@ -351,7 +351,8 @@ window.t = i18n[currentLang];
 function hide(id){
   document.getElementById(id).style.display = "none";
 }
-  // TANLANGAN QIYMATLAR
+  // TANLANGAN QIYMATLAR//
+let uploadedImageBase64 = null;
 let selectedRatio = null;
 let selectedStyle = null;
 let selectedDuration = null;
@@ -431,6 +432,7 @@ document.getElementById("videoImageInput").onchange = (e) => {
 
   const r = new FileReader();
   r.onload = () => {
+    uploadedImageBase64 = r.result; // 👈 MUHIM QATOR
     imagePreview.innerHTML = `
       <img src="${r.result}"
            style="width:100%;max-height:260px;object-fit:contain;border-radius:14px">
@@ -477,18 +479,21 @@ generateBtn.onclick = async () => {
 
   // 3️⃣ VIDEO
   if (type === "video") {
-    if (!selectedRatio) {
-      const el = document.getElementById("ratioWarning");
-      el.innerText = t.needRatio;
-      show("ratioWarning");
-      return;
-    }
-    if (!selectedDuration) {
-      const el = document.getElementById("durationWarning");
-      el.innerText = t.needDuration;
-      show("durationWarning");
-      return;
-    }
+
+  if (!uploadedImageBase64) {
+    resultPanel.innerText = "❌ Avval rasm yuklang";
+    generateBtn.classList.remove("loading");
+    return;
+  }
+
+  endpoint = "/api/generate-video";
+
+  bodyData = {
+    prompt,
+    ratio: selectedRatio,
+    duration: selectedDuration,
+    image: uploadedImageBase64
+  };
   }
 
 // 4️⃣ HAMMASI OK — API
@@ -554,6 +559,7 @@ try {
 }
 
 generateBtn.classList.remove("loading");
+  }; 
 /* OPTION ACTIVE */
 document.querySelectorAll(".option-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
