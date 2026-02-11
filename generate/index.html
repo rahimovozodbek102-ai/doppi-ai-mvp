@@ -616,72 +616,7 @@ generateBtn.onclick = async () => {
 
   generateBtn.classList.remove("loading");
 };
-  // 4️⃣ HAMMASI OK — API
-generateBtn.classList.add("loading");
 
-try {
-
-  let endpoint = "";
-  let bodyData = {};
-
-  if (type === "photo") {
-    endpoint = "/api/generate-image";
-    bodyData = {
-      prompt,
-      ratio: selectedRatio,
-      style: selectedStyle
-    };
-  }
-
-  if (type === "video") {
-    endpoint = "/api/generate-video";
-    bodyData = {
-      prompt,
-      ratio: selectedRatio,
-      duration: selectedDuration
-    };
-  }
-
-  const res = await fetch(endpoint, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(bodyData)
-  });
-
-  const data = await res.json();
-
-  // PHOTO
-  if (type === "photo") {
-    if (data.image) {
-      resultPanel.innerHTML = `
-        <img src="data:image/png;base64,${data.image}"
-             style="width:100%;border-radius:14px" />
-      `;
-    } else {
-      resultPanel.innerText = "❌ Rasm yaratilmadi";
-    }
-  }
-
-// VIDEO (mock player)
-if (type === "video") {
-  resultPanel.innerHTML = `
-    <video controls autoplay loop 
-      style="width:100%;border-radius:14px">
-      <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-    </video>
-    <div style="margin-top:8px;font-size:12px;color:#aaa">
-      🎥 Mock preview (real API tez orada)
-    </div>
-  `;
-}
-
-} catch (err) {
-  resultPanel.innerText = "❌ Xatolik yuz berdi";
-  console.error(err);
-}
-
-generateBtn.classList.remove("loading");
-  }; 
 /* OPTION ACTIVE */
 document.querySelectorAll(".option-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
