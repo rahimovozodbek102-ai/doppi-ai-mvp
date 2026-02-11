@@ -241,7 +241,28 @@ textarea{
   #resultPanel { order: 8; }
 
 }
+.modal-text {
+  text-align: left;
+  font-size: 13px;
+  line-height: 1.5;
+}
 
+.lang-block {
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(124,58,237,.3);
+}
+
+.lang-block:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.lang-block strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #A855F7;
+} 
 </style>
 </head>
 
@@ -351,19 +372,27 @@ textarea{
 <div id="videoModalOverlay" class="modal-overlay">
   <div class="modal-box">
     <h2>🎥 Video generatsiya</h2>
-    <p>
-      🇺🇿UZ
-Video bo‘limi tez orada ishga tushadi.
-Hozircha rasm generatsiyasidan foydalanishingiz mumkin.
-      
-🇷🇺 RU
-Раздел видео скоро будет запущен.
-Пока вы можете пользоваться генерацией изображений.
-      
-🇺🇸ENG
-The video section will be launched soon.
-For now, you can use the image generation feature.
-    </p>
+    <div class="modal-text">
+
+  <div class="lang-block">
+    <strong>🇺🇿 O‘zbekcha</strong>
+    <p>Video bo‘limi tez orada ishga tushadi.<br>
+    Hozircha rasm generatsiyasidan foydalanishingiz mumkin.</p>
+  </div>
+
+  <div class="lang-block">
+    <strong>🇷🇺 Русский</strong>
+    <p>Раздел видео скоро будет запущен.<br>
+    Пока вы можете пользоваться генерацией изображений.</p>
+  </div>
+
+  <div class="lang-block">
+    <strong>🇺🇸 English</strong>
+    <p>The video section will be launched soon.<br>
+    For now, you can use the image generation feature.</p>
+  </div>
+
+    </div>
     <button id="closeVideoModal">OK</button>
   </div>
 </div>
