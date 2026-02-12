@@ -286,6 +286,28 @@ textarea{
   50% { transform: scale(1.2); }
   100% { transform: scale(1); }
 } 
+  .download-icon,
+.check-icon {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  transition: all .25s ease;
+}
+
+.check-icon {
+  opacity: 0;
+  transform: scale(.6);
+}
+
+.download-btn.success .download-icon {
+  opacity: 0;
+  transform: scale(.6);
+}
+
+.download-btn.success .check-icon {
+  opacity: 1;
+  transform: scale(1);
+} 
   /* ===== SKELETON ===== */
 .skeleton {
   width: 100%;
