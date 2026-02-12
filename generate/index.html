@@ -123,7 +123,15 @@ textarea{
   border: 3px solid rgba(255,255,255,.3);
   border-top: 3px solid #ffffff;
   border-radius: 50%;
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -9px;
+  margin-top: -9px;
+
   animation: spin 0.7s linear infinite;
+} 
 
 @keyframes spin {
   to { transform: rotate(360deg); }
