@@ -227,6 +227,27 @@ textarea{
 .download-btn:active {
   transform: scale(.95);
 } 
+  .download-text {
+  position: absolute;
+  right: 100%;
+  margin-right: 10px;
+
+  font-size: 13px;
+  white-space: nowrap;
+
+  opacity: 0;
+  transform: translateX(8px);
+  transition: all .25s ease;
+
+  color: #C084FC;
+  text-shadow: 0 0 8px #A855F7;
+  font-weight: 500;
+}
+
+.download-btn.active .download-text {
+  opacity: 1;
+  transform: translateX(0);
+} 
   /* ===== MOBILE FLOW FIX ===== */
 @media (max-width: 768px) {
 
@@ -668,11 +689,24 @@ generateBtn.onclick = async () => {
            style="width:100%;border-radius:14px" />
 
       <button id="downloadBtn" class="download-btn">
-        ⬇
-      </button>
+  ⬇
+  <span class="download-text">Saved</span>
+</button>
     </div>
   `;
+btn.onclick = () => {
 
+  const a = document.createElement("a");
+  a.href = fakeImage;
+  a.download = "doppi-ai-image.jpg";
+  a.click();
+
+  btn.classList.add("active");
+
+  setTimeout(() => {
+    btn.classList.remove("active");
+  }, 1000); // 1 sekund
+};
   document.getElementById("downloadBtn").onclick = () => {
     const link = document.createElement("a");
     link.href = imageUrl;
