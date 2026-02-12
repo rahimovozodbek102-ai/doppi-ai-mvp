@@ -832,7 +832,13 @@ generateBtn.onclick = async () => {
   a.href = dataUrl;
   a.download = "doppi-ai-test.png";
   a.click();
+btn.classList.add("success");
+btn.classList.add("active");
 
+setTimeout(() => {
+  btn.classList.remove("success");
+  btn.classList.remove("active");
+}, 1000);
   btn.classList.add("active");
 
   setTimeout(() => {
