@@ -723,7 +723,7 @@ document.getElementById("videoImageInput").onchange = (e) => {
 /* GENERATE */
 const generateBtn = document.querySelector(".generate");
 generateBtn.onclick = async () => {
-  const type = document.querySelector(".type-btn.active").dataset.type;
+  const type = document.querySelector(".type-btn.active")
   const prompt = promptInput.value.trim();
 
   hide("promptWarning");
