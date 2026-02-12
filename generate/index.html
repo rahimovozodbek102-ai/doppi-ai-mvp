@@ -125,16 +125,9 @@ textarea{
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
 
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
 @keyframes spin {
-  to { transform: translate(-50%, -50%) rotate(360deg); }
-} 
-
+  to { transform: rotate(360deg); }
+}
   .form-error{
   display:none;
   margin:6px 0 12px;
