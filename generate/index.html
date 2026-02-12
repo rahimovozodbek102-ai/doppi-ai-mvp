@@ -110,10 +110,10 @@ textarea{
   background:#7C3AED;
   box-shadow:0 0 12px rgba(124,58,237,.8);
 } 
-/* ===== PREMIUM LOADING ===== */
+/* ===== PREMIUM LOADING FIXED ===== */
 
-@keyframes spin {
-  to { transform: translate(-50%, -50%) rotate(360deg); }
+@keyframes spinOnly {
+  to { transform: rotate(360deg); }
 }
 
 @keyframes pulseGlow {
@@ -131,18 +131,20 @@ textarea{
 
 .generate.loading::after {
   content: "";
-  width: 18px;
-  height: 18px;
-  border: 3px solid rgba(255,255,255,.2);
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255,255,255,.25);
   border-top: 3px solid #C084FC;
   border-radius: 50%;
-  animation: spin 0.7s linear infinite;
 
   position: absolute;
-  left: 50%;
   top: 50%;
+  left: 50%;
+
   transform: translate(-50%, -50%);
+  animation: spinOnly 0.8s linear infinite;
 }
+
   .form-error{
   display:none;
   margin:6px 0 12px;
