@@ -813,9 +813,7 @@ generateBtn.onclick = async () => {
   `;
 
   const btn = document.getElementById("downloadBtn");
-
   btn.onclick = () => {
-
   const canvas = document.createElement("canvas");
   canvas.width = 800;
   canvas.height = 800;
@@ -841,7 +839,8 @@ generateBtn.onclick = async () => {
     btn.classList.remove("active");
   }, 1000);
 };
-   
+ }   
+    
     if (type === "video") {
       resultPanel.innerHTML = `
         <video controls autoplay loop style="width:100%;border-radius:14px">
