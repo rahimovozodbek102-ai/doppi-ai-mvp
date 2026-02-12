@@ -255,55 +255,8 @@ textarea{
   opacity: 1;
   transform: translateX(0);
 } 
-  .dl-icon {
-  width: 20px;
-  height: 20px;
-  transition: transform .2s ease;
-}
 
-.download-btn {
-  overflow: hidden;
-}
 
-.download-btn:hover .dl-icon {
-  transform: scale(1.1);
-}
-
-.download-btn.active {
-  box-shadow: 0 0 35px rgba(168,85,247,1);
-}
-
-.download-btn.active .dl-icon {
-  animation: iconPop .25s ease;
-}
-
-@keyframes iconPop {
-  0% { transform: scale(.8); }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); }
-} 
-  .download-icon,
-.check-icon {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  transition: all .25s ease;
-}
-
-.check-icon {
-  opacity: 0;
-  transform: scale(.6);
-}
-
-.download-btn.success .download-icon {
-  opacity: 0;
-  transform: scale(.6);
-}
-
-.download-btn.success .check-icon {
-  opacity: 1;
-  transform: scale(1);
-} 
   /* ===== SKELETON ===== */
 .skeleton {
   width: 100%;
@@ -819,17 +772,7 @@ const type = activeBtn ? activeBtn.dataset.type : "photo";
           stroke-linecap="round"
           stroke-linejoin="round"/>
       </svg>
-
-      <svg class="check-icon" viewBox="0 0 24 24">
-        <path d="M5 13l4 4L19 7"
-          fill="none"
-          stroke="#A855F7"
-          stroke-width="3"
-          stroke-linecap="round"
-          stroke-linejoin="round"/>
-      </svg>
-
-      <span class="download-text">Saved</span>
+     <span class="download-text">Saved</span>
     </button>
 
   </div>
@@ -854,14 +797,12 @@ const type = activeBtn ? activeBtn.dataset.type : "photo";
   a.href = dataUrl;
   a.download = "doppi-ai-test.png";
   a.click();
-btn.classList.add("success");
 btn.classList.add("active");
 
 setTimeout(() => {
-  btn.classList.remove("success");
   btn.classList.remove("active");
 }, 1000);
-  };  
+};
      
     if (type === "video") {
       resultPanel.innerHTML = `
