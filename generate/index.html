@@ -697,21 +697,31 @@ generateBtn.onclick = async () => {
   const btn = document.getElementById("downloadBtn");
 
   btn.onclick = () => {
-    const a = document.createElement("a");
-    a.href = fakeImage;
-    a.download = "doppi-ai-image.jpg";
-    a.click();
 
-    btn.classList.add("active");
+  const canvas = document.createElement("canvas");
+  canvas.width = 800;
+  canvas.height = 800;
 
-    setTimeout(() => {
-      btn.classList.remove("active");
-    }, 1000);
-  };
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = "#7C3AED";
+  ctx.fillRect(0, 0, 800, 800);
 
-  generateBtn.classList.remove("loading");
-  return;
-    }
+  ctx.fillStyle = "white";
+  ctx.font = "40px Arial";
+  ctx.fillText("DO‘PPI AI TEST IMAGE", 120, 400);
+
+  const dataUrl = canvas.toDataURL("image/png");
+
+  const a = document.createElement("a");
+  a.href = dataUrl;
+  a.download = "doppi-ai-test.png";
+  a.click();
+
+  btn.classList.add("active");
+  setTimeout(() => {
+    btn.classList.remove("active");
+  }, 1000);
+};
     if (type === "video") {
       resultPanel.innerHTML = `
         <video controls autoplay loop style="width:100%;border-radius:14px">
