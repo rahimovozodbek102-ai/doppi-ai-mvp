@@ -188,47 +188,44 @@ textarea{
   from { transform: scale(.9); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
-  .download-btn {
-  margin-top: 14px;
-  padding: 12px 20px;
-  border-radius: 12px;
-  border: 1px solid #A855F7;
-  background: linear-gradient(135deg,#7C3AED,#A855F7);
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
+.result-wrapper {
   position: relative;
-  overflow: hidden;
-  transition: 0.3s ease;
-  box-shadow: 0 0 12px rgba(124,58,237,.6);
+  width: 100%;
+}
+
+.download-btn {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.2);
+
+  backdrop-filter: blur(10px);
+  background: rgba(124,58,237,.25);
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  font-size: 18px;
+
+  box-shadow: 0 0 18px rgba(124,58,237,.7);
+  transition: all .25s ease;
 }
 
 .download-btn:hover {
-  box-shadow:
-    0 0 15px #7C3AED,
-    0 0 30px #A855F7,
-    0 0 60px rgba(124,58,237,.6);
-  transform: translateY(-2px);
+  transform: scale(1.12);
+  box-shadow: 0 0 28px rgba(168,85,247,1);
+  background: rgba(124,58,237,.45);
 }
 
-.download-btn::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(255,255,255,0.3),
-    transparent
-  );
-  transition: 0.6s;
-}
-
-.download-btn:hover::before {
-  left: 100%;
+.download-btn:active {
+  transform: scale(.95);
 } 
   /* ===== MOBILE FLOW FIX ===== */
 @media (max-width: 768px) {
@@ -665,12 +662,14 @@ generateBtn.onclick = async () => {
         const fakeImage = "https://picsum.photos/800/800";
 
 resultPanel.innerHTML = `
-  <img src="${fakeImage}"
-       style="width:100%;border-radius:14px" />
+  <div class="result-wrapper">
+    <img src="${imageUrl}"
+         style="width:100%;border-radius:14px" />
 
-  <button id="downloadBtn" class="download-btn">
-    ⬇ Download Image
-  </button>
+    <button id="downloadBtn" class="download-btn">
+      ⬇
+    </button>
+  </div>
 `;
 
 document.getElementById("downloadBtn").onclick = () => {
