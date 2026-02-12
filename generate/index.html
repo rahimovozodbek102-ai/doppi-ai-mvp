@@ -691,6 +691,9 @@ generateBtn.onclick = async () => {
   }
 
   generateBtn.classList.add("loading");
+  resultPanel.innerHTML = `
+  <div class="skeleton"></div>
+`;
 
   try {
     let endpoint = "";
