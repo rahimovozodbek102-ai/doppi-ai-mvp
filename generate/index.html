@@ -116,14 +116,25 @@ textarea{
   pointer-events: none;
   position: relative;
 }
-
 .generate.loading::after {
+  content: "";
+  width: 18px;
+  height: 18px;
+  border: 3px solid rgba(255,255,255,.3);
+  border-top: 3px solid #ffffff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  font-size: 14px;
 }
+
+@keyframes spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+} 
+
   .form-error{
   display:none;
   margin:6px 0 12px;
