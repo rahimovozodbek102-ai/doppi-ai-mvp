@@ -120,6 +120,10 @@ textarea{
   position: relative;
   pointer-events: none;
   color: transparent;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .generate.loading::after {
@@ -131,17 +135,11 @@ textarea{
   border-top: 3px solid #C084FC;
   border-radius: 50%;
 
-  position: absolute;
-  left: 50%;
-  top: 50%;
-
-  transform: translate(-50%, -50%);
   animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
-  from { rotate: 0deg; }
-  to   { rotate: 360deg; }
+  to { transform: rotate(360deg); }
 } 
   .form-error{
   display:none;
