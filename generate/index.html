@@ -259,6 +259,33 @@ textarea{
   opacity: 1;
   transform: translateX(0);
 } 
+  .dl-icon {
+  width: 20px;
+  height: 20px;
+  transition: transform .2s ease;
+}
+
+.download-btn {
+  overflow: hidden;
+}
+
+.download-btn:hover .dl-icon {
+  transform: scale(1.1);
+}
+
+.download-btn.active {
+  box-shadow: 0 0 35px rgba(168,85,247,1);
+}
+
+.download-btn.active .dl-icon {
+  animation: iconPop .25s ease;
+}
+
+@keyframes iconPop {
+  0% { transform: scale(.8); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+} 
   /* ===== SKELETON ===== */
 .skeleton {
   width: 100%;
@@ -764,9 +791,24 @@ generateBtn.onclick = async () => {
      style="width:100%;border-radius:14px" />
 
       <button id="downloadBtn" class="download-btn">
-        ⬇
-        <span class="download-text">Saved</span>
-      </button>
+
+  <svg class="dl-icon" viewBox="0 0 24 24">
+    <path d="M12 3v10m0 0l-4-4m4 4l4-4M4 17h16" 
+          fill="none" 
+          stroke="url(#gradStroke)" 
+          stroke-width="2.5" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+    <defs>
+      <linearGradient id="gradStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#A855F7"/>
+        <stop offset="100%" stop-color="#C084FC"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <span class="download-text">Saved</span>
+</button>
     </div>
   `;
 
@@ -794,11 +836,11 @@ generateBtn.onclick = async () => {
   a.click();
 
   btn.classList.add("active");
+
   setTimeout(() => {
     btn.classList.remove("active");
   }, 1000);
-};  
-} 
+};
    
     if (type === "video") {
       resultPanel.innerHTML = `
