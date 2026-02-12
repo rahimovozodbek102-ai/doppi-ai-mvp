@@ -673,8 +673,8 @@ const generateBtn = document.querySelector(".generate");
 generateBtn.onclick = async () => {
   const activeBtn = document.querySelector(".type-btn.active");
 const type = activeBtn ? activeBtn.dataset.type : "photo";
-  const prompt = promptInput.value.trim();
-
+  const promptInput = document.getElementById("promptInput");
+const prompt = promptInput.value.trim();
   hide("promptWarning");
   hide("ratioWarning");
   hide("styleWarning");
