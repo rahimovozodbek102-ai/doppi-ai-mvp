@@ -678,44 +678,40 @@ generateBtn.onclick = async () => {
 
     const data = await res.json();
 
-    if (type === "photo") {
+   if( type === "photo") {
 
-  // 🔥 Fake test image (credit ketmaydi)
-  const imageUrl = "https://picsum.photos/800/800";
+  const fakeImage = "https://picsum.photos/800/800";
 
   resultPanel.innerHTML = `
     <div class="result-wrapper">
-      <img src="${imageUrl}"
+      <img src="${fakeImage}"
            style="width:100%;border-radius:14px" />
 
       <button id="downloadBtn" class="download-btn">
-  ⬇
-  <span class="download-text">Saved</span>
-</button>
+        ⬇
+        <span class="download-text">Saved</span>
+      </button>
     </div>
   `;
-btn.onclick = () => {
 
-  const a = document.createElement("a");
-  a.href = fakeImage;
-  a.download = "doppi-ai-image.jpg";
-  a.click();
+  const btn = document.getElementById("downloadBtn");
 
-  btn.classList.add("active");
+  btn.onclick = () => {
+    const a = document.createElement("a");
+    a.href = fakeImage;
+    a.download = "doppi-ai-image.jpg";
+    a.click();
 
-  setTimeout(() => {
-    btn.classList.remove("active");
-  }, 1000); // 1 sekund
-};
-  document.getElementById("downloadBtn").onclick = () => {
-    const link = document.createElement("a");
-    link.href = imageUrl;
-    link.download = "doppi-ai-test.jpg";
-    link.click();
+    btn.classList.add("active");
+
+    setTimeout(() => {
+      btn.classList.remove("active");
+    }, 1000);
   };
 
+  generateBtn.classList.remove("loading");
+  return;
     }
-
     if (type === "video") {
       resultPanel.innerHTML = `
         <video controls autoplay loop style="width:100%;border-radius:14px">
