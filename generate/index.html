@@ -430,16 +430,13 @@ textarea{
   <div id="videoUpload" style="display:none">
     <label class="upload-area">
       <input type="file" id="videoImageInput" accept="image/*" hidden>
-      📤 Video uchun rasm yuklang
     </label>
   </div>
 
   <div class="result" id="imagePreview" style="display:none">
-    Yuklangan rasm
   </div>
 
   <div class="result" id="resultPanel">
-    Natija shu yerda chiqadi
   </div>
 
 </div>
@@ -503,7 +500,7 @@ textarea{
 <!-- VIDEO COMING SOON MODAL -->
 <div id="videoModalOverlay" class="modal-overlay">
   <div class="modal-box">
-    <h2>🎥 Video generatsiya</h2>
+    <h2>🎥 Video generate</h2>
     <div class="modal-text">
 
   <div class="lang-block">
@@ -548,6 +545,10 @@ const i18n = {
 emptySub: "Prompt yozing va Generate bosing",
     errorGeneric: "Xatolik yuz berdi. Iltimos qayta urinib ko‘ring ❌",
     writePrompt: "Nima xoxlaysiz yozing👇🏻",
+    videoUpload: "Video uchun rasm yuklang",
+uploadedImage: "Yuklangan rasm",
+videoResult: "Video natija shu yerda chiqadi",
+    needUpload: "Avval rasm yuklang 📤",
   },
   ru: {
     welcome: "Добро пожаловать",
@@ -564,6 +565,10 @@ emptySub: "Prompt yozing va Generate bosing",
 emptySub: "Введите prompt и нажмите Создать",
     errorGeneric: "Произошла ошибка. Попробуйте снова ❌",
     writePrompt: "Что вы хотите создать?👇🏻",
+    videoUpload: "Загрузите изображение для видео",
+uploadedImage: "Загруженное изображение",
+videoResult: "Результат видео появится здесь",
+    needUpload: "Сначала загрузите изображение 📤",
   },
   en: {
     welcome: "Welcome",
@@ -580,6 +585,10 @@ emptySub: "Введите prompt и нажмите Создать",
 emptySub: "Enter a prompt and press Generate",
     errorGeneric: "Something went wrong. Please try again ❌",
     writePrompt: "What would you like to create?👇🏻",
+    videoUpload: "Upload image for video",
+uploadedImage: "Uploaded image",
+videoResult: "Video result will appear here",
+    needUpload: "Please upload an image first 📤",
   }
 };
   // ✨ UI MATNLARNI ALMASHTIRISH
@@ -658,7 +667,7 @@ function switchType(type) {
     photoStyle.style.display = "none";
     videoRatio.style.display = "block";
     videoDuration.style.display = "block";
-    resultPanel.innerHTML = "🎥 Video natija shu yerda";
+    resultPanel.innerHTML = t.videoResult;
   }
   }
 
@@ -732,7 +741,12 @@ const prompt = promptInput.value.trim();
   // VIDEO VALIDATION
   if (type === "video") {
     if (!uploadedImageBase64) {
-      resultPanel.innerText = "❌ Avval rasm yuklang";
+      resultPanel.innerHTML = `
+  <div class="empty-state">
+    <div class="empty-icon">📤</div>
+    <div class="empty-title">${t.needUpload}</div>
+  </div>
+`;
       return;
     }
   }
