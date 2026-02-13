@@ -544,6 +544,8 @@ const i18n = {
     needRatio: "Iltimos, ratio tanlang 📐",
     needStyle: "Iltimos, style tanlang 🎨",
     needDuration: "Iltimos, davomiylikni tanlang ⏱"
+    emptyTitle: "Tasavvuringizni yarating",
+emptySub: "Prompt yozing va Generate bosing",
   },
   ru: {
     welcome: "Добро пожаловать",
@@ -556,6 +558,8 @@ const i18n = {
     needRatio: "Пожалуйста, выберите соотношение 📐",
     needStyle: "Пожалуйста, выберите стиль 🎨",
     needDuration: "Пожалуйста, выберите длительность ⏱"
+  emptyTitle: "Создайте своё воображение",
+emptySub: "Введите prompt и нажмите Создать",
   },
   en: {
     welcome: "Welcome",
@@ -568,6 +572,8 @@ const i18n = {
     needRatio: "Please select a ratio 📐",
     needStyle: "Please select a style 🎨",
     needDuration: "Please select duration ⏱"
+    emptyTitle: "Create your imagination",
+emptySub: "Enter a prompt and press Generate",
   }
 };
   // ✨ UI MATNLARNI ALMASHTIRISH
@@ -634,10 +640,11 @@ function switchType(type) {
     resultPanel.innerHTML = `
   <div class="empty-state">
     <div class="empty-icon">✨</div>
-    <div class="empty-title">Tasavvuringizni yarating</div>
-    <div class="empty-sub">Prompt yozing va Generate bosing</div>
+    <div class="empty-title">${t.emptyTitle}</div>
+    <div class="empty-sub">${t.emptySub}</div>
   </div>
 `;
+
   } else {
     videoUpload.style.display = "block";
     imagePreview.style.display = "flex";
