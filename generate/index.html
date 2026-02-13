@@ -546,6 +546,7 @@ const i18n = {
     needDuration: "Iltimos, davomiylikni tanlang ⏱", 
     emptyTitle: "Tasavvuringizni yarating",
 emptySub: "Prompt yozing va Generate bosing",
+    errorGeneric: "Xatolik yuz berdi. Iltimos qayta urinib ko‘ring ❌",
   },
   ru: {
     welcome: "Добро пожаловать",
@@ -560,6 +561,7 @@ emptySub: "Prompt yozing va Generate bosing",
     needDuration: "Пожалуйста, выберите длительность ⏱", 
   emptyTitle: "Создайте своё воображение",
 emptySub: "Введите prompt и нажмите Создать",
+    errorGeneric: "Произошла ошибка. Попробуйте снова ❌",
   },
   en: {
     welcome: "Welcome",
@@ -574,6 +576,7 @@ emptySub: "Введите prompt и нажмите Создать",
     needDuration: "Please select duration ⏱", 
     emptyTitle: "Create your imagination",
 emptySub: "Enter a prompt and press Generate",
+    errorGeneric: "Something went wrong. Please try again ❌",
   }
 };
   // ✨ UI MATNLARNI ALMASHTIRISH
@@ -831,7 +834,12 @@ setTimeout(() => {
     }
 
   } catch (err) {
-    resultPanel.innerText = "❌ Xatolik yuz berdi";
+    resultPanel.innerHTML = `
+  <div class="empty-state">
+    <div class="empty-icon">❌</div>
+    <div class="empty-title">${t.errorGeneric}</div>
+  </div>
+`;
     console.error(err);
   }
 
