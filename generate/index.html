@@ -449,7 +449,7 @@ textarea{
 <h3>
   <span id="panelUserName"></span>
   <br>
-  Nima xoxlaysiz yozing👇🏻
+  <span id="writePromptText"></span>
 </h3>
 <textarea id="promptInput" placeholder="Prompt yozing..."></textarea>
  <p class="form-error" id="promptWarning"></p>
@@ -547,6 +547,7 @@ const i18n = {
     emptyTitle: "Tasavvuringizni yarating",
 emptySub: "Prompt yozing va Generate bosing",
     errorGeneric: "Xatolik yuz berdi. Iltimos qayta urinib ko‘ring ❌",
+    writePrompt: "Nima xoxlaysiz yozing👇🏻",
   },
   ru: {
     welcome: "Добро пожаловать",
@@ -562,6 +563,7 @@ emptySub: "Prompt yozing va Generate bosing",
   emptyTitle: "Создайте своё воображение",
 emptySub: "Введите prompt и нажмите Создать",
     errorGeneric: "Произошла ошибка. Попробуйте снова ❌",
+    writePrompt: "Что вы хотите создать?👇🏻",
   },
   en: {
     welcome: "Welcome",
@@ -577,6 +579,7 @@ emptySub: "Введите prompt и нажмите Создать",
     emptyTitle: "Create your imagination",
 emptySub: "Enter a prompt and press Generate",
     errorGeneric: "Something went wrong. Please try again ❌",
+    writePrompt: "What would you like to create?👇🏻",
   }
 };
   // ✨ UI MATNLARNI ALMASHTIRISH
@@ -880,6 +883,10 @@ document.querySelectorAll(".option-btn").forEach((btn) => {
 const panelName = document.getElementById("panelUserName");
 if (panelName) {
   panelName.innerText = t.welcome;
+}
+  const writePromptText = document.getElementById("writePromptText");
+if (writePromptText) {
+  writePromptText.innerText = t.writePrompt;
 }
 
 // PROMPT
