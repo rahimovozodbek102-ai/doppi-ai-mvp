@@ -21,6 +21,10 @@ body{
   backdrop-filter:blur(8px);position:sticky;top:0;z-index:10
 }
 .logo{display:flex;align-items:center;gap:10px}
+  padding:6px 12px;
+  border-radius:12px;
+  background:rgba(124,58,237,.08);
+  backdrop-filter:blur(6px);
 .logo img{width:36px}
 .logo span{font-size:20px;font-weight:700;color:#7C3AED}
 
@@ -325,6 +329,52 @@ textarea{
   font-size:13px;
   opacity:.6;
 } 
+  /*navigation panel*/
+  .nav {
+  display:flex;
+  gap:26px;
+  align-items:center;
+}
+
+.nav-btn {
+  background:none;
+  border:none;
+  color:rgba(255,255,255,.65);
+  cursor:pointer;
+  font-size:14px;
+  letter-spacing:.5px;
+  position:relative;
+  padding-bottom:4px;
+  transition: all .25s ease;
+}
+
+.nav-btn::after {
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:0%;
+  height:2px;
+  background:linear-gradient(90deg,#7C3AED,#C084FC);
+  transition:width .3s ease;
+  box-shadow:0 0 8px #A855F7;
+}
+
+.nav-btn:hover {
+  color:#C084FC;
+}
+
+.nav-btn:hover::after {
+  width:100%;
+}
+
+.nav-btn.active {
+  color:#C084FC;
+}
+
+.nav-btn.active::after {
+  width:100%;
+} 
   /* ===== MOBILE FLOW FIX ===== */
 @media (max-width: 768px) {
 
@@ -406,7 +456,12 @@ textarea{
     <img src="/images/logo.png">
     <span>DO‘PPI AI</span>
   </div>
-
+<div class="nav">
+  <button class="nav-btn" id="navExplore">Explore</button>
+  <button class="nav-btn" id="navDashboard">Dashboard</button>
+  <button class="nav-btn" id="navHistory">History</button>
+  <button class="nav-btn" id="navSupport">Support</button>
+</div>
   <div class="user-box">
     <div class="user-avatar" id="userAvatar">👤</div>
     <div class="user-menu" id="userMenu">
