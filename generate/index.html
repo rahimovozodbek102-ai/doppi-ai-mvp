@@ -335,7 +335,7 @@ textarea{
 .nav-btn {
   background:none;
   border:none;
-  color:rgba(255,255,255,.65);
+  color: rgba(168,85,247,.75);
   cursor:pointer;
   font-size:14px;
   letter-spacing:.5px;
@@ -370,6 +370,17 @@ textarea{
 
 .nav-btn.active::after {
   width:100%;
+} 
+  .coin-box{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:rgba(124,58,237,.15);
+  border:1px solid rgba(124,58,237,.4);
+  font-size:13px;
+  color:#E9D5FF;
 } 
   /* ===== MOBILE FLOW FIX ===== */
 @media (max-width: 768px) {
@@ -448,6 +459,7 @@ textarea{
 
 <!-- HEADER -->
 <div class="header">
+  <div class="left-side">
   <div class="logo">
     <img src="/images/logo.png">
     <span>DO‘PPI AI</span>
@@ -461,6 +473,10 @@ textarea{
   Subscription
   </button>
 </div>
+   <div class="right-side"> 
+     <div class="coin-box">
+  🪙 <span id="coinAmount">120</span>
+     </div>
   <div class="user-box">
     <div class="user-avatar" id="userAvatar">👤</div>
     <div class="user-menu" id="userMenu">
