@@ -1116,38 +1116,41 @@ if (closeBtn) {
     "subscriptionPage"
   ];
 
-  // hammasini yashiramiz
   pages.forEach(id => {
     const el = document.getElementById(id);
     if (el) el.style.display = "none";
   });
 
-  // keraklisini ko‘rsatamiz
   const activePage = document.getElementById(page + "Page");
-  if (activePage) activePage.style.display = "block";
-   if(page === "history"){
-    initHistorySwitch();
-   } 
+  if (activePage) {
+    activePage.style.display = "block";
   }
-  document.querySelectorAll(".nav-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
 
-    const page = btn.dataset.page;
+  if(page === "history"){
+    initHistorySwitch();
+  }
+}
 
-    // active class tozalash
+// NAV CLICK
+document.querySelectorAll(".nav-btn").forEach(btn => {
+  btn.addEventListener("click", function(){
+
+    const page = this.dataset.page;
+
     document.querySelectorAll(".nav-btn")
       .forEach(b => b.classList.remove("active"));
 
-    btn.classList.add("active");
+    this.classList.add("active");
 
     loadPage(page);
   });
 });
-  // Default sahifa
+
+// DEFAULT
 loadPage("generate");
 document.querySelector('[data-page="generate"]').classList.add("active");
-function initHistorySwitch(){
 
+  function initHistorySwitch(){
   const historyBtns = document.querySelectorAll(".history-btn");
 
   historyBtns.forEach(btn => {
