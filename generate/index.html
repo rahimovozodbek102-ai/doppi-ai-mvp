@@ -1125,9 +1125,9 @@ if (closeBtn) {
   // keraklisini ko‘rsatamiz
   const activePage = document.getElementById(page + "Page");
   if (activePage) activePage.style.display = "block";
-  }
-  if(page === "history"){
-  initHistorySwitch();
+   if(page === "history"){
+    initHistorySwitch();
+   } 
   }
   document.querySelectorAll(".nav-btn").forEach(btn => {
   btn.addEventListener("click", () => {
