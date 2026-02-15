@@ -1126,6 +1126,9 @@ if (closeBtn) {
   const activePage = document.getElementById(page + "Page");
   if (activePage) activePage.style.display = "block";
   }
+  if(page === "history"){
+  initHistorySwitch();
+  }
   document.querySelectorAll(".nav-btn").forEach(btn => {
   btn.addEventListener("click", () => {
 
@@ -1143,24 +1146,27 @@ if (closeBtn) {
   // Default sahifa
 loadPage("generate");
 document.querySelector('[data-page="generate"]').classList.add("active");
+function initHistorySwitch(){
+
   const historyBtns = document.querySelectorAll(".history-btn");
 
-historyBtns.forEach(btn => {
-  btn.addEventListener("click", () => {
+  historyBtns.forEach(btn => {
+    btn.onclick = () => {
 
-    historyBtns.forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
+      historyBtns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
 
-    const type = btn.dataset.history;
+      const type = btn.dataset.history;
 
-    document.getElementById("photoHistoryContent").style.display =
-      type === "photo" ? "block" : "none";
+      document.getElementById("photoHistoryContent").style.display =
+        type === "photo" ? "block" : "none";
 
-    document.getElementById("videoHistoryContent").style.display =
-      type === "video" ? "block" : "none";
-
+      document.getElementById("videoHistoryContent").style.display =
+        type === "video" ? "block" : "none";
+    };
   });
-});
+
+}
   
 </script>
 <script type="module">
