@@ -431,13 +431,6 @@ textarea{
 .history-content{
   padding:20px;
 } 
- #appContent {
-  min-height: calc(100vh - 64px);
-}
-#appContent > div {
-  display: none; 
-  width: 100%;
-}
   /* ===== MOBILE FLOW FIX ===== */
 @media (max-width: 768px) {
 
@@ -520,13 +513,12 @@ textarea{
     <img src="/images/logo.png">
     <span>DO‘PPI AI</span>
   </div>
-<div class="nav">
-<button class="nav-btn" data-page="explore">Explore</button>
-<button class="nav-btn" data-page="generate">Generate</button>
-<button class="nav-btn" data-page="dashboard">Dashboard</button>
-<button class="nav-btn" data-page="history">History</button>
-<button class="nav-btn" data-page="support">Support</button>
-<button class="nav-btn" data-page="subscription">Subscription</button>
+<a href="/explore/" class="nav-btn">Explore</a>
+<a href="/generate/" class="nav-btn active">Generate</a>
+<a href="/dashboard/" class="nav-btn">Dashboard</a>
+<a href="/history/" class="nav-btn">History</a>
+<a href="/support/" class="nav-btn">Support</a>
+<a href="/subscription/" class="nav-btn">Subscription</a>
 </div>
   </div>
    <div class="header-right">
@@ -542,7 +534,7 @@ textarea{
   </div>
 </div>
 </div>
-  <div id="appContent">
+  
   <!-- GENERATE PAGE -->
   <div id="generatePage">
     <!-- TYPE -->
@@ -652,71 +644,6 @@ textarea{
 
     </div>
     <button id="closeVideoModal">OK</button>
-  </div>
-  </div>
-
-  <!-- EXPLORE PAGE -->
-  <div id="explorePage">
-    <div style="padding:40px;text-align:center">
-      <h2>Explore</h2>
-      <p>Trending promptlar va template’lar</p>
-    </div>
-  </div>
-
-  <!-- DASHBOARD PAGE -->
-  <div id="dashboardPage">
-    <div style="padding:40px">
-      <h2>Dashboard</h2>
-      <p>Statistika, coin usage</p>
-    </div>
-  </div>
-
-<!-- HISTORY PAGE -->
-<div id="historyPage">
-
-  <div class="history-switch">
-    <button class="history-btn active" data-history="photo">
-      📸 Photo History
-    </button>
-    <button class="history-btn" data-history="video">
-      🎥 Video History
-    </button>
-  </div>
-
-  <div id="photoHistoryContent" class="history-content">
-    <div class="empty-state">
-      <div class="empty-icon">📸</div>
-      <div class="empty-title">Photo tarix bo‘sh</div>
-      <div class="empty-sub">Hali rasm generatsiya qilinmagan</div>
-    </div>
-  </div>
-
-  <div id="videoHistoryContent" 
-       class="history-content" 
-       style="display:none">
-    <div class="empty-state">
-      <div class="empty-icon">🎥</div>
-      <div class="empty-title">Video tarix bo‘sh</div>
-      <div class="empty-sub">Hali video generatsiya qilinmagan</div>
-    </div>
-  </div>
-
-</div>
-
-  <!-- SUPPORT PAGE -->
-  <div id="supportPage">
-    <div style="padding:40px">
-      <h2>Support</h2>
-      <p>Yordam va FAQ</p>
-    </div>
-  </div>
-
-  <!-- SUBSCRIPTION PAGE -->
-  <div id="subscriptionPage">
-    <div style="padding:40px">
-      <h2>Subscription</h2>
-      <p>Tariflar va coin sotib olish</p>
-    </div>
   </div>
 </div>
 <script>
@@ -1108,56 +1035,7 @@ if (closeBtn) {
   closeBtn.onclick = () => {
     document.getElementById("videoModalOverlay").style.display = "none";
   };
-} 
-  /*Navigation skripti*/
-  document.addEventListener("DOMContentLoaded", function(){
-
-  function loadPage(page){
-    document.querySelectorAll("#appContent > div")
-      .forEach(div => div.style.display = "none");
-
-    const activePage = document.getElementById(page + "Page");
-    if(activePage){
-      activePage.style.display = "block";
-    }
-  }
-
-  document.querySelectorAll(".nav-btn").forEach(btn => {
-    btn.addEventListener("click", function(){
-
-      const page = this.dataset.page;
-
-      document.querySelectorAll(".nav-btn")
-        .forEach(b => b.classList.remove("active"));
-
-      this.classList.add("active");
-
-      loadPage(page);
-    });
-  });
-
-  loadPage("generate");
-  document.querySelector('[data-page="generate"]').classList.add("active");
-
-});
-  // HISTORY SWITCH
-const historyBtns = document.querySelectorAll(".history-btn");
-
-historyBtns.forEach(btn => {
-  btn.addEventListener("click", function(){
-
-    historyBtns.forEach(b => b.classList.remove("active"));
-    this.classList.add("active");
-
-    const type = this.dataset.history;
-
-    document.getElementById("photoHistoryContent").style.display =
-      type === "photo" ? "block" : "none";
-
-    document.getElementById("videoHistoryContent").style.display =
-      type === "video" ? "block" : "none";
-  });
-});
+}   
 </script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
