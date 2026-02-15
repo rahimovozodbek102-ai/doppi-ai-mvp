@@ -431,15 +431,16 @@ textarea{
 .history-content{
   padding:20px;
 } 
-  #appContent {
-  position: relative;
+ #appContent {
   min-height: calc(100vh - 64px);
 }
 
 #appContent > div {
-  position: absolute;
-  inset: 0;
-  width: 100%;
+  display: none;
+}
+
+#generatePage {
+  display: block;
 }
   /* ===== MOBILE FLOW FIX ===== */
 @media (max-width: 768px) {
