@@ -1151,7 +1151,12 @@ loadPage("generate");
 document.querySelector('[data-page="generate"]').classList.add("active");
 
   function initHistorySwitch(){
+
   const historyBtns = document.querySelectorAll(".history-btn");
+
+  // DEFAULT: Photo history ko‘rinsin
+  document.getElementById("photoHistoryContent").style.display = "block";
+  document.getElementById("videoHistoryContent").style.display = "none";
 
   historyBtns.forEach(btn => {
     btn.onclick = () => {
@@ -1168,8 +1173,7 @@ document.querySelector('[data-page="generate"]').classList.add("active");
         type === "video" ? "block" : "none";
     };
   });
-
-}
+  }
   
 </script>
 <script type="module">
