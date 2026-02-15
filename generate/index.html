@@ -434,7 +434,14 @@ textarea{
  #appContent {
   min-height: calc(100vh - 64px);
 }
+#appContent > div {
+  display: none;
+  width: 100%;
+}
 
+#generatePage {
+  display: block;
+}
   /* ===== MOBILE FLOW FIX ===== */
 @media (max-width: 768px) {
 
@@ -655,7 +662,7 @@ textarea{
   </div>
 
   <!-- EXPLORE PAGE -->
-  <div id="explorePage" style="display:none">
+  <div id="explorePage">
     <div style="padding:40px;text-align:center">
       <h2>Explore</h2>
       <p>Trending promptlar va template’lar</p>
@@ -663,7 +670,7 @@ textarea{
   </div>
 
   <!-- DASHBOARD PAGE -->
-  <div id="dashboardPage" style="display:none">
+  <div id="dashboardPage">
     <div style="padding:40px">
       <h2>Dashboard</h2>
       <p>Statistika, coin usage</p>
@@ -671,7 +678,7 @@ textarea{
   </div>
 
 <!-- HISTORY PAGE -->
-<div id="historyPage" style="display:none">
+<div id="historyPage">
 
   <div class="history-switch">
     <button class="history-btn active" data-history="photo">
@@ -703,7 +710,7 @@ textarea{
 </div>
 
   <!-- SUPPORT PAGE -->
-  <div id="supportPage" style="display:none">
+  <div id="supportPage">
     <div style="padding:40px">
       <h2>Support</h2>
       <p>Yordam va FAQ</p>
@@ -711,7 +718,7 @@ textarea{
   </div>
 
   <!-- SUBSCRIPTION PAGE -->
-  <div id="subscriptionPage" style="display:none">
+  <div id="subscriptionPage">
     <div style="padding:40px">
       <h2>Subscription</h2>
       <p>Tariflar va coin sotib olish</p>
