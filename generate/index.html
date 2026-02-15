@@ -510,7 +510,11 @@ textarea{
 </div>
 </div>
   <div id="appContent">
-<!-- TYPE -->
+
+  <!-- GENERATE PAGE -->
+  <div id="generatePage">
+    <!-- HOZIRGI BUTUN GENERATE HTML SHU YERDA TURADI -->
+    <!-- TYPE -->
 <div class="type-selector">
   <button class="type-btn active" data-type="photo">📸 Photo</button>
   <button class="type-btn" data-type="video">🎥 Video</button>
@@ -617,6 +621,47 @@ textarea{
 
     </div>
     <button id="closeVideoModal">OK</button>
+  </div>
+  </div>
+
+  <!-- EXPLORE PAGE -->
+  <div id="explorePage" style="display:none">
+    <div style="padding:40px;text-align:center">
+      <h2>Explore</h2>
+      <p>Trending promptlar va template’lar</p>
+    </div>
+  </div>
+
+  <!-- DASHBOARD PAGE -->
+  <div id="dashboardPage" style="display:none">
+    <div style="padding:40px">
+      <h2>Dashboard</h2>
+      <p>Statistika, coin usage</p>
+    </div>
+  </div>
+
+  <!-- HISTORY PAGE -->
+  <div id="historyPage" style="display:none">
+    <div style="padding:40px">
+      <h2>History</h2>
+      <p>Oxirgi generatsiyalar</p>
+    </div>
+  </div>
+
+  <!-- SUPPORT PAGE -->
+  <div id="supportPage" style="display:none">
+    <div style="padding:40px">
+      <h2>Support</h2>
+      <p>Yordam va FAQ</p>
+    </div>
+  </div>
+
+  <!-- SUBSCRIPTION PAGE -->
+  <div id="subscriptionPage" style="display:none">
+    <div style="padding:40px">
+      <h2>Subscription</h2>
+      <p>Tariflar va coin sotib olish</p>
+    </div>
   </div>
 </div>
 <script>
@@ -1010,44 +1055,44 @@ if (closeBtn) {
   };
 } 
   /*Navigation skripti*/
-  const appContent = document.getElementById("appContent");
+  function loadPage(page){
 
-document.querySelectorAll(".nav-btn").forEach(btn => {
+  const pages = [
+    "generatePage",
+    "explorePage",
+    "dashboardPage",
+    "historyPage",
+    "supportPage",
+    "subscriptionPage"
+  ];
+
+  // hammasini yashiramiz
+  pages.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = "none";
+  });
+
+  // keraklisini ko‘rsatamiz
+  const activePage = document.getElementById(page + "Page");
+  if (activePage) activePage.style.display = "block";
+  }
+  document.querySelectorAll(".nav-btn").forEach(btn => {
   btn.addEventListener("click", () => {
-    const page = btn.dataset.page;
-    loadPage(page);
 
+    const page = btn.dataset.page;
+
+    // active class tozalash
     document.querySelectorAll(".nav-btn")
       .forEach(b => b.classList.remove("active"));
+
     btn.classList.add("active");
+
+    loadPage(page);
   });
 });
-
-function loadPage(page){
-
-  if(page === "generate"){
-    appContent.innerHTML = generateTemplate();
-  }
-
-  if(page === "explore"){
-    appContent.innerHTML = `
-      <div style="padding:40px;text-align:center">
-        <h2>Explore Ideas</h2>
-        <p>Trending prompts va template’lar shu yerda bo‘ladi</p>
-      </div>
-    `;
-  }
-
-  if(page === "dashboard"){
-    appContent.innerHTML = `
-      <div style="padding:40px">
-        <h2>Dashboard</h2>
-        <p>Statistika, coin usage va boshqalar</p>
-      </div>
-    `;
-  }
-
-}
+  // Default sahifa
+loadPage("generate");
+document.querySelector('[data-page="generate"]').classList.add("active");
 </script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
