@@ -1193,10 +1193,12 @@ const auth = getAuth(app);
 
 /* 👤 USER */
 onAuthStateChanged(auth, (user) => {
-  if (!user) {
-    window.location.href = "/";
-    return;
-  }
+  console.log("User:", user);
+
+  // if (!user) {
+  //   window.location.href = "/";
+  //   return;
+  // }
 
   const name =
     user.displayName ||
