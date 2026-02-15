@@ -1125,10 +1125,6 @@ if (closeBtn) {
   if (activePage) {
     activePage.style.display = "block";
   }
-
-  if(page === "history"){
-    initHistorySwitch();
-  }
 }
 
 document.querySelectorAll(".nav-btn").forEach(btn => {
@@ -1147,31 +1143,24 @@ document.querySelectorAll(".nav-btn").forEach(btn => {
 
 loadPage("generate");
 document.querySelector('[data-page="generate"]').classList.add("active");
-  function initHistorySwitch(){
+  // HISTORY SWITCH
+const historyBtns = document.querySelectorAll(".history-btn");
 
-  const historyBtns = document.querySelectorAll(".history-btn");
+historyBtns.forEach(btn => {
+  btn.addEventListener("click", function(){
 
-  // DEFAULT: Photo history ko‘rinsin
-  document.getElementById("photoHistoryContent").style.display = "block";
-  document.getElementById("videoHistoryContent").style.display = "none";
+    historyBtns.forEach(b => b.classList.remove("active"));
+    this.classList.add("active");
 
-  historyBtns.forEach(btn => {
-    btn.onclick = () => {
+    const type = this.dataset.history;
 
-      historyBtns.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
+    document.getElementById("photoHistoryContent").style.display =
+      type === "photo" ? "block" : "none";
 
-      const type = btn.dataset.history;
-
-      document.getElementById("photoHistoryContent").style.display =
-        type === "photo" ? "block" : "none";
-
-      document.getElementById("videoHistoryContent").style.display =
-        type === "video" ? "block" : "none";
-    };
+    document.getElementById("videoHistoryContent").style.display =
+      type === "video" ? "block" : "none";
   });
-  }
-  
+});
 </script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
