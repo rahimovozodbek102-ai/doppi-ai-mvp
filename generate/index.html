@@ -1105,53 +1105,48 @@ if (closeBtn) {
   };
 } 
   /*Navigation skripti*/
-  document.addEventListener("DOMContentLoaded", function() {
-
   function loadPage(page){
 
-    const pages = [
-      "generatePage",
-      "explorePage",
-      "dashboardPage",
-      "historyPage",
-      "supportPage",
-      "subscriptionPage"
-    ];
+  const pages = [
+    "generatePage",
+    "explorePage",
+    "dashboardPage",
+    "historyPage",
+    "supportPage",
+    "subscriptionPage"
+  ];
 
-    pages.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.style.display = "none";
-    });
-
-    const activePage = document.getElementById(page + "Page");
-    if (activePage) {
-      activePage.style.display = "block";
-    }
-
-    if(page === "history"){
-      initHistorySwitch();
-    }
-  }
-
-  document.querySelectorAll(".nav-btn").forEach(btn => {
-    btn.addEventListener("click", function(){
-
-      const page = this.dataset.page;
-
-      document.querySelectorAll(".nav-btn")
-        .forEach(b => b.classList.remove("active"));
-
-      this.classList.add("active");
-
-      loadPage(page);
-    });
+  pages.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = "none";
   });
 
-  loadPage("generate");
-  document.querySelector('[data-page="generate"]').classList.add("active");
+  const activePage = document.getElementById(page + "Page");
+  if (activePage) {
+    activePage.style.display = "block";
+  }
 
+  if(page === "history"){
+    initHistorySwitch();
+  }
+}
+
+document.querySelectorAll(".nav-btn").forEach(btn => {
+  btn.addEventListener("click", function(){
+
+    const page = this.dataset.page;
+
+    document.querySelectorAll(".nav-btn")
+      .forEach(b => b.classList.remove("active"));
+
+    this.classList.add("active");
+
+    loadPage(page);
+  });
 });
 
+loadPage("generate");
+document.querySelector('[data-page="generate"]').classList.add("active");
   function initHistorySwitch(){
 
   const historyBtns = document.querySelectorAll(".history-btn");
