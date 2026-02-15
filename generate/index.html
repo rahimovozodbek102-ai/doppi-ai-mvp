@@ -1107,26 +1107,17 @@ if (closeBtn) {
   /*Navigation skripti*/
   function loadPage(page){
 
-  const pages = [
-    "generatePage",
-    "explorePage",
-    "dashboardPage",
-    "historyPage",
-    "supportPage",
-    "subscriptionPage"
-  ];
-
-  pages.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.style.display = "none";
+  // faqat appContent ichidagi page bloklarni yashiramiz
+  document.querySelectorAll("#appContent > div").forEach(div=>{
+    div.style.display = "none";
   });
 
   const activePage = document.getElementById(page + "Page");
-  if (activePage) {
+  if(activePage){
     activePage.style.display = "block";
   }
-}
 
+  }
 document.querySelectorAll(".nav-btn").forEach(btn => {
   btn.addEventListener("click", function(){
 
