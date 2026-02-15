@@ -488,13 +488,12 @@ textarea{
     <span>DO‘PPI AI</span>
   </div>
 <div class="nav">
-  <button class="nav-btn" id="navExplore">Explore</button>
-  <button class="nav-btn" id="navDashboard">Dashboard</button>
-  <button class="nav-btn" id="navHistory">History</button>
-  <button class="nav-btn" id="navSupport">Support</button>
-  <button class="nav-btn" data-page="subscription">
-  Subscription
-  </button>
+<button class="nav-btn" data-page="explore">Explore</button>
+<button class="nav-btn" data-page="generate">Generate</button>
+<button class="nav-btn" data-page="dashboard">Dashboard</button>
+<button class="nav-btn" data-page="history">History</button>
+<button class="nav-btn" data-page="support">Support</button>
+<button class="nav-btn" data-page="subscription">Subscription</button>
 </div>
   </div>
    <div class="header-right">
@@ -510,6 +509,7 @@ textarea{
   </div>
 </div>
 </div>
+  <div id="appContent">
 <!-- TYPE -->
 <div class="type-selector">
   <button class="type-btn active" data-type="photo">📸 Photo</button>
@@ -1009,6 +1009,45 @@ if (closeBtn) {
     document.getElementById("videoModalOverlay").style.display = "none";
   };
 } 
+  /*Navigation skripti*/
+  const appContent = document.getElementById("appContent");
+
+document.querySelectorAll(".nav-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const page = btn.dataset.page;
+    loadPage(page);
+
+    document.querySelectorAll(".nav-btn")
+      .forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+  });
+});
+
+function loadPage(page){
+
+  if(page === "generate"){
+    appContent.innerHTML = generateTemplate();
+  }
+
+  if(page === "explore"){
+    appContent.innerHTML = `
+      <div style="padding:40px;text-align:center">
+        <h2>Explore Ideas</h2>
+        <p>Trending prompts va template’lar shu yerda bo‘ladi</p>
+      </div>
+    `;
+  }
+
+  if(page === "dashboard"){
+    appContent.innerHTML = `
+      <div style="padding:40px">
+        <h2>Dashboard</h2>
+        <p>Statistika, coin usage va boshqalar</p>
+      </div>
+    `;
+  }
+
+}
 </script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
