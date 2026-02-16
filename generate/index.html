@@ -1006,6 +1006,13 @@ const promptInput = document.getElementById("promptInput");
 if (promptInput) {
   promptInput.placeholder = t.promptPlaceholder;
 }
+  // EXPLORE'dan kelgan promptni qo‘yish
+const savedPrompt = localStorage.getItem("selectedPrompt");
+
+if (savedPrompt && promptInput) {
+  promptInput.value = savedPrompt;
+  localStorage.removeItem("selectedPrompt");
+}
   // Modal yopish
 const closeBtn = document.getElementById("closeVideoModal");
 if (closeBtn) {
