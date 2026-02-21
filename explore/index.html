@@ -3,7 +3,78 @@
 <head>
   <meta charset="UTF-8">
   <title>Explore - DO'PPI AI</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <style>
+body{
+  margin:0;
+  background:linear-gradient(rgba(8,3,20,.65),rgba(8,3,20,.65)),
+  url("/images/bg.png") no-repeat center/cover;
+  min-height:100vh;
+  color:#fff;
+  font-family:Arial,sans-serif;
+}
+
+.explore-container{
+  max-width:1100px;
+  margin:40px auto;
+  padding:20px;
+}
+
+.filter-bar{
+  display:flex;
+  gap:10px;
+  margin-bottom:20px;
+}
+
+.filter-btn{
+  padding:8px 16px;
+  border-radius:999px;
+  border:1px solid #7C3AED;
+  background:rgba(20,10,40,.6);
+  color:#fff;
+  cursor:pointer;
+}
+
+.filter-btn.active{
+  background:#7C3AED;
+}
+
+.prompt-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+
+.prompt-card{
+  position:relative;
+  border-radius:16px;
+  overflow:hidden;
+  cursor:pointer;
+}
+
+.prompt-card img{
+  width:100%;
+  display:block;
+}
+
+.prompt-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.8),transparent);
+  display:flex;
+  align-items:flex-end;
+  padding:15px;
+  opacity:0;
+  transition:.3s;
+}
+
+.prompt-card:hover .prompt-overlay{
+  opacity:1;
+}
+
+.prompt-overlay p{
+  font-size:14px;
+}
+  </style>
 </head>
 <body>
 
