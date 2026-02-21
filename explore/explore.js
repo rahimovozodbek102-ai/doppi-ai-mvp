@@ -76,4 +76,6 @@ function renderPrompts(list) {
   });
 }
 
-renderPrompts(prompts);
+document.addEventListener("DOMContentLoaded", () => {
+  renderPrompts(prompts);
+});
