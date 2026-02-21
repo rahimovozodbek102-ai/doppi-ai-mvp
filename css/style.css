@@ -472,4 +472,46 @@ textarea{
   margin-bottom: 4px;
   color: #A855F7;
 } 
+.prompt-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.prompt-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.prompt-card img {
+  width: 100%;
+  display: block;
+  transition: 0.4s ease;
+}
+
+.prompt-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  display: flex;
+  align-items: flex-end;
+  padding: 15px;
+  opacity: 0;
+  transition: 0.4s ease;
+}
+
+.prompt-overlay p {
+  color: white;
+  font-size: 14px;
+}
+
+.prompt-card:hover img {
+  transform: scale(1.05);
+}
+
+.prompt-card:hover .prompt-overlay {
+  opacity: 1;
+} 
 </style>
