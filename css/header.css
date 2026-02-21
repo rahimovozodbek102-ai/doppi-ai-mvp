@@ -1,1 +1,114 @@
+/* HEADER */
+.header{
+  height:64px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 
+  padding:0 28px; /* biroz kengroq padding */
+  background:rgba(15,5,25,.92);
+  backdrop-filter:blur(12px);
+
+  position:sticky;
+  top:0;
+  z-index:100;
+
+  border-bottom:1px solid rgba(124,58,237,.15);
+} 
+.logo{display:flex;align-items:center;gap:10px}
+.logo img{width:36px}
+.logo span{font-size:20px;font-weight:700;color:#7C3AED}
+/*navigation panel*/
+  .nav {
+  display:flex;
+  gap:26px;
+  align-items:center;
+}
+
+.nav-btn {
+  background:none;
+  border:none;
+  color: rgba(168,85,247,.75);
+  cursor:pointer;
+  font-size:14px;
+  letter-spacing:.5px;
+  position:relative;
+  padding-bottom:4px;
+  transition: all .25s ease;
+}
+
+.nav-btn::after {
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:0%;
+  height:2px;
+  background:linear-gradient(90deg,#7C3AED,#861df0);
+  transition:width .3s ease;
+  box-shadow:0 0 8px #A855F7;
+}
+
+.nav-btn:hover {
+  color:#a14af7;
+}
+
+.nav-btn:hover::after {
+  width:100%;
+}
+
+.nav-btn.active {
+  color:#a14af7;
+}
+
+.nav-btn.active::after {
+  width:100%;
+} 
+  .nav-btn {
+  text-decoration: none;
+} 
+  .coin-box{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:rgba(124,58,237,.15);
+  border:1px solid rgba(124,58,237,.4);
+  font-size:13px;
+  color:#E9D5FF;
+} 
+  /* HEADER STRUCTURE */
+.header-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+/* USER */
+.user-box{position:relative}
+.user-avatar{
+  width:38px;height:38px;border-radius:50%;
+  background:linear-gradient(135deg,#7C3AED,#A855F7);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer
+}
+.user-menu{
+  position:absolute;right:0;top:48px;
+  background:rgba(20,10,40,.95);
+  border:1px solid #7C3AED;
+  border-radius:14px;
+  padding:12px;
+  display:none;
+  min-width:160px
+}
+.user-menu p{margin:0 0 8px;font-size:14px}
+.user-menu button{
+  width:100%;border:none;border-radius:8px;
+  padding:8px;background:#7C3AED;color:#fff;cursor:pointer
+}
